@@ -22,7 +22,8 @@
 		$("#loading-center").click(function() {
 			$("#loading").fadeOut(500);
 		});
-		setTimeout(function(){ load_iamges(); }, 1000);
+// 		load_iamges();
+		setTimeout(function(){ load_iamges(); }, 0.5000);
 
 	});
 </script>

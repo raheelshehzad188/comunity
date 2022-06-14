@@ -11,7 +11,7 @@
                     	onclick="ajax_modal('destroy','<?php echo translate('destroy_product_entry'); ?>','<?php echo translate('add_stock_entry_taken!'); ?>','stock_destroy','')">
                         	Destroy</button>           
 					<button class="btn btn-primary btn-labeled fa fa-plus-circle pull-right mar-rgt" 
-                    	onclick="ajax_modal('add','<?php echo translate('add_product_stock'); ?>','<?php echo translate('destroy_entry_taken!'); ?>', 'stock_add', '' )">
+                    	onclick="ajax_modal('add','<?php echo translate('add_product_stock'); ?>','<?php echo translate('stock_add_successfully!'); ?>', 'stock_add', '' )">
 							<?php echo translate('create_stock');?>
                             	</button>
                 </div>

@@ -6,6 +6,7 @@
 					<th><?php echo translate('no');?></th>
 					<th><?php echo translate('name');?></th>
                     <th><?php echo translate('banner');?></th>
+                    <th><?php echo translate('icon');?></th>
 					<th class="text-right"><?php echo translate('options');?></th>
 				</tr>
 			</thead>
@@ -24,6 +25,21 @@
 						if(file_exists('uploads/category_image/'.$row['banner'])){
 					?>
 					<img class="img-md" src="<?php echo base_url(); ?>uploads/category_image/<?php echo $row['banner']; ?>" height="100px" />  
+					<?php
+						} else {
+					?>
+					<img class="img-md" src="<?php echo base_url(); ?>uploads/category_image/default.jpg" height="100px" />
+					<?php
+						}
+					?> 
+               	</td>
+               	<td>
+               	    
+                    <?php
+                    // echo 'uploads/category_icon_image/'.$row['icon'];
+						if(file_exists('uploads/category_icon_image/'.$row['icon'])){
+					?>
+					<img class="img-md" src="<?php echo base_url(); ?>uploads/category_icon_image/<?php echo $row['icon']; ?>" height="100px" />  
 					<?php
 						} else {
 					?>

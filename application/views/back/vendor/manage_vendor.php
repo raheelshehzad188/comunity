@@ -1,4 +1,4 @@
-<script src="https://maps.google.com/maps/api/js?v=3.exp&signed_in=true&callback=MapApiLoaded&key=<?php echo $this->db->get_where('general_settings',array('type' => 'api_key'))->row()->value; ?>"></script>
+
 <div id="content-container">
     <div id="page-title">
         <h1 class="page-header text-overflow"><?php echo translate('manage_profile');?></h1>
@@ -82,26 +82,28 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="demo-hor-4">
-										<?php echo translate('city');?>
-                                    </label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="city" value="<?php echo $row['city']; ?>" id="demo-hor-4" class="form-control address" onblur="set_cart_map('iio');">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="demo-hor-4">
-										<?php echo translate('state');?>
-                                        	</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="state" value="<?php echo $row['state']; ?>" id="demo-hor-4" class="form-control address" onblur="set_cart_map('iio');">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="demo-hor-4">
 										<?php echo translate('country');?>
                                         	</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="country" value="<?php echo $row['country']; ?>" id="demo-hor-4" class="form-control address" onblur="set_cart_map('iio');">
+                                        <?php echo $this->crud_model->select_html('countries','country','name','edit','demo-chosen-select required select_country',$row['country'],'',NULL,'select_country'); ?>
+                                        <input type="text" name="country-old" value="<?php echo 
+                                        $row['country']; ?>" id="demo-hor-4" class="form-control address d-none hidden" onblur="set_cart_map('iio');">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="stats">
+                                    <label class="col-sm-3 control-label" for="demo-hor-4">
+										<?php echo translate('state');?>
+                                        	</label>
+                                    <div class="col-sm-6"  id="stats_select">
+                                        <?php echo $this->crud_model->select_html('states','state','name','edit','select_state demo-chosen-select required',$row['state'],'',NULL,'select_state'); ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="demo-hor-4">
+										<?php echo translate('city');?>
+                                    </label>
+                                    <div class="col-sm-6" id="city_select">
+                                        <?php echo $this->crud_model->select_html('cities','city','name','edit','select_city demo-chosen-select ',$row['city'],'',NULL,'select_city'); ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -269,7 +271,9 @@
 	
 			take = '';
 		});
-	
+	        $(document).ready(function(){
+	            $('.demo-chosen-select').chosen();
+	        });
 		if (can !== 'no') {
 			$.ajax({
 				url: form.attr('action'), // form action url
@@ -324,7 +328,7 @@
 <script>
     
     $(document).ready(function(){
-        set_cart_map();
+        // set_cart_map();
     });
 
     function set_cart_map(tty){
@@ -372,6 +376,7 @@
         var map;
         var markers = [];
         function initialize() {
+            // return 0;
             geocoder = new google.maps.Geocoder();
             var latlng = new google.maps.LatLng(-34.397, 150.644);
             var mapOptions = {
@@ -453,5 +458,38 @@
             setAllMap(null);
         }
         //google.maps.event.addDomListener(window, 'load', initialize);
+        $(document).ready(function() {
+        other();
+    });
+
+    function other(){
+        $('.demo-chosen-select').chosen();
+        $('.chosen-with-drop').css({width:'100%'});
+        //  alert();
+    }
+    function select_country(id)
+    {
+        $('#stats_select').hide('slow');
+        $('#sub').hide('slow');
+        ajax_load(base_url+'vendor/get_state/'+id,'stats_select','other');
+        // var cont = $('.select_country').val();
+        // var mid= '.count_'+cont;
+        // $('.states').hide();
+        // alert(mid);
+        // $(mid).show();
+        // $('.demo-chosen-select').chosen();
+    }
+    function select_state(id)
+    {
+        $('#city_select').hide('slow');
+        ajax_load(base_url+'vendor/get_city/'+id,'city_select','other');
+        // var cont = $('.select_country').val();
+        // var mid= '.count_'+cont;
+        // $('.states').hide();
+        // alert(mid);
+        // $(mid).show();
+        // $('.demo-chosen-select').chosen();
+    }
 </script>
+
 

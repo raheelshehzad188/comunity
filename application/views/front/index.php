@@ -26,6 +26,7 @@
     }
     ?>
     <title><?php echo $page_title; ?> | <?php echo $system_title; ?></title>
+    <style href="<?= base_url(); ?>/template/front/css/socialmedia9_style.css" ></style>
     <?php
     include 'includes/top/index.php';
     ?>
@@ -56,6 +57,9 @@ include 'preloader.php';
     <!-- /HEADER -->
 
     <!-- CONTENT AREA -->
+    <?php
+    // die($page_name);
+    ?>
     <div class="content-area" page_name="<?= $page_name?>">
         <?php
         include $page_name.'/index.php';
@@ -75,10 +79,10 @@ include 'preloader.php';
 </div>
 <!-- /WRAPPER -->
 <?php
-include 'script_texts.php';
+ include 'script_texts.php';
 ?>
 <?php
-include 'includes/bottom/index.php';
+ include 'includes/bottom/index.php';
 ?>
 
 

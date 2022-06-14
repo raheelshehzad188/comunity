@@ -120,10 +120,12 @@
                             <td>
                                 <?php
                                     $all_o = json_decode($row1['option'],true);
+                                    // var_dump($all_o['color']['value']);
+                                    // var_dump($row1['option']['']);
                                     $color = $all_o['color']['value'];
                                         if($color){
                                 ?>
-                                <div style="background:<?php echo $color; ?>; height:25px; width:25px;" ></div>
+                                <div style="background:#fff; height:25px; width:25px;" ><?php echo $color; ?></div>
                                 <?php
                                     }
                                 ?>

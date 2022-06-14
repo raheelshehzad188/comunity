@@ -24,6 +24,7 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                             </a>
                         </li>
                         <?php
+                        $digital_check = 'no';
               						if($physical_check == 'ok' && $digital_check == 'ok'){
               							if($this->crud_model->admin_permission('category') ||
                                   $this->crud_model->admin_permission('sub_category') ||
@@ -150,9 +151,9 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                                                         </a>
                                                     </li>
                                                 <?php
-                                                    } if($this->crud_model->admin_permission('stock')){
+                                                    } if(false && $this->crud_model->admin_permission('stock')){
                                                 ?>
-                                                    <li <?php if($page_name=="stock"){?> class="active-link" <?php } ?> >
+                                                    <li <?php if(false && $page_name=="stock"){?> class="active-link" <?php } ?> >
                                                         <a href="<?php echo base_url(); ?>admin/stock">
                                                             <i class="fa fa-circle fs_i"></i>
                                                                 <?php echo translate('product_stock');?>
@@ -337,7 +338,7 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                                               </li>
                                           <?php
                                           }
-                                          if($this->crud_model->admin_permission('stock')){ ?>
+                                          if(false && $this->crud_model->admin_permission('stock')){ ?>
                         										<li <?php if($page_name=="stock"){?> class="active-link" <?php } ?> >
                         											<a href="<?php echo base_url(); ?>admin/stock">
                         												<i class="fa fa-circle fs_i"></i>

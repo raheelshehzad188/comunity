@@ -309,9 +309,9 @@
                 }
                 var topp = 100;
 
-                $('html, body').animate({
-                    scrollTop: $("#scroll").offset().top - topp
-                }, 500);
+                // $('html, body').animate({
+                //     scrollTop: $("#scroll").offset().top - topp
+                // }, 500);
                 can = 'no';
             }
 
@@ -346,7 +346,8 @@
                 beforeSend: function() {
                     here.html(ing); // change submit button text
                 },
-                success: function() {
+                success: function(result) {
+                    // alert(result);
                     here.fadeIn();
                     here.html(prv)
                     $.activeitNoty({
@@ -399,7 +400,9 @@
                 take = 'scroll';
             }
             var here = $(this);
+            
             if(here.val() == ''){
+                console.log(here);
                 if(!here.is('select')){
                     here.css({borderColor: 'red'});
                     if(here.attr('type') == 'number'){
@@ -459,12 +462,24 @@
 
 			take = '';
 		});
-
+        
 		if(can !== 'no'){
+		    
 			if(form_id !== 'vendor_pay'){
+			 var act = form.attr('action');
+			 if(form_id == 'get_var')
+			 {  act = act+$('input[name=parent_product]').val();
+
+			 }
+			 else if(form_id == 'product_addstep1')
+			 {  
+			     act = $('#product_addstep1').attr('action')+$('input[name=parent_product]').val();
+			 
+
+			 }
 				$.ajax({
-					url: form.attr('action'), // form action url
-					type: 'POST', // form submit method get/post
+					url: act, // form action url
+					type: form.attr('method'), // form submit method get/post
 					dataType: 'html', // request type html/json/xml
 					data: formdata ? formdata : form.serialize(), // serialize form data 
 			        cache       : false,
@@ -475,11 +490,25 @@
 						buttonp.addClass('disabled');
 						buttonp.html(working);
 					},
-					success: function() {
-						ajax_load(base_url+''+user_type+'/'+module+'/'+list_cont_func+'/'+extra,'list','first');
+					success: function(data) {
+					    
+						
 						if(form_id == 'vendor_approval'){
 							noty = enb_ven;
 						}
+						if(form_id == 'product_addstep1')
+						{
+						    $('#list').html(data);
+						    return false;
+						}
+						if(form_id == 'get_var')
+						{
+						    $('.modal-footer button').removeClass('disabled');
+						    $('.modal-footer .enterer').text('Save');
+						    $('#form').html(data);
+						    return false;
+						}
+						//ajax_load(base_url+''+user_type+'/'+module+'/'+list_cont_func+'/'+extra,'list','first');
 						$.activeitNoty({
 							type: 'success',
 							icon : 'fa fa-check',
@@ -490,12 +519,15 @@
 						$('.bootbox-close-button').click();
 						('form_submit_success');
 						other_forms();
+						if(form_id == 'product_add' || form_id == 'product_edit'){
+						    ajax_set_list();
+						}
 					},
 					error: function(e) {
 						console.log(e)
 					}
 				});
-			} else {
+			}else {
 				//form.html('fff');
 				form.submit();
 				//alert('ff');
@@ -504,10 +536,11 @@
 		} else {
 			sound('form_submit_problem');
 			if(form_id == 'product_add' || form_id == 'product_edit'){
+			    
 				var ih = $('.require_alert').last().closest('.tab-pane').attr('id');
 				$("[href=#"+ih+"]").click();
 			}
-			$('body').scrollTo('#scroll');
+// 			$('body').scrollTo('#scroll');
 			return false;
 		}
 	}

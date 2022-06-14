@@ -1,9 +1,9 @@
         <script src="<?php echo base_url(); ?>template/front/plugins/owl-carousel2/owl.carousel.min.js"></script>
         <script>
             function set_price_slider(min,max,univ_min,univ_max){ 
+                return 0;
                 var priceSliderRange = $('#slider-range');
                 if ($.ui) {
-                    /**/
                     if ($(priceSliderRange).length) {
                         $(priceSliderRange).slider({
                             range: true,

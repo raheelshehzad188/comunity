@@ -1,9 +1,12 @@
 
 <?php
+
 	$system_name	 =  $this->db->get_where('general_settings',array('type' => 'system_name'))->row()->value;
 	$system_title	 =  $this->db->get_where('general_settings',array('type' => 'system_title'))->row()->value;
 ?>
-<?php include 'includes_top.php'; ?>
+<?php include 'includes_top.php';
+
+?>
 <body>
 	<div id="container" class="<?php if($page_name=='product' || $page_name=='digital' || $page_name=='display_settings' || $page_name=='product_bundle'){ echo 'effect mainnav-sm'; } else{ echo 'effect mainnav-lg'; } ?>">
 		<!--NAVBAR-->
@@ -12,7 +15,7 @@
 		<div class="boxed" id="fol">
 			<!--CONTENT CONTAINER-->
 			<div>
-			<?php include $this->session->userdata('title').'/'.$page_name.'.php' ?>
+			<?php include $this->session->userdata('title').'/'.$page_name.'.php'; ?>
 			</div>
 			<!--END CONTENT CONTAINER-->
 			

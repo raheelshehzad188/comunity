@@ -4,7 +4,8 @@
 				<tr>
 					<th style="width:4ex"><?php echo translate('ID');?></th>
 					<th><?php echo translate('product_title');?></th>
-					<th><?php echo translate('entry_type');?></th>
+					<th><?php echo translate('product_attribute');?></th>
+					<th><?php echo translate('rate');?></th>
 					<th><?php echo translate('quantity');?></th>
 					<th><?php echo translate('note');?></th>
 					<th class="text-right"><?php echo translate('options');?></th>
@@ -12,12 +13,37 @@
 			</thead>				
 			<tbody >
 			<?php
+			$CI =& get_instance();
             	foreach($all_stock as $row){
 			?>
 			<tr>
 				<td><?php echo $row['stock_id']; ?></td>
 				<td><?php echo $this->crud_model->get_type_name_by_id('product',$row['product'],'title'); ?></td>
-				<td><?php echo $row['type']; ?></td>
+				<td><?php 
+				    $attr = $row['attribute'];
+				    $attr = explode(',',$attr);
+				    foreach($attr as $k=>$v)
+				    {
+				        $attribute = $CI->db->where('id',$v)->get('attribute_to_values')->row();
+				        // var_dump($row);
+				        if($attribute->value)
+				        {
+				            if($attribute->attr_id == 1)
+				            {
+				             ?>
+				        <div style="background-color:<?= $attribute->value; ?>;" ><?= $attribute->value; ?></div>
+				        <?php   
+				            }
+				            else
+				            {
+				            ?>
+				        <div><?= $attribute->value; ?></div>
+				        <?php    
+				            }
+				        }
+				    }
+				?></td>
+				<td><?php echo $row['rate']; ?></td>
 				<td><?php echo $row['quantity']; ?></td>
 				<td><?php echo $row['reason_note']; ?></td>
 				<td class="text-right">

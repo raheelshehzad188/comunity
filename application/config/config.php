@@ -19,8 +19,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $root=(isset($_SERVER['HTTPS']) ? "https://" : "http://").$_SERVER['HTTP_HOST'];
 $root.= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+// $root = 'https://marketplace.hypeplug.paris/';
 $config['base_url'] = $root;
 // $config['base_url'] = '';
+//$config['shippo_token'] = 'shippo_test_52bf877b99c795c0e3a73a8dd2483c417db6f730';
+ $config['shippo_token'] = 'shippo_live_e6a934d119a9d004a9aa6ab16172fbaea6f2e135';
 $config['demo'] = false;
 
 /*

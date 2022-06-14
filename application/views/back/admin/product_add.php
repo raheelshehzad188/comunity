@@ -11,12 +11,9 @@
             <!--Panel heading-->
             <div class="panel-heading">
                 <div class="panel-control" style="float: left;">
-                    <ul class="nav nav-tabs">
+                    <ul  style="display:none;" class="nav nav-tabs">
                         <li class="active">
                             <a data-toggle="tab" href="#product_details"><?php echo translate('product_details'); ?></a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#business_details"><?php echo translate('business_details'); ?></a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#customer_choice_options"><?php echo translate('customer_choice_options'); ?></a>
@@ -34,17 +31,42 @@
                                 <h4 class="text-thin text-center"><?php echo translate('product_details'); ?></h4>                            
                             </div>
 
+                            
+
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-1"><?php echo translate('product_title');?></label>
                                 <div class="col-sm-6">
                                     <input type="text" name="title" id="demo-hor-1" placeholder="<?php echo translate('product_title');?>" class="form-control required">
                                 </div>
                             </div>
-                            
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-1"><?php echo translate('product_size_type');?></label>
+                                <div class="col-sm-6">
+                                    <select name="size_type" id="size_type" class="form-control required">
+                                        <option value="" > Size Type</option>
+                                        <option value="us_mens" > US Mens</option>
+                                        <option value="us_women" > US Woman</option>
+                                        <option value="us_kids" > US Kids</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-1"><?php echo translate('product_sku');?></label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="sku" id="demo-hor-1" placeholder="<?php echo translate('product_sku');?>" class="form-control required">
+                                </div>
+                            </div>
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('category');?></label>
                                 <div class="col-sm-6">
                                     <?php echo $this->crud_model->select_html('category','category','category_name','add','demo-chosen-select required','','digital',NULL,'get_cat'); ?>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('brand');?></label>
+                                <div class="col-sm-6">
+                                    <?php echo $this->crud_model->select_html('brand','brand','name','add','demo-chosen-select required','','','',''); ?>
                                 </div>
                             </div>
                             
@@ -54,22 +76,31 @@
                                 </div>
                             </div>
                             
-                            <div class="form-group btm_border" id="brn" style="display:none;">
-                                <label class="col-sm-4 control-label" for="demo-hor-4"><?php echo translate('brand');?></label>
-                                <div class="col-sm-6" id="brand">
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-5"><?php echo translate('unit');?></label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="unit" id="demo-hor-5" value="kg" readonly="true" placeholder="<?php echo translate('unit_(e.g._kg,_pc_etc.)'); ?>" class="form-control unit required">
                                 </div>
                             </div>
                             
                             <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-5"><?php echo translate('unit');?></label>
+                                <label class="col-sm-4 control-label" for="demo-hor-5"><?php echo translate('weight');?></label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="unit" id="demo-hor-5" placeholder="<?php echo translate('unit_(e.g._kg,_pc_etc.)'); ?>" class="form-control unit required">
+                                    <input type="text" name="weight" id="demo-hor-5" placeholder="" value="1" readonly="true" class="form-control weight">
                                 </div>
                             </div>              
+                            
                             <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-11"><?php echo translate('tags');?></label>
+                                <label class="col-sm-4 control-label" for="demo-hor-5"><?php echo translate('height');?></label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="tag" data-role="tagsinput" placeholder="<?php echo translate('tags');?>" class="form-control">
+                                    <input type="text" name="height" id="demo-hor-5" value="20" readonly="true" placeholder="" class="form-control height">
+                                </div>
+                            </div>              
+                            
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-5"><?php echo translate('widht');?></label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="widht" id="demo-hor-5" placeholder="" value="20" readonly="true" class="form-control widht">
                                 </div>
                             </div>
                                             
@@ -119,7 +150,7 @@
                             </div>
                             
                             <div id="more_additional_fields"></div>
-                            <div class="form-group btm_border">
+                            <div class="form-group btm_border d-none hidden">
                                 <label class="col-sm-4 control-label" for="demo-hor-inputpass"></label>
                                 <div class="col-sm-6">
                                     <h4 class="pull-left">
@@ -132,93 +163,46 @@
                             
 
                         </div>
-                        <div id="business_details" class="tab-pane fade">
-                            <div class="form-group btm_border">
-                                <h4 class="text-thin text-center"><?php echo translate('business_details'); ?></h4>                            
-                            </div>
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-6"><?php echo translate('sale_price');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="sale_price" id="demo-hor-6" min='0' step='.01' placeholder="<?php echo translate('sale_price');?>" class="form-control required">
-                                </div>
-                                <span class="btn"><?php echo currency('','def'); ?> / </span>
-                                <span class="btn unit_set"></span>
-                            </div>
-                            
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-7"><?php echo translate('purchase_price');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="purchase_price" id="demo-hor-7" min='0' step='.01' placeholder="<?php echo translate('purchase_price');?>" class="form-control required">
-                                </div>
-                                <span class="btn"><?php echo currency('','def'); ?> / </span>
-                                <span class="btn unit_set"></span>
-                            </div>
-                            
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-8"><?php echo translate('shipping_cost');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="shipping_cost" id="demo-hor-8" min='0' step='.01' placeholder="<?php echo translate('shipping_cost');?>" class="form-control">
-                                </div>
-                                <span class="btn"><?php echo currency('','def'); ?> / </span>
-                                <span class="btn unit_set"></span>
-                            </div>
-                            
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-9"><?php echo translate('product_tax');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="tax" id="demo-hor-9" min='0' step='.01' placeholder="<?php echo translate('product_tax');?>" class="form-control">
-                                </div>
-                                <div class="col-sm-1">
-                                    <select class="demo-chosen-select" name="tax_type">
-                                        <option value="percent">%</option>
-                                        <option value="amount"><?php echo currency('','def'); ?></option>
-                                    </select>
-                                </div>
-                                <span class="btn unit_set"></span>
-                            </div>
-                            
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-10"><?php echo translate('product_discount');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="discount" id="demo-hor-10" min='0' step='.01' placeholder="<?php echo translate('product_discount');?>" class="form-control">
-                                </div>
-                                <div class="col-sm-1">
-                                    <select class="demo-chosen-select" name="discount_type">
-                                        <option value="percent">%</option>
-                                        <option value="amount"><?php echo currency('','def'); ?></option>
-                                    </select>
-                                </div>
-                                <span class="btn unit_set"></span>
-                            </div>
-                        </div>
                         <div id="customer_choice_options" class="tab-pane fade">
                             <div class="form-group btm_border">
                                 <h4 class="text-thin text-center"><?php echo translate('customer_choice_options'); ?></h4>                            
                             </div>
                             <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-14"><?php echo translate('color'); ?></label>
+                                <label class="col-sm-4 control-label" for="demo-hor-14"><?php echo translate('size'); ?></label>
                                 <div class="col-sm-4"  id="more_colors">
-                                  <div class="col-md-12" style="margin-bottom:8px;">
+                                    <?php
+                                    foreach($all_sizes as $k => $v)
+                                    {
+                                        foreach($v as $kk=> $vv)
+                                        {
+                                            if(!empty($vv))
+                                            {
+                                        ?>
+                                        <div class="col-md-12 sizes size_<?= $kk; ?>" style="margin-bottom:8px;">
                                       <div class="col-md-10">
                                           <div class="input-group demo2">
-                                               <input type="text" value="#ccc" name="color[]" class="form-control" />
-                                               <span class="input-group-addon"><i></i></span>
+                                               <input type="text" value="<?= $vv; ?>" name="color[]" class="form-control" />
                                             </div>
                                       </div>
                                       <span class="col-md-2">
                                           <span class="remove_it_v rmc btn btn-danger btn-icon icon-lg fa fa-trash" ></span>
                                       </span>
                                   </div>
+                                        <?php
+                                            }
+                                        }
+                                    }
+                                    ?>
                                 </div>
                                 <div class="col-sm-2">
                                     <div id="more_color_btn" class="btn btn-primary btn-labeled fa fa-plus">
-                                        <?php echo translate('add_more_colors');?>
+                                        <?php echo translate('add_more_size');?>
                                     </div>
                                 </div>
                             </div>
                             
                             <div id="more_additional_options"></div>
-                            <div class="form-group btm_border">
+                            <div class="form-group btm_border d-none hidden">
                                 <label class="col-sm-4 control-label" for="demo-hor-inputpass"></label>
                                 <div class="col-sm-6">
                                     <h4 class="pull-left">
@@ -232,15 +216,15 @@
                     </div>
                 </div>
 
-                <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
-                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
+                <span id="next_btn" class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
+                <span style="display:none;" class="d-none btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
         
             </div>
     
             <div class="panel-footer">
-                <div class="row">
+                <div class="row"   style="display:none;">
                 	<div class="col-md-11">
-                        <span class="btn btn-purple btn-labeled fa fa-refresh pro_list_btn pull-right " 
+                        <span class="d-none btn btn-purple btn-labeled fa fa-refresh pro_list_btn pull-right " 
                             onclick="ajax_set_full('add','<?php echo translate('add_product'); ?>','<?php echo translate('successfully_added!'); ?>','product_add',''); "><?php echo translate('reset');?>
                         </span>
                     </div>
@@ -345,7 +329,7 @@
     });
 
 	function createColorpickers() {
-	
+	return false
 		$('.demo2').colorpicker({
 			format: 'rgba'
 		});
@@ -370,7 +354,73 @@
     });
     
     function next_tab(){
+        var mid = $('.nav-tabs li.active').find('a').attr('href')+' .required';
+        var find = 0;
+        var size_option = $('#size_type').val();
+        if($('.nav-tabs li.active').find('a').attr('href') == '#product_details')
+        {
+        }
+        else
+        {
+            form_submit('product_add','<?php echo translate('product_has_been_uploaded!'); ?>');proceed('to_add');
+            return 0;
+        }
+        $(mid).each(function(){
+            var here = $(this);
+            if(here.val() == ''){
+                console.log(here.attr('name'));
+                find = 1;
+                if(true){
+                    find = 1;
+                    here.css({borderColor: 'red'});
+                    if(here.attr('type') == 'number'){
+                        txt = '*'+mbn;
+                    }
+                    
+                    if(here.closest('div').find('.require_alert').length){
+
+                    } else {
+                        sound('form_submit_problem');
+                        find = 1;
+                        var take = '';
+                        var txt = 'Required';
+                        here.closest('div').append(''
+                            +'  <span id="'+take+'" class="label label-danger require_alert" >'
+                            +'      '+txt
+                            +'  </span>'
+                        );
+                    }
+                }
+            }//if empty
+        });
+        if(find == 0)
+        {
+            if($('.nav-tabs li.active').find('a').attr('href') == '#product_details')
+        {
+            
+                     $('.sizes').each(function(i, obj) {
+                console.log($(this).attr('class'));
+    if($(this).hasClass('size_'+size_option))
+    {
+        
+    }
+    else
+    {
+        $(this).remove();
+    }
+});
+        }
+            $('#next_btn').text('upload');
+            $('#next_btn').addClass('btn-success');
+            $('#next_btn').addClass('enterer');
+            $('#next_btn').removeClass('btn-purple');
         $('.nav-tabs li.active').next().find('a').click();                    
+        }
+        else
+        {
+            alert("Please fill required field");
+            return  0;
+        }
     }
     function previous_tab(){
         $('.nav-tabs li.active').prev().find('a').click();                     
@@ -458,8 +508,7 @@
             +'      <div class="col-md-12" style="margin-bottom:8px;">'
             +'          <div class="col-md-10">'
             +'              <div class="input-group demo2">'
-			+'		     	   <input type="text" value="#ccc" name="color[]" class="form-control" />'
-			+'		     	   <span class="input-group-addon"><i></i></span>'
+			+'		     	   <input type="text" value="" name="color[]" class="form-control" />'
 			+'		        </div>'
             +'          </div>'
             +'          <span class="col-md-2">'
@@ -467,7 +516,7 @@
             +'          </span>'
             +'      </div>'
   		);
-		createColorpickers();
+// 		createColorpickers();
     });		           
 
     $('body').on('click', '.rmc', function(){

@@ -1,4 +1,4 @@
-
+ 
 <?php
     $username   = "";
     $surname    = "";
@@ -9,6 +9,8 @@
     $langlat    = "";
     $address    = "";
     $zip        = "";
+    $city        = "";
+    $country        = "";
 if($this->session->userdata('user_login')== "yes"){
     $user       = $this->session->userdata('user_id'); 
     $user_data  = $this->db->get_where('user',array('user_id'=>$user))->row(); 
@@ -21,6 +23,8 @@ if($this->session->userdata('user_login')== "yes"){
     $langlat    = $user_data->langlat; 
     $address    = $address1.$address2;
     $zip        = $user_data->zip; 
+    $city        = $user_data->city; 
+    $country        = $user_data->country; 
   } 
 ?>
 
@@ -40,14 +44,17 @@ if($this->session->userdata('user_login')== "yes"){
             <input class="form-control required address" name="address1" value="<?php echo $address1; ?>" type="text" placeholder="<?php echo translate('address_line_1');?>">
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" style="padding:0;">
         <div class="form-group">
-            <input class="form-control address" name="address2" value="<?php echo $address2; ?>" type="text" placeholder="<?php echo translate('address_line_2');?>">
-        </div>
-    </div>
-    <div class="col-md-4">
+            <div class="col-md-3" >
+                <?php echo $this->crud_model->select_html('countries','country','name','edit','form-control demo-chosen-select required select_country',$country,'',NULL,'select_country','single','one'); ?>
+                
+            </div>
+            <div class="col-md-3">
         <div class="form-group">
             <input class="form-control required"  name="zip" type="text" value="<?php echo $zip; ?>" placeholder="<?php echo translate('postcode/ZIP');?>">
+        </div>
+    </div>
         </div>
     </div>
     <div class="col-md-4">
@@ -68,12 +75,6 @@ if($this->session->userdata('user_login')== "yes"){
             </div>
         </div>
     </div>
-    <div class="col-sm-12" id="maps" style="height:400px;">
-        <div class="form-group">
-            <div id="map-canvas" style="height:400px;">
-            </div>
-        </div>
-    </div>
 
     <div class="col-md-12" style="display:none;">
         <div class="checkbox">
@@ -86,7 +87,7 @@ if($this->session->userdata('user_login')== "yes"){
 
 
     <div class="col-md-12">
-        <span class="btn btn-theme-dark" onclick="load_payments();">
+        <span class="btn btn-theme-dark" onclick="load_smethods();">
             <?php echo translate('next');?>
         </span>
     </div>
@@ -97,7 +98,47 @@ if($this->session->userdata('user_login')== "yes"){
 <input type="hidden" id="first" value="yes"/>
 
 <script type="text/javascript">
+function other(){
+        console.log("other called");
+        $('.demo-chosen-select').chosen();
+        $('.chosen-with-drop').css({width:'100%'});
+    }
+    function select_country(id)
+    {
+        $('#stats_select').hide('slow');
+        ajax_load(base_url+'vendor/get_state/'+id,'stats_select','other');
+
+        setInterval(function (){
+
+  other();
+
+}, 1000); // How long do you want the delay to be (in milliseconds)?
+        
+        // var cont = $('.select_country').val();
+        // var mid= '.count_'+cont;
+        // $('.states').hide();
+        // alert(mid);
+        // $(mid).show();
+        // $('.demo-chosen-select').chosen();
+    }
+    function select_state(id)
+    {
+        $('#city_select').hide('slow');
+        ajax_load(base_url+'vendor/get_city/'+id,'city_select','other');
+                setInterval(function (){
+
+  other();
+
+}, 1000); // How long do you want the delay to be (in milliseconds)?
+        // var cont = $('.select_country').val();
+        // var mid= '.count_'+cont;
+        // $('.states').hide();
+        // alert(mid);
+        // $(mid).show();
+        // $('.demo-chosen-select').chosen();
+    }
     $(document ).ready(function() {
-        set_cart_map();
+        // set_cart_map();
+        other();
     });
 </script>

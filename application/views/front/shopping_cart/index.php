@@ -1,3 +1,7 @@
+
+	<!--Chosen [ OPTIONAL ]-->
+	<link href="<?= base_url() ?>/template/back/plugins/chosen/chosen.min.css" rel="stylesheet">
+
 <?php
 echo form_open(base_url() . 'home/cart_finish/go', array(
             'method' => 'post',
@@ -10,10 +14,25 @@ echo form_open(base_url() . 'home/cart_finish/go', array(
 <!-- PAGE -->
 <section class="page-section color">
     <div class="container box_shadow">
-
         <h3 class="block-title alt">
             <i class="fa fa-angle-down"></i>
             <?php echo translate('1');?>.
+            <?php echo translate('delivery_address');?>
+        </h3>
+        <div action="#" class="form-delivery delivery_address">
+        </div>
+        <h3 class="block-title alt">
+            <i class="fa fa-angle-down"></i>
+            <?php echo translate('2');?>.
+            <?php echo translate('shipping_methods');?>
+        </h3>
+        <div class="row shipping_methods">
+
+        </div>
+
+        <h3 class="block-title alt">
+            <i class="fa fa-angle-down"></i>
+            <?php echo translate('3');?>.
             <?php echo translate('orders');?>
         </h3>
         <div class="row orders">
@@ -22,15 +41,7 @@ echo form_open(base_url() . 'home/cart_finish/go', array(
 
         <h3 class="block-title alt">
             <i class="fa fa-angle-down"></i>
-            <?php echo translate('2');?>.
-            <?php echo translate('delivery_address');?>
-        </h3>
-        <div action="#" class="form-delivery delivery_address">
-        </div>
-
-        <h3 class="block-title alt">
-            <i class="fa fa-angle-down"></i>
-            <?php echo translate('3');?>.
+            <?php echo translate('4');?>.
             <?php echo translate('payments_options');?>
         </h3>
         <div class="panel-group payments-options" id="accordion" role="tablist" aria-multiselectable="true">
@@ -47,33 +58,136 @@ echo form_open(base_url() . 'home/cart_finish/go', array(
 </section>
 <!-- /PAGE -->
 <?php echo form_close()?>
+<script type="text/javascript" src="<?= base_url(); ?>/template/back/plugins/chosen/chosen.jquery.min.js" ></script>
 <script>
+function other(){
+        $('.demo-chosen-select').chosen();
+        $('.chosen-with-drop').css({width:'100%'});
+    }
+    function select_country(id)
+    {
+        $('#stats_select').hide('slow');
+        ajax_load(base_url+'vendor/get_state/'+id,'stats_select','other');
+        other();
+        // var cont = $('.select_country').val();
+        // var mid= '.count_'+cont;
+        // $('.states').hide();
+        // alert(mid);
+        // $(mid).show();
+        // $('.demo-chosen-select').chosen();
+    }
+    function select_state(id)
+    {
+        $('#city_select').hide('slow');
+        ajax_load(base_url+'vendor/get_city/'+id,'city_select','other');
+        // var cont = $('.select_country').val();
+        // var mid= '.count_'+cont;
+        // $('.states').hide();
+        // alert(mid);
+        // $(mid).show();
+        // $('.demo-chosen-select').chosen();
+    }
     $(document).ready(function(){
 		var top = Number(200);
-		$('.orders').html('<div style="text-align:center;width:100%;height:'+(top*2)+'px; position:relative;top:'+top+'px;"><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>');
+// 		alert("Here84");
+		$('.orders').hide();
+		$('.delivery_address').html(' ');
         var state = check_login_stat('state');
         state.success(function (data) {
-            if(data == 'hypass'){
-                load_orders();
-            } else {
-                signin('guest_checkout');
-            }
+            load_address_form();
+            // return false;
+            // if(data == 'hypass'){
+            //     load_address_form();
+            // } else {
+            //     signin('guest_checkout');
+            // }
         });
     });
+    function load_smethods(){
+        $('.require_alert').remove();
+        var find = 0;
+        var mid = '.delivery_address .required';
+        $(mid).each(function(){
+            var here = $(this);
+            if(here.val() == ''){
+                find = 1;
+                if(true){
+                    find = 1;
+                    here.css({borderColor: 'red'});
+                    if(here.attr('type') == 'number'){
+                        txt = '*'+mbn;
+                    }
+                    
+                    if(here.closest('div').find('.require_alert').length){
+
+                    } else {
+                        find = 1;
+                        var take = '';
+                        var txt = 'Required';
+                        here.closest('div').append(''
+                            +'  <span id="'+take+'" class="label label-danger require_alert" >'
+                            +'      '+txt
+                            +'  </span>'
+                        );
+                    }
+                }
+            }//if empty
+        });
+        if(find == 0)
+        {
+        $('.shipping_methods').show();
+        $('.shipping_methods').html('<div style="text-align:center;width:100%;height:'+(top*2)+'px; position:relative;top:'+top+'px;"><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>');
+        var param = {
+          'firstname'  : jQuery( "[name='firstname']" ).val(),
+          'lastname'  : jQuery( "[name='lastname']" ).val(),
+          'address1'  : jQuery( "[name='address1']" ).val(),
+          'email'  : jQuery( "[name='email']" ).val(),
+          'country'  : jQuery( "[name='country']" ).val(),
+          'state'  : jQuery( "[name='state']" ).val(),
+          'zip'  : jQuery( "[name='zip']" ).val(),
+          'phone'  : jQuery( "[name='phone']" ).val(), 
+        };
+        console.log(param);
+        $.get('<?php echo base_url(); ?>home/cart_checkout/cal_shipping',param,
+  function(data, status){
+    $('.delivery_address').hide();
+    $('.shipping_methods').html(data);
+  });
+        }
+    }
 
     function load_orders(){
-		var top = Number(200);
-		$('.orders').html('<div style="text-align:center;width:100%;height:'+(top*2)+'px; position:relative;top:'+top+'px;"><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>');
-        $('.orders').load('<?php echo base_url(); ?>home/cart_checkout/orders');
+        var find = 0;
+        if(find == 0)
+        {
+        $('.orders').show();
+        $('.orders').html('<div style="text-align:center;width:100%;height:'+(top*2)+'px; position:relative;top:'+top+'px;"><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>');
+        var param = {
+          'smethod'  : jQuery( "[name='shipping_type']:checked" ).val(),
+          'r_id'  : jQuery( "[name='r_id']" ).val()
+        };
+        
+        console.log(param);
+        $.get('<?php echo base_url(); ?>home/cart_checkout/orders',param,
+  function(data, status){
+    $('.shipping_methods').hide();
+    $('.orders').html(data);
+    $('.orders').show();
+  });
+        }
+        
+        
+		
+        // $('.orders').load('<?php echo base_url(); ?>home/cart_checkout/orders');
     }
 
     function load_address_form(){
-
 		var top = Number(200);
 		$('.delivery_address').html('<div style="text-align:center;width:100%;height:'+(top*2)+'px; position:relative;top:'+top+'px;"><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>');
 
         $('.delivery_address').load('<?php echo base_url(); ?>home/cart_checkout/delivery_address',
             function(){
+                other();
                 var top_off = $('.header').height();
                 $('.selectpicker').selectpicker();
                 $('html, body').animate({
@@ -130,5 +244,13 @@ echo form_open(base_url() . 'home/cart_finish/go', array(
         $( "#mastercard" ).prop( "checked", false );
         $( "#bitcoin" ).prop( "checked", false );
         $( "#"+id ).prop( "checked", true );
+    }
+
+    function ship_check(id){
+        $('.smclass').each(function(){
+           $(this).prop( "checked", false ); 
+        });
+        $( "#"+id ).prop( "checked", true );
+        jQuery( "[name='shipping_type']" ).val(id);
     }
 </script>

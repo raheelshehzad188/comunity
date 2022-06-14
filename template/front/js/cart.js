@@ -46,6 +46,11 @@
                                 quantity = Number(quantity)+1;
                            // }
                         }
+                        else
+                        {
+                            return 0;
+                        }
+                        //alert(quantity);
                         if(quantity >= 1){
                             here.closest('td').find('.quantity_field').val(quantity);
 
@@ -59,13 +64,17 @@
                                     list1.html('...'); 
                                 },
                                 success: function(data) {
-                                    var res = data.split("---")
+                                    var res = data.split("---");
+                                    console.log(res);
+                                    
                                     list1.html(res[0]).fadeIn();
                                     reload_header_cart();
                                     others_count();
+                                    load_orders();
                                     if(res[1] !== 'not_limit'){
                                         lim_t.html('!!').fadeIn();
-                                        here.closest('td').find('.plus').hide();
+                                        // here.closest('td').find('.plus').hide();
+                                        notify(quantity_exceeds,'warning','bottom','right');
                                         here.closest('td').find('.quantity_field').data('limit','yes');
                                         here.closest('td').find('.quantity_field').val(res[1]);
                                     } else {

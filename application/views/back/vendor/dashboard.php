@@ -12,41 +12,12 @@
         <div class="row">
             <div class="col-md-12 col-lg-12">
                 <?php if ($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'no') {?>
-                <div class="col-md-4 col-lg-4">
-                    <div class="panel panel-bordered panel-grad2" style="height:260px !important;">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-								<?php echo translate('membership_type');?>
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="text-center">
-                                <?php
-                                    $vend = $this->db->get_where('vendor',array('vendor_id'=>$this->session->userdata('vendor_id')))->row();
-                                    $membership = $vend->membership;
-                                ?>
-                                <img class="img-lg" style="height:auto !important;"
-                                    src="<?php echo $this->crud_model->file_view('membership',$membership,'100','','thumb','src','','','.png') ?>"  />
-                                <h3>
-                                    <?php
-                                        if($membership == '0'){
-                                            echo 'Default';
-                                        } else {
-                                            echo $this->db->get_where('membership',array('membership_id'=>$membership))->row()->title;
-                                        }
-                                		
-                                	?>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 
-                <div class="col-md-8 col-lg-8">
-                    <div class="panel panel-bordered panel-grad" style="height:260px !important;">
+                <div class="col-md-12 col-lg-12">
+                    <div class="panel panel-bordered panel-grad" style="height:auto !important;">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                            	<?php echo translate('membership_details');?>
+                            	<?php echo translate('vendorship_details');?>
                             </h3>
                         </div>
                         <div class="panel-body">
@@ -56,59 +27,24 @@
                                     <table class="table table-striped">
                                         <tr>
                                         	<td><?php echo translate('display_name'); ?> </td>
-                                            <td><?php echo $vend->display_name; ?></td>
+                                            <td><?php
+                                            echo $vend->display_name; ?></td>
                                         </tr>
                                         <tr>
-                                        	<td><?php echo translate('membership_expiration'); ?> 
-                                            <td>
-                                            <?php 
-                                                if($membership == '0'){
-                                                    echo 'Lifetime';
-                                                } else {
-                                                    echo date('d M,Y',$vend->member_expire_timestamp);
-                                                } 
-                                            ?>
-                                            </td>
+                                        	<td><?php echo translate('email'); ?> </td>
+                                            <td><?php
+                                            echo $vend->email; ?></td>
                                         </tr>
                                         <tr>
-                                        	<td><?php echo translate('maximum_products'); ?> </td>
-                                            <td>
-                                            <?php 
-                                                if($membership == '0'){
-                                                    echo $this->db->get_where('general_settings',array('type'=>'default_member_product_limit'))->row()->value;
-                                                } else {
-                                                    echo $this->db->get_where('membership',array('membership_id'=>$membership))->row()->product_limit; 
-                                                }
-                                            ?>
-                                            </td>
+                                        	<td><?php echo translate('company'); ?> </td>
+                                            <td><?php
+                                            echo $vend->company; ?></td>
                                         </tr>
                                         <tr>
-                                            <td><?php echo translate('total_uploaded_products'); ?> </td>
+                                            <td><?php echo translate('total_products'); ?> </td>
                                             <td><?php echo $this->db->get_where('product',array('added_by'=>'{"type":"vendor","id":"'.$this->session->userdata('vendor_id').'"}'))->num_rows(); ?></td>
                                         </tr>
-                                        <tr>
-                                            <td><?php echo translate('uploaded_published_products'); ?> </td>
-                                            <td><?php echo $this->db->get_where('product',array('added_by'=>'{"type":"vendor","id":"'.$this->session->userdata('vendor_id').'"}','status'=>'ok'))->num_rows(); ?></td>
-                                        </tr>
                                     </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-12 col-lg-12">
-                    <div class="panel panel-bordered panel-grad2" style="height:260px !important;">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-								<?php echo translate('vendorship_timespan');?> 
-								<?php echo translate('remaining'); ?>
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="text-center">
-                                  <div class="main-example">
-                                      <div class="countdown-container" id="main-example"></div>
                                 </div>
                             </div>
                         </div>
@@ -119,82 +55,6 @@
                 ?>
             </div>
         </div>
-        
-        <script type="text/template" id="main-example-template">
-			<div class="time <%= label %>">
-			  <span class="count curr top"><%= curr %></span>
-			  <span class="count next top"><%= next %></span>
-			  <span class="count next bottom"><%= next %></span>
-			  <span class="count curr bottom"><%= curr %></span>
-			  <span class="label label-purple"><%= label.length < 6 ? label : label.substr(0, 3)  %></span>
-			</div>
-        </script>
-        <script type="text/javascript">
-          $(window).on('load', function() {
-            var labels = ['weeks', 'days', 'hours', 'minutes', 'seconds'],
-              nextYear = '<?php echo date('Y/m/d',$vend->member_expire_timestamp); ?>',
-              template = _.template($('#main-example-template').html()),
-              currDate = '00:00:00:00:00',
-              nextDate = '00:00:00:00:00',
-              parser = /([0-9]{2})/gi,
-              $example = $('#main-example');
-            // Parse countdown string to an object
-            function strfobj(str) {
-              var parsed = str.match(parser),
-                obj = {};
-              labels.forEach(function(label, i) {
-                obj[label] = parsed[i]
-              });
-              return obj;
-            }
-            // Return the time components that diffs
-            function diff(obj1, obj2) {
-              var diff = [];
-              labels.forEach(function(key) {
-                if (obj1[key] !== obj2[key]) {
-                  diff.push(key);
-                }
-              });
-              return diff;
-            }
-            // Build the layout
-            var initData = strfobj(currDate);
-            labels.forEach(function(label, i) {
-              $example.append(template({
-                curr: initData[label],
-                next: initData[label],
-                label: label
-              }));
-            });
-            // Starts the countdown
-            $example.countdown(nextYear, function(event) {
-              var newDate = event.strftime('%w:%d:%H:%M:%S'),
-                data;
-              if (newDate !== nextDate) {
-                currDate = nextDate;
-                nextDate = newDate;
-                // Setup the data
-                data = {
-                  'curr': strfobj(currDate),
-                  'next': strfobj(nextDate)
-                };
-                // Apply the new values to each node that changed
-                diff(data.curr, data.next).forEach(function(label) {
-                  var selector = '.%s'.replace(/%s/, label),
-                      $node = $example.find(selector);
-                  // Update the node
-                  $node.removeClass('flip');
-                  $node.find('.curr').text(data.curr[label]);
-                  $node.find('.next').text(data.next[label]);
-                  // Wait for a repaint to then flip
-                  _.delay(function($node) {
-                    $node.addClass('flip');
-                  }, 50, $node);
-                });
-              }
-            });
-          });
-        </script>
         <div class="row">
             <div class="col-md-12 col-lg-12">
                 <div class="col-md-4 col-lg-4">
@@ -273,20 +133,6 @@
                 <?php
                 }
                 ?>
-            </div>
-        </div>
-		<div class="row">
-        	<div class="col-md-12 col-lg-12">
-                <div class="col-md-12 col-lg-12">
-                    <div class="panel panel-bordered panel-primary">
-                        <h3 class="panel-title" style="border-bottom:1px #458fd2 solid; !important;">
-                            <?php echo translate('category_wise_monthly_grand_profit');?>
-                        </h3>
-                        <div class="panel-body">
-                            <div id="chartdiv4" style="width: 100%; height: 300px;"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

@@ -16,6 +16,194 @@ class Crud_model extends CI_Model
         parent::__construct();
     }
 
+    public function _fill_admin($para2)
+    {
+        var_dump($para2);
+        die();
+    }
+    public function getMaxPrice($pid)
+    {
+        $vendors = $this->db->where('parent_id', $pid);
+$vendors = $this->db->get('product')->result_array();
+
+$price = $this->getOpsPrice($pid);
+foreach($vendors as $kk=> $vv)
+{
+    if($price  == 0)
+    {
+        $price = $this->getOpsPrice($vv['product_id']);
+    }
+    elseif($price > $this->getOpsPrice($vv['product_id']))
+    {
+        $price = $this->getOpsPrice($vv['product_id']);
+    }
+    return $price;
+}
+    }
+    public function getMainPrice($pid)
+    {
+        $vendors = $this->db->where('parent_id', $pid);
+$vendors = $this->db->get('product')->result_array();
+$price = $this->getPrice($pid);
+foreach($vendors as $kk=> $vv)
+{
+    if($price  == 0)
+    {
+        $price = $this->getPrice($vv['product_id']);
+    }
+    elseif($price < $this->getPrice($vv['product_id']))
+    {
+        $price = $this->getPrice($vv['product_id']);
+    }
+    return $price;
+}
+    }
+    public function getPrice($pid)
+    {
+        $s = $this->db->where('product',$pid)->order_by("rate", "desc")->get('stock')->row();
+        if(isset($s->rate))
+        return $s->rate;
+        else
+        {
+            return '';
+        }
+    }
+    public function getOpsPrice($pid)
+    {
+        $s = $this->db->where('product',$pid)->order_by("rate", "asc")->get('stock')->row();
+        if(isset($s->rate))
+        return $s->rate;
+        else
+        {
+            return '';
+        }
+    }
+    public function _set_variation($para2)
+    {
+        $product = $this->db->where('product_id',$para2)->get('product')->row();
+            $attributes = array();
+            $price = array();
+            $stock = array();
+            $color = json_decode($product->color,true);
+            
+            if(isset($color['price']))
+            $price = $color['price'];
+            if(isset($color['stock']))
+            $stock = $color['stock'];
+            if(isset($color['color']))
+            {
+            $attributes['size'] = $color['color'];
+            }
+            else
+            {
+                $attributes['size'] = $color;
+            }
+            if(isset($options))
+            {
+            foreach($options as $k=> $v)
+            {
+                $attributes[$v['title']] = $v;
+            }
+            }
+            $srr = array();
+            // $ret = $this->db->where('product_id',$para2)->delete('attribute_to_products');
+            foreach($attributes as $k=>$v)
+            { 
+                
+                //attribute id 
+                $arttribute_id = 0;
+                $row = $this->db->where('name',$k)->get('attribute')->row();
+                if($row)
+                {
+                    //get id 
+                    $arttribute_id = $row->id;
+                }
+                else
+                {
+                    //insert
+                    $in = array(
+                        'name'=> $k
+                        );
+                        $this->db->insert('attribute', $in);
+                        $arttribute_id = $this->db->insert_id();
+                }
+                //link atribute to product
+                if($arttribute_id)
+                {
+                    $in = array(
+                        'product_id'=> $para2,
+                        'attribute_id'=> $arttribute_id,
+                        );
+                        $already = $this->db->where($in)->get('attribute_to_products')->row();
+                        if($already)
+                        {
+                            
+                        }
+                        else
+                        {
+                            $this->db->insert('attribute_to_products', $in);
+                        }
+                        
+                }
+                $srr[$arttribute_id] = $v;
+            }
+            // $ret = $this->db->where('product_id',$para2)->delete('attribute_to_values');
+            foreach($srr as $attr=> $v)
+            {
+                foreach($v as $ok=> $ov)
+                {
+                    $in = array(
+                        'product_id'=> $para2,
+                        'attr_id'=> $attr,
+                        'value'=> $ov,
+                        );
+                        
+                        $already = $this->db->where($in)->get('attribute_to_values')->row();
+                        if($already)
+                        {
+                            $v [$ok] = $already->id;
+                        }
+                        else
+                        {
+                            $this->db->insert('attribute_to_values', $in);
+                        $v[$ok] = $this->db->insert_id();
+                        }
+                        //manage stock here
+                        if($price && isset($price[$ok]))
+                        {
+                            $sprice = $price[$ok];
+                            $st = $stock[$ok];
+                            // var_dump($v[$ok]);
+                            $in = array(
+                        'product'=> $para2,
+                        'quantity'=> $st,
+                        'rate'=> $sprice,
+                        'attribute'=> $v[$ok],
+                        );
+                        $wh = array(
+                            'product'=> $para2,
+                            'attribute'=> $v[$ok],
+                            );
+                        
+                        $already = $this->db->where($wh)->get('stock')->row();
+                        if($already && $already->stock_id)
+                        {
+                            
+                            $v['stock'][$ok] = $already->stock_id;
+                            $r = $this->db->where('stock_id',$already->stock_id)->update('stock', $in);
+                        }
+                        else
+                        {
+                            $this->db->insert('stock', $in);
+                        $v['stock'][$ok] = $this->db->insert_id();
+                        }
+                        }
+                        
+                }
+                $srr[$k] = $v;
+            }
+            return $srr;
+    }
     public function _generate_key($table_name, $column_name, $prefix)
     {
         $key = $this->__generate_key($prefix);
@@ -134,9 +322,11 @@ class Crud_model extends CI_Model
     {
         if ($multi == '') {
             move_uploaded_file($_FILES[$name]['tmp_name'], 'uploads/' . $type . '_image/' . $type . '_' . $id . $ext);
+            
             if ($no_thumb == '') {
                 $this->crud_model->img_thumb($type, $id, $ext);
             }
+            return 'uploads/' . $type . '_image/' . $type . '_' . $id . $ext;
         } elseif ($multi == 'multi') {
             $ib = 1;
             foreach ($_FILES[$name]['name'] as $i => $row) {
@@ -147,6 +337,7 @@ class Crud_model extends CI_Model
                 }
             }
         }
+        
     }
 
     /*function file_up_from_urls($urls, $type, $id, $no_thumb = '')
@@ -169,7 +360,8 @@ class Crud_model extends CI_Model
     {
         $ib = 1;
         foreach ($urls as $url) {
-            $ext = '.'.pathinfo($url, PATHINFO_EXTENSION);
+            $url = preg_replace('/\\?.*/', '', $url);
+            $ext = '.jpg';
             $ib = $this->file_exist_ret2($type, $id, $ib,$ext);
 
             file_put_contents('uploads/' . $type . '_image/' . $type . '_' . $id . '_' . $ib . $ext, file_get_contents($url));
@@ -207,6 +399,7 @@ class Crud_model extends CI_Model
     // FILE_VIEW
     function file_view($type, $id, $width = '100', $height = '100', $thumb = 'no', $src = 'no', $multi = '', $multi_num = '', $ext = '.jpg')
     {
+        
         if ($multi == '') {
             if (file_exists('uploads/' . $type . '_image/' . $type . '_' . $id . $ext)) {
                 if ($thumb == 'no') {
@@ -226,6 +419,7 @@ class Crud_model extends CI_Model
 
         } else if ($multi == 'multi') {
             $num = $this->crud_model->get_type_name_by_id($type, $id, 'num_of_imgs');
+            
             //$num = 2;
             $i = 0;
             $p = 0;
@@ -349,7 +543,7 @@ class Crud_model extends CI_Model
             return base_url() . 'home/quick_view/' . $product_id;
         } else {
             $name = url_title($this->crud_model->get_type_name_by_id('product', $product_id, 'title'));
-            return base_url() . 'home/product_view/' . $product_id . '/' . $name;
+            return base_url() . 'product/' . $product_id . '/' . $name;
         }
     }
 
@@ -417,6 +611,104 @@ class Crud_model extends CI_Model
                     $all = $this->db->get_where($from, array(
                         $condition => $c_match
                     ))->result_array();
+                } else if ($condition_type == 'multi') {
+                    $this->db->where_in($condition, $c_match);
+                    $all = $this->db->get($from)->result_array();
+                }
+            }
+            // var_dump($all);
+            // die();
+            if ($from == 'countries'|| $from == 'states'|| $from == 'cities') {
+                $return .= '<option value="">'.$phrase.'</option>';
+            }
+            elseif ($is_none == 'none') {
+                $return .= '<option value="">Choose one</option>
+                            <option value="none">None/All Brands</option>';
+            } else {
+                $return .= '<option value="">Choose one</option>';
+            }
+
+            foreach ($all as $row):
+                if ($type == 'add') {
+                    $return .= '<option value="' . $row[$from . '_id'] . '">' . $row[$field] . '</option>';
+                } else if ($type == 'edit') {
+                    $return .= '<option value="' . $row[$from . '_id'] . '" ';
+                    if ($multi == 'no') {
+                        if ($row[$from . '_id'] == $e_match) {
+                            $return .= 'selected=."selected"';
+                        }
+                    } else if ($multi == 'yes') {
+                        if (in_array($row[$from . '_id'], $e_match)) {
+                            $return .= 'selected=."selected"';
+                        }
+                    }
+                    $return .= '>' . $row[$field] . '</option>';
+                }
+            endforeach;
+        } else {
+            $all = $from;
+            if ($is_none == 'none') {
+                $return .= '<option value="">Choose one</option>
+                            <option value="none">None/All Brands</option>';
+            } else {
+                $return .= '<option value="">Choose one</option>';
+            }
+            foreach ($all as $row):
+                if ($type == 'add') {
+                    $return .= '<option value="' . $row . '">';
+                    if ($condition == '') {
+                        $return .= ucfirst(str_replace('_', ' ', $row));
+                    } else {
+                        $return .= $this->crud_model->get_type_name_by_id($condition, $row, $c_match);
+                    }
+                    $return .= '</option>';
+                } else if ($type == 'edit') {
+                    $return .= '<option value="' . $row . '" ';
+                    if ($row == $e_match) {
+                        $return .= 'selected=."selected"';
+                    }
+                    $return .= '>';
+
+                    if ($condition == '') {
+                        $return .= ucfirst(str_replace('_', ' ', $row));
+                    } else {
+                        $return .= $this->crud_model->get_type_name_by_id($condition, $row, $c_match);
+                    }
+
+                    $return .= '</option>';
+                }
+            endforeach;
+        }
+        $return .= '</select>';
+        return $return;
+    }
+
+    function select_html_vendor($from, $name, $field, $type, $class, $e_match = '', $condition = '', $c_match = '', $onchange = '', $condition_type = 'single', $is_none = '')
+    {
+        $return = '';
+        $other = '';
+        $multi = 'no';
+        $phrase = 'Choose a ' . $name;
+        if ($class == 'demo-cs-multiselect') {
+            $other = 'multiple';
+            $name = $name . '[]';
+            if ($type == 'edit') {
+                $e_match = json_decode($e_match);
+                if ($e_match == NULL) {
+                    $e_match = array();
+                }
+                $multi = 'yes';
+            }
+        }
+        $return = '<select name="' . $name . '" onChange="' . $onchange . '(this.value,this)" class="' . $class . '" ' . $other . '  data-placeholder="' . $phrase . '" tabindex="2" data-hide-disabled="true" >';
+        if (!is_array($from)) {
+            if ($condition == '') {
+                $this->db->where('added_by',json_encode(array('type'=>'vendor','id'=>$this->session->userdata('vendor_id'))));
+                $all = $this->db->get($from)->result_array();
+            } else if ($condition !== '') {
+                if ($condition_type == 'single') {
+                    $this->db->where('added_by',json_encode(array('type'=>'vendor','id'=>$this->session->userdata('vendor_id'))));
+                    $all = $this->db->get($from)->result_array();
                 } else if ($condition_type == 'multi') {
                     $this->db->where_in($condition, $c_match);
                     $all = $this->db->get($from)->result_array();
@@ -2571,6 +2863,9 @@ class Crud_model extends CI_Model
 
         $this->db->order_by('product_id', 'desc');
         $res = $this->db->get('product')->result_array();
+        echo $this->db->last_query();
+        
+
         return $res;
         /*
         $i = 0;
@@ -2649,6 +2944,23 @@ class Crud_model extends CI_Model
     data-brands= "41:::Chevrolet-40:::Ford-39:::Nissan-38:::Audi-44:::Hyundai-45:::BMW-46:::Marcedes-Benz-47:::Mitsubishi-51:::Toyota-52:::Honda-54:::Volvo-50:::Lamborghini-55:::Porsche-48:::Suzuki-56:::Dunlop-57:::Yamaha"
     data-subdets= "[{&quot;sub_id&quot;:&quot;1&quot;,&quot;sub_name&quot;:&quot;Car&quot;,&quot;min&quot;:0,&quot;max&quot;:0,&quot;brands&quot;:&quot;41:::Chevrolet-40:::Ford-39:::Nissan-38:::Audi-44:::Hyundai-45:::BMW-46:::Marcedes-Benz-47:::Mitsubishi-51:::Toyota-52:::Honda-54:::Volvo&quot;},{&quot;sub_id&quot;:&quot;2&quot;,&quot;sub_name&quot;:&quot;Racing Car&quot;,&quot;min&quot;:145000,&quot;max&quot;:145000,&quot;brands&quot;:&quot;41:::Chevrolet-40:::Ford-39:::Nissan-38:::Audi-45:::BMW-46:::Marcedes-Benz-47:::Mitsubishi-50:::Lamborghini-51:::Toyota-52:::Honda-54:::Volvo-55:::Porsche&quot;},{&quot;sub_id&quot;:&quot;3&quot;,&quot;sub_name&quot;:&quot;Luxury SUV&quot;,&quot;min&quot;:46545,&quot;max&quot;:140825,&quot;brands&quot;:&quot;41:::Chevrolet-40:::Ford-39:::Nissan-45:::BMW-47:::Mitsubishi-51:::Toyota-54:::Volvo&quot;},{&quot;sub_id&quot;:&quot;5&quot;,&quot;sub_name&quot;:&quot;Chopper Bike&quot;,&quot;min&quot;:13150,&quot;max&quot;:79560,&quot;brands&quot;:&quot;39:::Nissan-45:::BMW-48:::Suzuki-52:::Honda-56:::Dunlop-57:::Yamaha&quot;},{&quot;sub_id&quot;:&quot;6&quot;,&quot;sub_name&quot;:&quot;Racing Bike&quot;,&quot;min&quot;:35000,&quot;max&quot;:48000,&quot;brands&quot;:&quot;45:::BMW-52:::Honda-57:::Yamaha&quot;},{&quot;sub_id&quot;:&quot;63&quot;,&quot;sub_name&quot;:&quot;Private Air&quot;,&quot;min&quot;:775000,&quot;max&quot;:4800000,&quot;brands&quot;:&quot;40:::Ford-39:::Nissan-38:::Audi-46:::Marcedes-Benz-47:::Mitsubishi-55:::Porsche&quot;}]">
     */
+    function get_csv_brand($cname)
+    {
+        $row = $this->db->where('name',$cname)->get('brand')->row();
+        if(isset($row->brand_id))
+        {
+            return $row->brand_id;
+        }
+        else
+        {
+            
+            $in = array('name'=>$cname);
+            $r = $this->db->insert('brand',$in);
+            
+            return $product_id = $this->db->insert_id();
+            
+        }
+    }
 
     function set_category_data($cat_id)
     {

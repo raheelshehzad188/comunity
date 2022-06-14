@@ -167,29 +167,23 @@
                                             ?>
                                             <?php
 												$option = json_decode($row1['option'],true);
-												foreach ($option as $l => $op) {
-													if($l !== 'color' && $op['value'] !== '' && $op['value'] !== NULL){
-											?>
-												<?php echo $op['title'] ?> :
-												<?php
-													if(is_array($va = $op['value'])){
-														echo $va = join(', ',$va);
-													} else {
-														echo $va;
-													}
-												?>
-												<br>
-											<?php
-													}
+												var_dump($row1['price']);
+												foreach($option as $k=> $v)
+												{
+												    if($k == 'color')
+												    {
+												        ?>Size : <?= $v['value'] ?><?php
+												    }
 												}
+												
 											?>
                                             </td>
                                             <td class="text-right"><?php echo $row1['qty']; ?></td>
                                             <td class="text-right">
-												<?php echo currency($row1['price']); ?>
+												<?php echo currency().$row1['price']; ?>
                                             </td>
                                             <td class="text-right">
-												<?php echo currency($row1['subtotal']);
+												<?php echo currency().$row1['subtotal'];
 													$total += $row1['subtotal'];
 												?>
                                             </td>
@@ -208,7 +202,7 @@
                                                 </strong>
                                             </td>
                                             <td class="thick-line text-right">
-                                            	<?php echo currency($total);?>
+                                            	<?php echo currency().$total;?>
                                             </td>
                                         </tr>
                                         <tr>
@@ -236,7 +230,7 @@
                                                 </strong>
                                             </td>
                                             <td class="no-line text-right">
-                                            	<?php echo currency($row['shipping']);?>
+                                            	<?php echo currency().$row['shipping'];?>
                                             </td>
                                         </tr>
                                         <tr>
@@ -250,7 +244,7 @@
                                                 </strong>
                                             </td>
                                             <td class="no-line text-right">
-                                            	<?php echo currency($row['grand_total']);?>
+                                            	<?php echo currency().$row['grand_total'];?>
                                             </td>
                                         </tr>
                                     </tbody>

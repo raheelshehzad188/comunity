@@ -14,12 +14,9 @@
             <!--Panel heading-->
             <div class="panel-heading">
                 <div class="panel-control" style="float: left;">
-                    <ul class="nav nav-tabs">
+                    <ul style="display:none" class="nav nav-tabs">
                         <li class="active">
                             <a data-toggle="tab" href="#product_details"><?php echo translate('product_details'); ?></a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#business_details"><?php echo translate('business_details'); ?></a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#customer_choice_options"><?php echo translate('customer_choice_options'); ?></a>
@@ -41,10 +38,27 @@
                                     <input type="text" name="title" id="demo-hor-1" value="<?php echo $row['title']; ?>" placeholder="<?php echo translate('product_title');?>" class="form-control required">
                                 </div>
                             </div>
+
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-1">
+                                    <?php echo translate('product_sku');?>
+                                        </label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="sku" id="demo-hor-1" value="<?php echo $row['sku']; ?>" placeholder="<?php echo translate('product_sku');?>" class="form-control required">
+                                </div>
+                            </div>
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('category');?></label>
                                 <div class="col-sm-6">
-                                    <?php echo $this->crud_model->select_html('category','category','category_name','edit','demo-chosen-select required',$row['category'],'digital',NULL,'get_cat'); ?>
+                                    
+                                    <?php 
+                                    echo $this->crud_model->select_html('category','category','category_name','edit','demo-chosen-select required',$row['category'],'digital',NULL,'get_cat'); ?>
+                                </div>
+                            </div>
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('brand');?></label>
+                                <div class="col-sm-6">
+                                    <?php echo $this->crud_model->select_html('brand','brand','name','edit','demo-chosen-select required',$row['brand'],'','',''); ?>
                                 </div>
                             </div>
                             <div class="form-group btm_border" id="sub" >
@@ -71,13 +85,29 @@
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-5"><?php echo translate('unit');?></label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="unit" id="demo-hor-5" value="<?php echo $row['unit']; ?>" placeholder="<?php echo translate('unit_(e.g._kg,_pc_etc.)'); ?>" class="form-control unit required">
+                                    <input type="text"  readonly="true" name="unit" id="demo-hor-5" value="<?php echo $row['unit']; ?>" placeholder="<?php echo translate('unit_(e.g._kg,_pc_etc.)'); ?>" class="form-control unit required">
                                 </div>
                             </div>
+                            
+                            
                             <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-11"><?php echo translate('tags');?></label>
+                                <label class="col-sm-4 control-label" for="demo-hor-5"><?php echo translate('weight');?></label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="tag" data-role="tagsinput" placeholder="<?php echo translate('tags');?>" value="<?php echo $row['tag']; ?>" class="form-control">
+                                    <input  readonly="true"  value="<?php echo $row['weight']; ?>" type="text" name="weight" id="demo-hor-5" placeholder="" class="form-control weight">
+                                </div>
+                            </div>              
+                            
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-5"><?php echo translate('height');?></label>
+                                <div class="col-sm-6">
+                                    <input  readonly="true"  value="<?php echo $row['height']; ?>" type="text" name="height" id="demo-hor-5" placeholder="" class="form-control height">
+                                </div>
+                            </div>              
+                            
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-5"><?php echo translate('widht');?></label>
+                                <div class="col-sm-6">
+                                    <input  readonly="true" type="text" name="widht"   value="<?php echo $row['widht']; ?>"  id="demo-hor-5" placeholder="" class="form-control widht">
                                 </div>
                             </div>
                             <div class="form-group btm_border">
@@ -90,6 +120,7 @@
                                     <span id="previewImg" ></span>
                                 </div>
                             </div>
+                            
 
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-13"></label>
@@ -182,7 +213,7 @@
                                 }
                             ?> 
                             </div>
-                            <div class="form-group btm_border">
+                            <div class="form-group btm_border d-none hidden">
                                 <label class="col-sm-4 control-label" for="demo-hor-17"></label>
                                 <div class="col-sm-6">
                                         <h4 class="pull-left">
@@ -199,59 +230,16 @@
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-6"><?php echo translate('sale_price');?></label>
                                 <div class="col-sm-4">
-                                    <input type="number" name="sale_price" id="demo-hor-6" min='0' step='.01' value="<?php echo $row['sale_price']; ?>" placeholder="<?php echo translate('sale_price');?>" class="form-control required">
                                 </div>
                                 <span class="btn"><?php echo currency('','def'); ?> / </span>
                                 <span class="btn unit_set"><?php echo $row['unit']; ?></span>
-                            </div>
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-7"><?php echo translate('purchase_price');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="purchase_price" id="demo-hor-7" min='0' step='.01' value="<?php echo $row['purchase_price']; ?>" placeholder="<?php echo translate('purchase_price');?>" class="form-control required">
-                                </div>
-                                <span class="btn"><?php echo currency('','def'); ?> / </span>
-                                <span class="btn unit_set"><?php echo $row['unit']; ?></span>
-                            </div>
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-8"><?php echo translate('shipping_cost');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="shipping_cost" min='0' id="demo-hor-8" min='0' step='.01' value="<?php echo $row['shipping_cost']; ?>" placeholder="<?php echo translate('shipping_cost');?>" class="form-control">
-                                </div>
-                                <span class="btn"><?php echo currency('','def'); ?> / </span>
-                                <span class="btn unit_set"><?php echo $row['unit']; ?></span>
-                            </div>
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-9"><?php echo translate('product_tax');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="tax" id="demo-hor-9" min='0' step='.01' value="<?php echo $row['tax']; ?>" placeholder="<?php echo translate('product_tax');?>" class="form-control">
-                                </div>
-                                <div class="col-sm-1">
-                                    <select class="demo-chosen-select" name="tax_type">
-                                        <option value="percent" <?php if($row['tax_type'] == 'percent'){ echo 'selected'; } ?> >%</option>
-                                        <option value="amount" <?php if($row['tax_type'] == 'amount'){ echo 'selected'; } ?> >$</option>
-                                    </select>
-                                </div>
-                                <span class="btn unit_set">/<?php echo $row['unit']; ?></span>
-                            </div>
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-10"><?php echo translate('product_discount');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="discount" id="demo-hor-10" min='0' step='.01' value="<?php echo $row['discount']; ?>" placeholder="Product Discount" class="form-control">
-                                </div>
-                                <div class="col-sm-1">
-                                    <select class="demo-chosen-select" name="discount_type">
-                                        <option value="percent" <?php if($row['discount_type'] == 'percent'){ echo 'selected'; } ?> >%</option>
-                                        <option value="amount" <?php if($row['discount_type'] == 'amount'){ echo 'selected'; } ?> >$</option>
-                                    </select>
-                                </div>
-                                <span class="btn unit_set">/<?php echo $row['unit']; ?></span>
                             </div> 
                         </div>         
-                        <div id="customer_choice_options" class="tab-pane fade">
+                        <div id="customer_choice_options" class=" tab-pane fade">
                             
                             <div class="form-group btm_border">'
                                 <label class="col-sm-4 control-label" for="demo-hor-15">
-                                    <?php echo translate('product_color_options');?>
+                                    <?php echo translate('product_size_options');?>
                                         </label>
                                     <div class="col-sm-6"  id="more_colors">
                                         <?php 
@@ -262,7 +250,6 @@
                                                 <div class="col-md-8">
                                                     <div class="input-group demo2">
                                                         <input type="text" value="<?php echo $p; ?>" name="color[]" class="form-control" />
-                                                        <span class="input-group-addon"><i></i></span>
                                                     </div>
                                                 </div>
                                                 <span class="col-md-4">
@@ -276,14 +263,14 @@
                                     </div>
                             </div>
                             
-                            <div class="form-group btm_border">
+                            <div class="form-group btm_border ">
                                 <label class="col-sm-4 control-label" for="demo-hor-16"></label>
                                 <div class="col-sm-6">
                                         <div id="more_color_btn" class="btn btn-primary btn-labeled fa fa-plus pull-right">
-                                            <?php echo translate('add_colors');?></div>
+                                            <?php echo translate('add_size');?></div>
                                 </div>
                             </div>
-                            <div id="more_additional_options">
+                            <div id="more_additional_options" class="d-none hidden">
                             <?php
                                 $r = 0;
                                 if(!empty($all_op)){
@@ -342,7 +329,7 @@
                                 }
                             ?> 
                             </div>
-                            <div class="form-group btm_border">
+                            <div class="form-group btm_border d-none hidden">
                                 <label class="col-sm-4 control-label" for="demo-hor-inputpass"></label>
                                 <div class="col-sm-6">
                                     <h4 class="pull-left">
@@ -358,12 +345,12 @@
                     </div>
                 </div>
 
-                <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
-                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
+                <span id="next_btn" class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
+                <span  style="display:none" class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
         
             </div>
             <div class="panel-footer">
-                <div class="row">
+                <div class="row"  style="display:none">
                     <div class="col-md-11">
                     	<span class="btn btn-purple btn-labeled fa fa-refresh pro_list_btn pull-right" 
                             onclick="ajax_set_full('edit','<?php echo translate('edit_product'); ?>','<?php echo translate('successfully_edited!'); ?>','product_edit','<?php echo $row['product_id']; ?>') "><?php echo translate('reset');?>
@@ -476,7 +463,7 @@
     $(document).ready(function() {
         set_select();
         set_summer();
-        createColorpickers();
+        // createColorpickers();
     });
 
     function other(){
@@ -592,7 +579,58 @@
     });
 
     function next_tab(){
-        $('.nav-tabs li.active').next().find('a').click();                    
+        var mid = $('.nav-tabs li.active').find('a').attr('href')+' .required';
+        var find = 0;
+        var size_option = $('#size_type').val();
+        if($('.nav-tabs li.active').find('a').attr('href') == '#product_details')
+        {
+        }
+        else
+        {
+            form_submit('product_edit','<?php echo translate('successfully_edited!'); ?>');proceed('to_add');
+            return 0;
+        }
+        $(mid).each(function(){
+            var here = $(this);
+            if(here.val() == ''){
+                console.log(here.attr('name'));
+                find = 1;
+                if(true){
+                    find = 1;
+                    here.css({borderColor: 'red'});
+                    if(here.attr('type') == 'number'){
+                        txt = '*'+mbn;
+                    }
+                    
+                    if(here.closest('div').find('.require_alert').length){
+
+                    } else {
+                        sound('form_submit_problem');
+                        find = 1;
+                        var take = '';
+                        var txt = 'Required';
+                        here.closest('div').append(''
+                            +'  <span id="'+take+'" class="label label-danger require_alert" >'
+                            +'      '+txt
+                            +'  </span>'
+                        );
+                    }
+                }
+            }//if empty
+        });
+        if(find == 0)
+        {
+            $('#next_btn').text('<?php echo translate('edit');?>');
+            $('#next_btn').addClass('btn-success');
+            $('#next_btn').addClass('enterer');
+            $('#next_btn').removeClass('btn-purple');
+        $('.nav-tabs li.active').next().find('a').click();
+        }
+        else
+        {
+            alert("Please fill required field");
+            return  0;
+        }
     }
     function previous_tab(){
         $('.nav-tabs li.active').prev().find('a').click();                     
@@ -619,8 +657,7 @@
             +'      <div class="col-md-12" style="margin-bottom:8px;">'
             +'          <div class="col-md-8">'
             +'              <div class="input-group demo2">'
-            +'                 <input type="text" value="#ccc" name="color[]" class="form-control" />'
-            +'                 <span class="input-group-addon"><i></i></span>'
+            +'                 <input type="text" value="" name="color[]" class="form-control" />'
             +'              </div>'
             +'          </div>'
             +'          <span class="col-md-4">'
@@ -628,7 +665,7 @@
             +'          </span>'
             +'      </div>'
         );
-        createColorpickers();
+        // createColorpickers();
     });                
 
     $('body').on('click', '.rmc', function(){

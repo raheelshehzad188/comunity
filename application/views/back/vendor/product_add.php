@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-12">
 		<?php
+		    die("OKK");
             echo form_open(base_url() . 'vendor/product/do_add/', array(
                 'class' => 'form-horizontal',
                 'method' => 'post',
@@ -44,7 +45,7 @@
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('category');?></label>
                                 <div class="col-sm-6">
-                                    <?php echo $this->crud_model->select_html('category','category','category_name','add','demo-chosen-select required','','digital',NULL,'get_cat'); ?>
+                                    <?php echo $this->crud_model->select_html('category','category','category_name','add','demo-chosen-select required','',NULL,NULL,'get_country'); ?>
                                 </div>
                             </div>
                             
@@ -345,7 +346,7 @@
     });
 
 	function createColorpickers() {
-	
+	return false
 		$('.demo2').colorpicker({
 			format: 'rgba'
 		});
@@ -467,7 +468,7 @@
             +'          </span>'
             +'      </div>'
   		);
-		createColorpickers();
+		//createColorpickers();
     });		           
 
     $('body').on('click', '.rmc', function(){

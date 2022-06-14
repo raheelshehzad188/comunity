@@ -1,6 +1,6 @@
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow" ><?php echo translate('manage_product_stock');?></h1>
+		<h1 class="page-header text-overflow" ><?php echo translate('manage_your_product_stock');?></h1>
 	</div>
 	<div class="tab-base">
 		<div class="panel">
@@ -9,10 +9,9 @@
                 <div class="col-md-12" style="border-bottom: 1px solid #ebebeb;padding:10px;">
                 	<button class="btn btn-dark btn-labeled fa fa-minus-square pull-right" 
                     	onclick="ajax_modal('destroy','<?php echo translate('destroy_product_entry'); ?>','<?php echo translate('add_stock_entry_taken!'); ?>','stock_destroy','')">
-                        	<?php echo translate('destroy');?>
-                            	</button>           
+                        	Destroy</button>           
 					<button class="btn btn-primary btn-labeled fa fa-plus-circle pull-right mar-rgt" 
-                    	onclick="ajax_modal('add','<?php echo translate('add_product_stock'); ?>','<?php echo translate('destroy_entry_taken!'); ?>', 'stock_add', '' )">
+                    	onclick="ajax_modal('add','<?php echo translate('add_product_stock'); ?>','<?php echo translate('stock_add_successfully!'); ?>', 'stock_add', '' )">
 							<?php echo translate('create_stock');?>
                             	</button>
                 </div>

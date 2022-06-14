@@ -1,25 +1,39 @@
+<style>
+    .next_div span{
+        padding:2px 4px;
+        margin-right:2px;
+        border:1px solid #ccc;
+        border-radius:20px;
+    }
+    .next_div p{
+        margin-bottom:0px;
+    }
+    .next_div{
+    text-align: left;
+    padding-left: 5px;
+    font-size: 11px;
+    line-height: 17px;
+    }
+</style>
 <script src="<?php echo base_url(); ?>template/back/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
 <div class="panel-body" id="demo_s">
     <table id="events-table" class="table table-striped"  data-url="<?php echo base_url(); ?>admin/product/list_data" data-side-pagination="server" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]"  data-show-refresh="true" data-search="true"  data-show-export="true" >
         <thead>
             <tr>
-                <th data-field="image" data-align="right" data-sortable="true">
-                    <?php echo translate('image');?>
+                <th data-field="item" colspan="2" data-align="right" data-sortable="true">
+                    <?php echo translate('item');?>
                 </th>
-                <th data-field="title" data-align="center" data-sortable="true">
-                    <?php echo translate('title');?>
+                <th data-field="min_price" data-align="center" data-sortable="true">
+                    <?php echo translate('min_price');?>
+                </th>
+                <th data-field="max_price" data-align="center" data-sortable="true">
+                    <?php echo translate('max_price');?>
                 </th>
                 <?php if ($this->db->get_where('general_settings', array('general_settings_id' => '58'))->row()->value == 'ok'): ?>
                 <th data-field="added_by" data-sortable="true">
                     <?php echo translate('added_by');?>
                 </th>
                  <?php endif ?>
-                <th data-field="current_stock" data-sortable="true">
-                    <?php echo translate('current_quantity');?>
-                </th>
-                <th data-field="deal" data-sortable="false">
-                    <?php echo translate("today's_deal");?>
-                </th>
                 <th data-field="publish" data-sortable="false">
                     <?php echo translate('publish');?>
                 </th>

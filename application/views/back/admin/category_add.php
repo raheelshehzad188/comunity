@@ -24,12 +24,28 @@
                 <div class="col-sm-6">
                     <span class="pull-left btn btn-default btn-file">
                         <?php echo translate('select_category_banner');?>
-                        <input type="file" name="img" id='imgInp' accept="image">
+                        <input type="file" name="img" id='icomInp' onchange="readURL(this);" accept="image">
                     </span>
                     <br><br>
                     <span id='wrap' class="pull-left" >
                         <img src="<?php echo base_url(); ?>uploads/category_image/default.jpg" 
                             width="100%" id='blah' >
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="demo-hor-2">
+                    <?php echo translate('category_icon');?>
+                </label>
+                <div class="col-sm-6">
+                    <span class="pull-left btn btn-default btn-file">
+                        <?php echo translate('select_category_icon');?>
+                        <input type="file" name="icon" id='iconInp' accept="image">
+                    </span>
+                    <br><br>
+                    <span id='wrap' class="pull-left" >
+                        <img src="<?php echo base_url(); ?>uploads/category_image/default.jpg" 
+                            width="100%" id='blah1' >
                     </span>
                 </div>
             </div>
@@ -59,4 +75,22 @@
 	$("#imgInp").change(function() {
 		readURL(this);
 	});
+	$("#iconInp").change(function() {
+		readURL1(this);
+	});
+	function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah1')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+Li
 </script>

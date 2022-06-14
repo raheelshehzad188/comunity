@@ -1,3 +1,4 @@
+<link href="<?= base_url() ?>/template/back/plugins/chosen/chosen.min.css" rel="stylesheet">
 <section class="page-section color get_into">
     <div class="container">
         <div class="row margin-top-0">
@@ -23,17 +24,17 @@
                       	<?php echo translate('already_a_member_?_click_to_');?>
                         <?php
 			                     if ($this->crud_model->get_type_name_by_id('general_settings','58','value') !== 'ok') { ?>
-                              <a href="<?php echo base_url(); ?>home/login_set/login">
+                              <a href="<?php echo base_url(); ?>login_set/login">
                                   <?php echo translate('login');?>!
                               </a>
                         <?php
 									         }
                            else { ?>
-                                <a href="<?php echo base_url(); ?>home/login_set/login">
+                                <a href="<?php echo base_url(); ?>login_set/login">
                                     <?php echo translate('login');?>! <?php echo translate('as_customer');?>
                                 </a>
                               <?php echo translate('_or_');?>
-                                <a href="<?php echo base_url(); ?>home/vendor_logup/registration">
+                                <a href="<?php echo base_url(); ?>vendor_logup/registration">
                                     <?php echo translate('sign_up');?>! <?php echo translate('as_vendor');?>
                                 </a>
                               <?php
@@ -86,25 +87,33 @@
                           </div>
                       </div>
                       <div class="col-md-6">
-                          <div class="form-group">
-                              <input class="form-control required" type="text" name="city" placeholder="<?php echo translate('city');?>" data-toggle="tooltip" title="<?php echo translate('city');?>">
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <input class="form-control required" type="text" name="state" placeholder="<?php echo translate('state');?>" data-toggle="tooltip" title="<?php echo translate('state');?>">
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <input class="form-control required" type="text" name="country" placeholder="<?php echo translate('country');?>" data-toggle="tooltip" title="<?php echo translate('country');?>">
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="">
-                              <input class="form-control required" name="zip" type="text" placeholder="<?php echo translate('zip');?>" data-toggle="tooltip" title="<?php echo translate('zip');?>">
-                          </div>
-                      </div>
+                            <div class="form-group">
+                                <label>Country</label>
+                                <?php echo $this->crud_model->select_html('countries','country','name','edit','form-control demo-chosen-select required select_country',$country,'',NULL,'select_country'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>State</label>
+                                <span id="stats_select" class="col-md-12">
+                                <input type="text" class="form-control required" name="state" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input class="form-control required" name="city" type="text" placeholder="<?php echo translate('city');?>" data-toggle="tooltip" title="<?php echo translate('city');?>">
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="margin-top:0px">
+                            <div class="form-group">
+                                <label>Zip code</label>
+                                <input class="form-control required" name="zip" type="text" placeholder="<?php echo translate('zip');?>" data-toggle="tooltip" title="<?php echo translate('zip');?>">
+                            </div>
+                        </div>
+                        </div>
                       <div class="col-md-12 terms">
                           <input  name="terms_check" type="checkbox" value="ok" >
                           <?php echo translate('i_agree_with');?>
@@ -193,3 +202,37 @@
 		vertical-align:middle;
 	}
 </style>
+<script type="text/javascript" src="<?= base_url(); ?>/template/back/plugins/chosen/chosen.jquery.min.js" ></script>
+<script type="text/javascript">
+function other(){
+        $('.demo-chosen-select').chosen();
+        $('.chosen-with-drop').css({width:'100%'});
+    }
+    function select_country(id)
+    {
+        $('#stats_select').hide('slow');
+        ajax_load(base_url+'vendor/get_state/'+id,'stats_select','other');
+        other();
+        // var cont = $('.select_country').val();
+        // var mid= '.count_'+cont;
+        // $('.states').hide();
+        // alert(mid);
+        // $(mid).show();
+        // $('.demo-chosen-select').chosen();
+    }
+    function select_state(id)
+    {
+        $('#city_select').hide('slow');
+        ajax_load(base_url+'vendor/get_city/'+id,'city_select','other');
+        // var cont = $('.select_country').val();
+        // var mid= '.count_'+cont;
+        // $('.states').hide();
+        // alert(mid);
+        // $(mid).show();
+        // $('.demo-chosen-select').chosen();
+    }
+    $(document ).ready(function() {
+        // set_cart_map();
+        other();
+    });
+</script>

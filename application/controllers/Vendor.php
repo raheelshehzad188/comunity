@@ -29,11 +29,56 @@ class Vendor extends CI_Controller
             redirect(base_url(), 'refresh');
         }
     }
+    function get_state($id)
+    {
+        echo $this->crud_model->select_html('states','state','name','edit','select_state form-control demo-chosen-select required','','country_id',$id,'select_state','single');
+        exit();
+    }
+    function get_city($id)
+    {
+        echo $this->crud_model->select_html('cities','city','name','edit','select_city form-control demo-chosen-select required','','state_id',$id,'select_city','single');
+        exit();
+    }
 
     /* index of the vendor. Default: Dashboard; On No Login Session: Back to login page. */
+    public function csv_size($id)
+    {
+        $row = $this->db->where('product_id',$id)->get('product')->row();
+        if($row)
+        {
+            $colum = 'eu_size';
+            $g = $row->gender;
+            $all = $this->db->get('standerd_sizes')->result_array();
+            $size = array();
+            foreach($all as $k=> $v)
+            {
+                $size[] = $v[$colum];
+            }
+            $this->db->where('product_id',$id)->update('product',array('color'=>json_encode($size)));
+            
+            // if($g == 'men')
+            // {
+            //     $colum = '';
+            // }
+            // if($g == 'women')
+            // {
+            //     $colum = '';
+            // }
+        }
+    }
     public function index()
     {
+        // $all = $this->db->get('product')->result();
+        // foreach($all as $k=> $v)
+        //     {
+        //         if($v->raw)
+        //         {
+        // $this->csv_size($v->product_id);
+        //         }
+        //     }
+        // die("OK");
         if ($this->session->userdata('vendor_login') == 'yes') {
+            $page_data['vend'] = $this->db->where('vendor_id',$this->session->userdata('vendor_id'))->get('vendor')->row();
             $page_data['page_name'] = "dashboard";
             $this->load->view('back/index', $page_data);
         } else {
@@ -363,19 +408,18 @@ class Vendor extends CI_Controller
     /* Product add, edit, view, delete, stock increase, decrease, discount */
     function product($para1 = '', $para2 = '', $para3 = '')
     {
+        // die("PL");
         if (!$this->crud_model->vendor_permission('product')) {
             redirect(base_url() . 'vendor');
         }
         if ($this->crud_model->get_type_name_by_id('general_settings','68','value') !== 'ok') {
             redirect(base_url() . 'admin');
         }
+        
         if ($para1 == 'do_add') {
+            $option              = $this->input->post('option');
             $options = array();
-            if ($_FILES["images"]['name'][0] == '') {
-                $num_of_imgs = 0;
-            } else {
-                $num_of_imgs = count($_FILES["images"]['name']);
-            }
+            $num_of_imgs = 0;
 
             $data['seo_title']          = $this->input->post('seo_title');
             $data['seo_description']    = $this->input->post('seo_description');
@@ -384,7 +428,8 @@ class Vendor extends CI_Controller
             $data['description']        = $this->input->post('description');
             $data['sub_category']       = $this->input->post('sub_category');
             $data['sale_price']         = $this->input->post('sale_price');
-            $data['purchase_price']     = $this->input->post('purchase_price');
+            /* $data['purchase_price']     = $this->input->post('purchase_price');*/
+            $data['parent_id']     = $this->input->post('parent_id');
             $data['add_timestamp']      = time();
             $data['download']           = NULL;
             $data['featured']           = 'no';
@@ -392,13 +437,13 @@ class Vendor extends CI_Controller
             $data['is_bundle']          = 'no';
             $data['status']             = 'ok';
             $data['rating_user']        = '[]';
-            $data['tax']                = $this->input->post('tax');
-            $data['discount']           = $this->input->post('discount');
-            $data['discount_type']      = $this->input->post('discount_type');
-            $data['tax_type']           = $this->input->post('tax_type');
-            $data['shipping_cost']      = $this->input->post('shipping_cost');
+            // $data['tax']                = $this->input->post('tax');
+            // $data['discount']           = $this->input->post('discount');
+            // $data['discount_type']      = $this->input->post('discount_type');
+            // $data['tax_type']           = $this->input->post('tax_type');
+            // $data['shipping_cost']      = $this->input->post('shipping_cost');
             $data['tag']                = $this->input->post('tag');
-            $data['color']              = json_encode($this->input->post('color'));
+            $data['color']              = json_encode($option);
             $data['num_of_imgs']        = $num_of_imgs;
             $data['current_stock']      = $this->input->post('current_stock');
             $data['front_image']        = 0;
@@ -407,6 +452,7 @@ class Vendor extends CI_Controller
             $data['additional_fields']  = json_encode($additional_fields);
             $data['brand']              = $this->input->post('brand');
             $data['unit']               = $this->input->post('unit');
+            $option              = $this->input->post('option');
             $choice_titles              = $this->input->post('op_title');
             $choice_types               = $this->input->post('op_type');
             $choice_no                  = $this->input->post('op_no');
@@ -424,14 +470,36 @@ class Vendor extends CI_Controller
                 }
             }
             $data['options']            = json_encode($options);
-
             if ($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'no') {
-                if($this->crud_model->can_add_product($this->session->userdata('vendor_id'))){
+                
+                if(true){
                     $this->db->insert('product', $data);
                     $id = $this->db->insert_id();
+                    $this->crud_model->_set_variation($id);
                     $this->benchmark->mark_time();
-                    if(!demo()){
-                        $this->crud_model->file_up("images", "product", $id, 'multi');
+                    if($id && isset($_FILES['sneakerimg']['name']) && !empty($_FILES['sneakerimg']['name'])){
+                    
+                        $sneakerimg = $this->crud_model->file_up("sneakerimg", "product", 'sneakerimg_'.time());
+                        $this->db->where('product_id',$id)->update('product',array('sneakerimg'=>$sneakerimg));
+                        unset($sneakerimg);
+                        
+                        
+                    }
+                    
+                    if($id && isset($_FILES['sideimg']['name']) && !empty($_FILES['sideimg']['name'])){
+                    
+                        $sneakerimg = $this->crud_model->file_up("sideimg", "product", 'sideimg_'.time());
+                        $this->db->where('product_id',$id)->update('product',array('sideimg'=>$sneakerimg));
+                        unset($sneakerimg);
+                        
+                    }
+                    
+                    if($id && isset($_FILES['boxImg']['name']) && !empty($_FILES['boxImg']['name'])){
+                    
+                        $sneakerimg = $this->crud_model->file_up("boxImg", "product", 'boxImg_'.time());
+                        $this->db->where('product_id',$id)->update('product',array('boxImg'=>$sneakerimg));
+                        unset($sneakerimg);
+                        
                     }
                 } else {
                     echo 'already uploaded maximum product';
@@ -440,6 +508,7 @@ class Vendor extends CI_Controller
             elseif ($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'yes') {
                 $this->db->insert('product', $data);
                 $id = $this->db->insert_id();
+                $this->crud_model->_set_variation($id);
                 $this->benchmark->mark_time();
                 if(!demo()){
                     $this->crud_model->file_up("images", "product", $id, 'multi');
@@ -448,6 +517,7 @@ class Vendor extends CI_Controller
             $this->crud_model->set_category_data(0);
             recache();
         } else if ($para1 == "update") {
+            $option              = $this->input->post('option');
             $options = array();
             if ($_FILES["images"]['name'][0] == '') {
                 $num_of_imgs = 0;
@@ -471,7 +541,7 @@ class Vendor extends CI_Controller
             $data['tax_type']           = $this->input->post('tax_type');
             $data['shipping_cost']      = $this->input->post('shipping_cost');
             $data['tag']                = $this->input->post('tag');
-            $data['color']              = json_encode($this->input->post('color'));
+            $data['color']              = json_encode($option);
             $data['num_of_imgs']        = $num + $num_of_imgs;
             $data['front_image']        = 0;
             $additional_fields['name']  = json_encode($this->input->post('ad_field_names'));
@@ -501,13 +571,65 @@ class Vendor extends CI_Controller
 
             $this->db->where('product_id', $para2);
             $this->db->update('product', $data);
+            $this->crud_model->_set_variation($para2);
+            $id = $para2;
+            
+            if($id && isset($_FILES['sneakerimg']['name']) && !empty($_FILES['sneakerimg']['name'])){
+                    
+                        $sneakerimg = $this->crud_model->file_up("sneakerimg", "product", 'sneakerimg_'.time());
+                        $this->db->where('product_id',$id)->update('product',array('sneakerimg'=>$sneakerimg));
+                        unset($sneakerimg);
+                        
+                        
+                    }
+                    
+                    if($id && isset($_FILES['sideimg']['name']) && !empty($_FILES['sideimg']['name'])){
+                    
+                        $sneakerimg = $this->crud_model->file_up("sideimg", "product", 'sideimg_'.time());
+                        $this->db->where('product_id',$id)->update('product',array('sideimg'=>$sneakerimg));
+                        unset($sneakerimg);
+                        
+                    }
+                    
+                    if($id && isset($_FILES['boxImg']['name']) && !empty($_FILES['boxImg']['name'])){
+                    
+                        $sneakerimg = $this->crud_model->file_up("boxImg", "product", 'boxImg_'.time());
+                        $this->db->where('product_id',$id)->update('product',array('boxImg'=>$sneakerimg));
+                        unset($sneakerimg);
+                        
+                    }
             $this->crud_model->set_category_data(0);
             recache();
         } else if ($para1 == 'edit') {
+            
+            $sing = $this->db->where('product_id' , $para2)->get('product')->row();
+            $parenrt = $sing->parent_id;
+            $ret = $this->crud_model->_set_variation($parenrt);
+            $attrs = $this->db->where('product_id' , $para2)->get('attribute_to_values')->result_array();
+            // print_r($attrs);
+            //get stock
+            foreach($attrs as $k=> $v)
+            {
+                $an = $v['value'];
+                $attrs[$k]['price'] = 0;
+                        $attrs[$k]['quantity'] = 0;
+                $aid = $this->db->where('product_id' , $para2)->where('value' , $an)->get('attribute_to_values')->row();
+                if(isset($aid->id))
+                {
+                    //get stock query
+                    $st = $this->db->where('product' , $para2)->where('attribute' , $aid->id)->get('stock')->row();
+                    if($st)
+                    {
+                        $attrs[$k]['price'] = $st->rate;
+                        $attrs[$k]['quantity'] = $st->quantity;
+                    }
+                }
+            }
+            $page_data['sizes'] = $attrs;
             $page_data['product_data'] = $this->db->get_where('product', array(
                 'product_id' => $para2
             ))->result_array();
-            $this->load->view('back/vendor/product_edit', $page_data);
+            echo $this->load->view('back/vendor/product_edit', $page_data,true);
         } else if ($para1 == 'view') {
             $page_data['product_data'] = $this->db->get_where('product', array(
                 'product_id' => $para2
@@ -555,16 +677,73 @@ class Vendor extends CI_Controller
             $data       = array();
             foreach ($products as $row) {
 
+               $category = $row['category'];
+                $cat = $this->db->where('category_id',$category)->get('category')->row();
+                   $img = $this->crud_model->file_view('product',$row['parent_id'],'','','thumb','src','multi','one'); 
                 $res    = array(
-                             'image' => '',
-                             'title' => '',
-                             'current_stock' => '',
-                             'publish' => '',
-                             'featured' => '',
-                             'options' => ''
+                             'item'        => '',
+                             'getMainPrice'        => '',
+                             'sizes'        => '',
+                             'added_by'     => '',
+                             'current_stock'=> '',
+                             'deal'         => '',
+                             'publish'      => '',
+                             'featured'     => '',
+                             'options'      => ''
                           );
+                          //get min
+                          $child = array();
+                          $child[] = $row['product_id'];
+                          $min = '';
+                          $max = '';
+                          //get sizes
+                          $allsizes = $this->db->where('rate >',0)->where('product',$row['product_id'])->get('stock')->result_array();
+                          $size == '';
+                          foreach($allsizes as $k=> $v)
+                          {
+                              //get value
+                              $s = $this->db->where('product_id',$v['product'])->where('id',$v['attribute'])->get('attribute_to_values')->row();
+                              if(isset($s->value))
+                              {
+                                  $size = $size.'<div class="list_size">'.$s->value.'</div>';
+                              }
+                          }
+                          if($child)
+                          {
+                          $all_rates = $this->db->where('rate >',0)->where_in('product', $child)->get('stock')->result_array();
+                          $gmin = 0;
+                          $gmax = 0;
+                          foreach($all_rates as $k=> $v)
+                          {
+                              if($k == 0)
+                              {
+                                  $gmin = $v['rate'];
+                                  $gmax = $v['rate'];
+                              }
+                              if($gmin > $v['rate'])
+                              {
+                                  $gmin = $v['rate'];
+                              }
+                              if($gmax < $v['rate'])
+                              {
+                                  $gmax = $v['rate'];
+                              }
+                          }
+                          $min = $gmin;
+                          $max = $gmax;
+                          }
+                          $sku = $this->crud_model->get_type_name_by_id('product', $row['parent_id'], 'sku');
+                          $cat_name = "";
+                          
+                          if(isset($cat->category_name))
+                          {
+                          $cat_name = $cat->category_name;
+                          }
 
-                $res['image']  = '<img class="img-sm" style="height:auto !important; border:1px solid #ddd;padding:2px; border-radius:2px !important;" src="'.$this->crud_model->file_view('product',$row['product_id'],'','','thumb','src','multi','one').'"  />';
+                $res['item']  = '<img class="img-sm" style="height:auto !important; border:1px solid #ddd;padding:2px; border-radius:2px !important;float: left;" src="'.$img.'"  /><div class="next_div" ><small>'.$cat_name.'</small><p><b>'.$row['title'].'</b></p><span>'.$sku.'</span></div>';
+                $res['min_price']  = $min;
+                $res['max_price']  = $max;
+                $res['sizes']  = $size;
                 $res['title']  = $row['title'];
                 if($row['status'] == 'ok'){
                     $res['publish']  = '<input id="pub_'.$row['product_id'].'" class="sw1" type="checkbox" data-id="'.$row['product_id'].'" checked />';
@@ -583,23 +762,37 @@ class Vendor extends CI_Controller
                 }
 
                 //add html for action
-                $res['options'] = "  <a class=\"btn btn-info btn-xs btn-labeled fa fa-location-arrow\" data-toggle=\"tooltip\"
-                                onclick=\"ajax_set_full('view','".translate('view_product')."','".translate('successfully_viewed!')."','product_view','".$row['product_id']."');proceed('to_list');\" data-original-title=\"View\" data-container=\"body\">
+                // $res['options'] = "  <a class=\"btn btn-info btn-xs btn-labeled fa fa-location-arrow\" data-toggle=\"tooltip\"
+                //                 onclick=\"ajax_set_full('view','".translate('view_product')."','".translate('successfully_viewed!')."','product_view','".$row['product_id']."');proceed('to_list');\" data-original-title=\"View\" data-container=\"body\">
+                //                     ".translate('view')."
+                //             </a>
+                //             <a class=\"btn btn-purple btn-xs btn-labeled fa fa-tag\" data-toggle=\"tooltip\"
+                //                 onclick=\"ajax_modal('add_discount','".translate('view_discount')."','".translate('viewing_discount!')."','add_discount','".$row['product_id']."')\" data-original-title=\"Edit\" data-container=\"body\">
+                //                     ".translate('discount')."
+                //             </a>
+                //             <a class=\"btn btn-mint btn-xs btn-labeled fa fa-plus-square\" data-toggle=\"tooltip\"
+                //                 onclick=\"ajax_modal('add_stock','".translate('add_product_quantity')."','".translate('quantity_added!')."','stock_add','".$row['product_id']."')\" data-original-title=\"Edit\" data-container=\"body\">
+                //                     ".translate('stock')."
+                //             </a>
+                //             <a class=\"btn btn-dark btn-xs btn-labeled fa fa-minus-square\" data-toggle=\"tooltip\"
+                //                 onclick=\"ajax_modal('destroy_stock','".translate('reduce_product_quantity')."','".translate('quantity_reduced!')."','destroy_stock','".$row['product_id']."')\" data-original-title=\"Edit\" data-container=\"body\">
+                //                     ".translate('destroy')."
+                //             </a>
+
+                //             <a class=\"btn btn-success btn-xs btn-labeled fa fa-wrench\" data-toggle=\"tooltip\"
+                //                 onclick=\"ajax_set_full('edit','".translate('edit_product')."','".translate('successfully_edited!')."','product_edit','".$row['product_id']."');proceed('to_list');\" data-original-title=\"Edit\" data-container=\"body\">
+                //                     ".translate('edit')."
+                //             </a>
+
+                //             <a onclick=\"delete_confirm('".$row['product_id']."','".translate('really_want_to_delete_this?')."')\"
+                //                 class=\"btn btn-danger btn-xs btn-labeled fa fa-trash\" data-toggle=\"tooltip\" data-original-title=\"Delete\" data-container=\"body\">
+                //                     ".translate('delete')."
+                //             </a>";
+                $res['options'] = "
+                            <a href='".base_url('home/product_view/').$row['product_id']."'\"
+                                class=\"btn btn-info btn-xs btn-labeled fa fa-eye\" data-toggle=\"tooltip\" data-original-title=\"Delete\" data-container=\"body\"> 
                                     ".translate('view')."
                             </a>
-                            <a class=\"btn btn-purple btn-xs btn-labeled fa fa-tag\" data-toggle=\"tooltip\"
-                                onclick=\"ajax_modal('add_discount','".translate('view_discount')."','".translate('viewing_discount!')."','add_discount','".$row['product_id']."')\" data-original-title=\"Edit\" data-container=\"body\">
-                                    ".translate('discount')."
-                            </a>
-                            <a class=\"btn btn-mint btn-xs btn-labeled fa fa-plus-square\" data-toggle=\"tooltip\"
-                                onclick=\"ajax_modal('add_stock','".translate('add_product_quantity')."','".translate('quantity_added!')."','stock_add','".$row['product_id']."')\" data-original-title=\"Edit\" data-container=\"body\">
-                                    ".translate('stock')."
-                            </a>
-                            <a class=\"btn btn-dark btn-xs btn-labeled fa fa-minus-square\" data-toggle=\"tooltip\"
-                                onclick=\"ajax_modal('destroy_stock','".translate('reduce_product_quantity')."','".translate('quantity_reduced!')."','destroy_stock','".$row['product_id']."')\" data-original-title=\"Edit\" data-container=\"body\">
-                                    ".translate('destroy')."
-                            </a>
-
                             <a class=\"btn btn-success btn-xs btn-labeled fa fa-wrench\" data-toggle=\"tooltip\"
                                 onclick=\"ajax_set_full('edit','".translate('edit_product')."','".translate('successfully_edited!')."','product_edit','".$row['product_id']."');proceed('to_list');\" data-original-title=\"Edit\" data-container=\"body\">
                                     ".translate('edit')."
@@ -636,6 +829,7 @@ class Vendor extends CI_Controller
         } elseif ($para1 == 'add') {
             if ($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'no') {
                 if($this->crud_model->can_add_product($this->session->userdata('vendor_id'))){
+                    echo "Here";
                     $this->load->view('back/vendor/product_add');
                 } else {
                     $this->load->view('back/vendor/product_limit');
@@ -643,6 +837,124 @@ class Vendor extends CI_Controller
             }
             elseif($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'yes'){
                 $this->load->view('back/vendor/product_add');
+            }
+        } elseif ($para1 == 'srch') {
+            if(isset($_GET['srh']))
+            $para2 = $_GET['srh'];
+            $page = 0;
+            if(isset($_GET['page']))
+            $page = $_GET['page'];
+            if($para2)
+            {
+               $this->db->like('title', $para2);
+               $this->db->where('parent_id', 0);
+               $per_page = 16;
+               $obj= $this->db;
+               $res = $this->db->get('product')->result_array();
+            
+
+               $tot_pro = count($res);
+               
+            $tot_page = $tot_pro/$per_page;
+            $tpage = $tot_page;
+            $cpage = $page;
+            $start = $page * $per_page;
+            $obj->limit($per_page, $start);
+            $obj->like('title', $para2);
+$res = $obj->get('product')->result_array();
+foreach($res as $k=> $v)
+{
+    $category = $v['category'];
+    $cat = $this->db->where('category_id',$category)->get('category')->row();
+                   $vendors = $this->db->where('parent_id', $v['product_id']);
+$vendors = $this->db->get('product')->result_array();
+$price = $this->crud_model->getMainPrice($v['product_id']);
+    
+    ?>
+    <li onclick="select_product('<?= $v['product_id'] ?>')">
+                                                <div class="img_div" >
+                                                <img src="<?= $this->crud_model->file_view('product',$v['product_id'],'','','thumb','src','multi','one'); ?>"/>
+                                                </div>
+                                                <div class="det_div" >
+                                                    <h1><?= $v['title']; ?></h1>
+                                                    <p><?php 
+                                                    if($cat || $price)
+                                                    {
+                                                        if(!empty($cat->category_name))
+                                                        {
+                                                            echo 'Product category : '.$cat->category_name;
+                                                        }
+                                                        if(!empty($price))
+                                                        {
+                                                            if(!empty($cat->category_name))
+                                                            {
+                                                            echo '/Lowest Price from vendors : '.$price.'€';
+                                                            }
+                                                            else
+                                                            {
+                                                                echo 'Lowest Price from vendors : '.$price.'€';
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+                                                     </p>
+                                                    </div>
+                                            </li>
+    <?php
+}
+/*if($cpage <= $tpage)
+{
+    ?>
+    <li class="load_more" onclick="load_more('<?= $para2; ?>',<?= $cpage++; ?>')">Load More</li>
+    <?php
+}*/
+            }
+            else
+            {
+                if ($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'no') {
+                    if(true){
+                        $this->load->view('back/vendor/product_step1');
+                    } else {
+                        $this->load->view('back/vendor/product_limit');
+                    }
+                }
+                elseif($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'yes'){
+                    $this->load->view('back/vendor/product_step1');
+                }
+            }
+        } elseif ($para1 == 'add1') {
+            
+            if($para2)
+            {
+                $data = array();
+                $data['added_by']           = json_encode(array('type'=>'vendor','id'=>$this->session->userdata('vendor_id')));
+                $data['parent_id']           = $para2;
+                $already = $this->db->where($data)->get('product')->row();
+                if($already)
+                {
+                    
+                    echo "Already added";
+                }
+                $this->csv_size($para2);
+            
+                $page_data['product_data'] = $this->db->get_where('product', array(
+                'product_id' => $para2
+            ))->result_array();
+            
+            $this->load->view('back/vendor/product_add1', $page_data);
+            }
+            else
+            {
+                if ($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'no') {
+                    if(true){
+                        $this->load->view('back/vendor/product_step1');
+                    } else {
+                        $this->load->view('back/vendor/product_limit');
+                    }
+                }
+                elseif($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'yes'){
+                    $this->load->view('back/vendor/product_step1');
+                }
             }
         } elseif ($para1 == 'add_stock') {
             $data['product'] = $para2;
@@ -708,7 +1020,7 @@ class Vendor extends CI_Controller
             $this->db->update('product', $data);
             $this->crud_model->set_category_data(0);
             recache();
-        } else {
+        } else { 
             $page_data['page_name']   = "product";
             $this->db->where('added_by',json_encode(array('type'=>'vendor','id'=>$this->session->userdata('vendor_id'))));
             $page_data['all_product'] = $this->db->get('product')->result_array();
@@ -1455,21 +1767,18 @@ class Vendor extends CI_Controller
             redirect(base_url() . 'vendor');
         }
         if ($para1 == 'do_add') {
-            $data['type']         = 'add';
-            $data['category']     = $this->input->post('category');
+           $data['attribute']     = implode(',',$this->input->post('attribute'));
             $data['sub_category'] = $this->input->post('sub_category');
-            $data['product']      = $this->input->post('product');
+            $data['product']      = $para2;
             $data['quantity']     = $this->input->post('quantity');
             $data['rate']         = $this->input->post('rate');
             $data['total']        = $this->input->post('total');
             $data['reason_note']  = $this->input->post('reason_note');
-            $data['added_by']     = json_encode(array('type'=>'vendor','id'=>$this->session->userdata('vendor_id')));
             $data['datetime']     = time();
+            $data['added_by']     = json_encode(array('type'=>'vendor','id'=>$this->session->userdata('vendor_id')));
             $this->db->insert('stock', $data);
-            $prev_quantity          = $this->crud_model->get_type_name_by_id('product', $data['product'], 'current_stock');
-            $data1['current_stock'] = $prev_quantity + $data['quantity'];
-            $this->db->where('product_id', $data['product']);
-            $this->db->update('product', $data1);
+            print_r($data);
+            die($this->db->insert_id());
             recache();
         } else if ($para1 == 'do_destroy') {
             $data['type']         = 'destroy';
@@ -1482,6 +1791,7 @@ class Vendor extends CI_Controller
             $data['added_by']     = json_encode(array('type'=>'vendor','id'=>$this->session->userdata('vendor_id')));
             $data['datetime']     = time();
             $this->db->insert('stock', $data);
+            
             $prev_quantity = $this->crud_model->get_type_name_by_id('product', $data['product'], 'current_stock');
             $current       = $prev_quantity - $data['quantity'];
             if ($current <= 0) {
@@ -1507,10 +1817,40 @@ class Vendor extends CI_Controller
             $this->db->order_by('stock_id', 'desc');
             $this->db->where('added_by',json_encode(array('type'=>'vendor','id'=>$this->session->userdata('vendor_id'))));
             $page_data['all_stock'] = $this->db->get('stock')->result_array();
-            $this->load->view('back/vendor/stock_list', $page_data);
+            // print_r($page_data['all_stock']);
+            // die();
+            $this->load->view('back/admin/stock_list', $page_data);
         } elseif ($para1 == 'add') {
-            $this->load->view('back/vendor/stock_add');
-        } elseif ($para1 == 'destroy') {
+            $this->load->view('back/vendor/stock_add1');
+        }
+     elseif ($para1 == 'get_var') {
+            $this->crud_model->ip_data($para2);
+            $this->crud_model->_set_variation($para2);
+            //get main product 
+            $product = $this->db->where('product_id',$para2)->get('product')->row();
+            $mid = $product->parent_id;
+            $this->crud_model->_set_variation($mid);
+            
+            $attributes = $this->db->where('product_id',$mid)->get('attribute_to_products')->result_array();
+            $attr = array();
+            foreach($attributes as $k=> $v)
+            {
+                $aid = $v['attribute_id'];
+                $row = $this->db->where('id',$aid)->get('attribute')->row();
+                
+                if($row)
+                {
+                    //get options
+                    $options = $this->db->where('attr_id',$aid)->where('product_id',$para2)->get('attribute_to_values')->result_array();
+                    $attr[] = array(
+                        'name'=> $row->name,
+                        'options'=> $options
+                    );
+                }
+            }
+            $this->load->view('back/vendor/stock_add',array('attribute'=>$attr,'pid'=> $para2));
+        }
+        elseif ($para1 == 'destroy') {
             $this->load->view('back/vendor/stock_destroy');
         } elseif ($para1 == 'sub_by_cat') {
             $subcat_by_vendor= $this->crud_model->vendor_sub_categories($this->session->userdata('vendor_id'),$para2);
@@ -2525,6 +2865,7 @@ class Vendor extends CI_Controller
                 'lat_lang' => $this->input->post('lat_lang')
             ));
         } else {
+            
             $page_data['page_name'] = "manage_vendor";
             $this->load->view('back/index', $page_data);
         }

@@ -1,11 +1,12 @@
+
 <script>
 	var base_url = "<?php echo base_url(); ?>"; 
 	var product_added = "<?php echo translate('product_added_to_cart'); ?>";
+	var vendorerror = "<?php echo translate('vendor_did_not_set_required_data'); ?>";
 	var added_to_cart = "<?php echo translate('added_to_cart'); ?>";
 	var quantity_exceeds = "<?php echo translate('product_quantity_exceed_availability!'); ?>";
 	var product_already = "<?php echo translate('product_already_added_to_cart!'); ?>";
 	var wishlist_add = "<?php echo translate('product_added_to_wishlist'); ?>";
-	var wishlist_add1 = "<?php echo translate('wished'); ?>";
 	var wishlist_adding = "<?php echo translate('wishing..'); ?>";
 	var wishlist_remove = "<?php echo translate('product_removed_from_wishlist'); ?>";
 	var compare_add = "<?php echo translate('product_added_to_compared'); ?>";
@@ -176,45 +177,97 @@
 
 	function reload_header_cart(){
 	    $.getJSON(base_url+"home/cart/whole_list", function(result){
+			
 			var total = 0;
 			var whole_list = '';
 			var count = Object.keys(result).length;
+			console.log(result);
 	        $.each(result, function(i, field){
-				total += Number(field['subtotal'])*exchange;		
+	            console.log(field);
+				total += Number(field['subtotal']);		
 
       			whole_list +=   "<div class=\"media\" data-rowid=\""+field['rowid']+"\">"
 						        +"    <a class=\"pull-left\" href=\""+base_url+'home/product_view/'+field['id']+"\"><img class=\"media-object item-image\" src=\""+field['image']+"\" alt=\"\"></a>"
-						        +"    <p class=\"pull-right item-price\">"+currency+(Number(field['price'])*exchange*Number(field['qty'])).toFixed(2)+" <span class=\"remove_one\"><i class=\"fa fa-close\"></i></span></p>"
+						        +"    <p class=\"pull-right item-price\">"+currency+(field['subtotal'])+" <span class=\"remove_one\"><i class=\"fa fa-close\"></i></span></p>"
 						        +"    <div class=\"media-body\">"
-						        +"        <h4 class=\"media-heading item-title\"><a href=\"#\">"+field['qty']+" X "+field['name']+"</a></h4>"
+						        +"        <h4 class=\"media-heading item-title\"><a href=\"#\">"+field['qty']+" X "+field['name']+"</a></h4><br>Vendor : "+field['vendor_name']+"</div>";
 						        +"    </div>"
 						        +"</div>";
-				/*
-				whole_list_o += "<li class='shopping-cart__item'>"
-							+"	  <div class=\"shopping-cart__item__image pull-left\"><a href=\""+field['link']+"\">"
-							+"			<img src=\""+field['image']+"\" height=\"60px\" width=\"100px\ alt=\"\"/></a></div>"
-							+"	  <div class=\"shopping-cart__item__info\">"
-							+"		<div class=\"shopping-cart__item__info__title\">"
-							+"		  <h2 class=\"text-uppercase\"><a href=\"\">"+field['name']+"</a></h2>"
-							+"		</div>"
-							+"		<div class=\"shopping-cart__item__info__price\">"+currency+field['price']+"</div>"
-							+"		<div class=\"shopping-cart__item__info__qty\">Qty:"+field['qty']+"</div>"
-							+"		<div class=\"shopping-cart__item__info__delete\"><a href=\"#\"></a></div>"
-							+"	  </div>"
-							+"	</li>"
-				*/
+				
 				
 	        });
+	       // alert("count"+count);
 			$('.cart_num').html(count);
 			$('.header__cart__indicator').html(currency+total.toFixed(2));
 			$('.shopping-cart__top').html('Your Cart('+count+')');
 			$('.top_carted_list').html(whole_list);
 			$('.shopping-cart__total').html(currency+total.toFixed(2));	
+			
 	    });
+	}
+	function select_vendor(pid,vid,stock,price){
+	    $('.cart_div').show();
+	    $('.vlist').each(function(){
+	        $(this).removeClass('size_active');
+	    });
+	    var mid = '#vendor'+vid;
+	    
+	    $('#product_id').val(pid);
+	    if(price)
+	    {
+	        $('.product_price').text('<?= currency(); ?>'+price);
+	    }
+	    $('#stock_id').val(stock);
+	    $(mid).addClass('size_active');
+	    
+	}
+	$('#variation_form select').change(function(){
+	    alert("change");
+	   update_var();
+	});
+	$('.select-selected').click(function(){
+	    update_var();
+	});
+	function update_var()
+	{
+	    $('#product_id').val('');
+	    var attr = '';
+	    $(".attrs").each(function() {
+	        var label = '.label_'+$(this).val();
+	       // console.log($(this).prop("checked"));
+	        if($(this).prop("checked") == true)
+	        {
+	            console.log(label+" active");
+	            $(label).addClass("size_active");
+	        }
+	        else
+	        {
+	            $(label).removeClass("size_active");
+	        }
+   attr = attr+$(this).val()+","; 
+});
+console.log(attr);
+//var datastring = "attribute="+attr;
+	   var datastring = $("#variation_form").serialize();
+	   console.log(datastring);
+	   $('.vendorscroll').html('Loading please wait');
+$.ajax({
+    type: "GET",
+    url: "<?= base_url('home/variation') ?>",
+    data: datastring,
+    success: function(data) {
+        // alert(data);
+        $('.vendorscroll').html(data);
+    },
+    error: function() {
+    }
+});
+
 	}
 
 
 	$(document).ready(function () {
+	    update_var();
 		$.ajax({url: '<?php echo base_url(); ?>home/surfer_info'});
 	});
 
@@ -345,7 +398,13 @@
 		var pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i);
 		return pattern.test(emailAddress);
 	}
-	
+	function submitForm(e) {
+var keyCode = e.keyCode ? e.keyCode : e.which;
+if (keyCode == 13){
+    $('#srch_form').submit();
+    return false;    //<---- Add this line
+}
+}
 	$(document).ready(function(){ 
 	
 		product_listing_defaults();
@@ -539,6 +598,86 @@
 		});
 	}
 	
+	function detail_cart(e){
+		var product = $('#product_id').val();
+		if(!product)
+		{
+		    alert("Please select vendor");
+		    return 0;
+		}
+		e = e || window.event;
+		e = e.target || e.srcElement;
+		var elm_type = $(e).data('type');
+		var button = $(e);
+		var alread = button.html();
+		quantity = $('#cart_quantity').val();
+		console.log($('#cart_quantity'));
+		$('#cart_quantity_new').val(quantity);
+		if(button.is("i")){
+			var alread_classes = button.attr('class');	
+		}
+		var type = 'pp';
+		
+		if($('#pnopoi').length){
+			type = 'pp';
+			var form = $('#add_cat_form');
+			var formdata = false;
+			if (window.FormData){
+				formdata = new FormData(form[0]);
+			}
+			var option = formdata ? formdata : form.serialize();
+		} else {
+		    $('#cart_form_singl input[name=qty]').val(quantity);
+			type = 'other';
+			var form = $('#cart_form_singl');
+			var formdata = false;
+			if (window.FormData){
+				formdata = new FormData(form[0]);
+			}
+			var option = formdata ? formdata : form.serialize();
+		}
+		$.ajax({
+			url 		: base_url+'home/cart/add/'+product+'/'+type+"?stock="+$('#stock_id').val(),
+			type 		: 'POST', // form submit method get/post
+			dataType 	: 'html', // request type html/json/xml
+			data 		: option, // serialize form data 
+			cache       : false,
+			contentType : false,
+			processData : false,
+			beforeSend: function() {
+				if(button.is("i")){
+					button.attr('class','fa fa-spinner fa-spin fa-fw');	
+				} else {
+					button.find('i').attr('class','fa fa-spinner fa-spin fa-fw');	
+				}			
+			},
+			success: function(data) {
+				$j('.ajax-to-cart').removeClass('btn--wait');
+				if(data == 'added'){
+					reload_header_cart();
+					notify(product_added,'success','bottom','right');
+					//sound('successful_cart');
+				} else if (data == 'shortage'){
+					notify(quantity_exceeds,'warning','bottom','right');
+					//sound('cart_shortage');
+				} else if (data == 'error'){
+					notify(vendorerror,'warning','bottom','right');
+					//sound('cart_shortage');
+				} else if (data == 'already'){
+					notify(product_already,'warning','bottom','right');
+					//sound('already_cart');
+				}
+				if(button.is("i")){
+					button.attr('class',alread_classes);	
+				} else {
+					button.html(alread);	
+				}	
+			},
+			error: function(e) {
+				console.log(e)
+			}
+		});
+	}
 	function to_cart(id,e){	
 		var product = id;		
 		e = e || window.event;

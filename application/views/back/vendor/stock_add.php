@@ -1,6 +1,6 @@
 <div>
     <?php
-		echo form_open(base_url() . 'vendor/stock/do_add/', array(
+		echo form_open(base_url() . 'vendor/stock/do_add/'.$pid, array(
 			'class' => 'form-horizontal',
 			'method' => 'post',
 			'id' => 'stock_add',
@@ -8,30 +8,30 @@
 		));
 	?>
         <div class="panel-body">
-            <div class="form-group">
-                <label class="col-sm-4 control-label" for="demo-hor-1"><?php echo translate('category');?></label>
+            <?php
+            foreach($attribute as $k => $v)
+            {
+                ?>
+                <div class="form-group">
+                <label class="col-sm-4 control-label" for="demo-hor-1"><?php echo translate($v['name']);?></label>
                 <div class="col-sm-6">
-                    <select name="category" class="demo-chosen-select required" onChange="get_cat(this.value);">
-                        <option value=""><?php echo translate('select_category'); ?></option>
+                    <select name="attribute[<?= $v['id']; ?>]" >
+                        
+                        <option><?php echo translate($v['name']);?></option>
                     <?php
-                        $cat_by_vendor= $this->crud_model->vendor_categories($this->session->userdata('vendor_id'));
-                        foreach ($cat_by_vendor as $row) {
-                            if($this->crud_model->get_type_name_by_id('category',$row,'digital')== NULL){
-                    ?>
-                        <option value="<?php echo $row; ?>"><?php echo $this->crud_model->get_type_name_by_id('category',$row,'category_name'); ?></option>
-                    <?php
-                            }
-                        }
+                    foreach($v['options'] as $ok =>$ov)
+                    {
+                        ?>
+                        <option value="<?= $ov['id'];?>" ><?= $ov['value'];?></option>
+                        <?php
+                    }
                     ?>
                     </select>
                 </div>
             </div>
-
-            <div class="form-group" id="sub" style="display:none;">
-                <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('sub_category');?></label>
-                <div class="col-sm-6" id="sub_cat">
-                </div>
-            </div>
+                <?php
+            }
+            ?>
 
             <div class="form-group" id="pro" style="display:none;">
                 <label class="col-sm-4 control-label" for="demo-hor-3"><?php echo translate('product');?></label>
@@ -53,14 +53,14 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="d-none hidden form-group">
                 <label class="col-sm-4 control-label" for="demo-hor-6"><?php echo translate('total');?></label>
                 <div class="col-sm-6">
                     <input type="number" name="total" id="total" class="form-control totals">
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group d-none hidden">
                 <label class="col-sm-4 control-label" for="demo-hor-7"><?php echo translate('reason_note');?></label>
                 <div class="col-sm-6">
                     <textarea name="reason_note" class="form-control" rows="3"></textarea>
@@ -83,25 +83,23 @@
         $('#rate').val($('#reserve').html());
         total();
     }
-
     function get_cat(id){
         $('#sub').hide('slow');
 		$('#pro').hide('slow');
-        ajax_load(base_url+'vendor/stock/sub_by_cat/'+id,'sub_cat','other');
+        ajax_load(base_url+'admin/stock/sub_by_cat/'+id,'sub_cat','other');
         $('#sub').show('slow');
         total();
     }
 	function get_product(id){
         $('#pro').hide('slow');
-        ajax_load(base_url+'vendor/stock/pro_by_sub/'+id,'product','other');
+        ajax_load(base_url+'admin/stock/pro_by_sub/'+id,'product','other');
         $('#pro').show('slow');
         total();
     }
     
     function get_pro_res(id){
-        ajax_load(base_url+'vendor/product/pur_by_pro/'+id,'reserve','other');
+        ajax_load(base_url+'admin/product/pur_by_pro/'+id,'reserve','other');
     }
-
     function total(){
         var total = Number($('#quantity').val())*Number($('#rate').val());
         $('#total').val(total);

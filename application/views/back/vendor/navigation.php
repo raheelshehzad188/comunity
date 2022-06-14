@@ -92,12 +92,6 @@ $digital_check = $this->crud_model->get_type_name_by_id('general_settings','69',
                                         <?php
                                             } if($this->crud_model->vendor_permission('stock')){
                                         ?>
-                                            <li <?php if($page_name=="stock"){?> class="active-link" <?php } ?> >
-                                                <a href="<?php echo base_url(); ?>vendor/stock">
-                                                    <i class="fa fa-circle fs_i"></i>
-                                                        <?php echo translate('product_stock');?>
-                                                </a>
-                                            </li>
                                         <?php
                                             }
                                         ?>
@@ -160,15 +154,6 @@ $digital_check = $this->crud_model->get_type_name_by_id('general_settings','69',
                                                 <?php echo translate('all_products'); ?>
                                             </a>
                                         </li>
-									<?php
-										} if($this->crud_model->vendor_permission('stock')){
-									?>
-										<li <?php if($page_name=="stock"){?> class="active-link" <?php } ?> >
-											<a href="<?php echo base_url(); ?>vendor/stock">
-												<i class="fa fa-circle fs_i"></i>
-													<?php echo translate('product_stock');?>
-											</a>
-										</li>
 									<?php
 										}
 									?>
@@ -233,14 +218,6 @@ $digital_check = $this->crud_model->get_type_name_by_id('general_settings','69',
                                 if ($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'no') {
 						?>
                         <!--Menu list item-->
-                        <li <?php if($page_name=="upgrade_history"){?> class="active-link" <?php } ?>>
-                            <a href="<?php echo base_url(); ?>vendor/upgrade_history/">
-                                <i class="fa fa-usd"></i>
-                                <span class="menu-title">
-                                    <?php echo translate('package_upgrade_history');?>
-                                </span>
-                            </a>
-                        </li>
                         <?php
 							    }
                             }
@@ -250,95 +227,18 @@ $digital_check = $this->crud_model->get_type_name_by_id('general_settings','69',
                             if($this->crud_model->vendor_permission('coupon')){
                         ?>
                         <!--Menu list item-->
-                        <li <?php if($page_name=="coupon"){?> class="active-link" <?php } ?> >
-                            <a href="<?php echo base_url(); ?>vendor/coupon/">
-                                <i class="fa fa-tags"></i>
-                                    <span class="menu-title">
-                                        <?php echo translate('discount_coupon');?>
-                                    </span>
-                            </a>
-                        </li>
                         <!--Menu list item-->
                         <?php
                             }
                         ?>
-
-                        <li <?php if($page_name=="ticket"){?> class="active-link" <?php } ?>>
-                            <a href="<?php echo base_url(); ?>vendor/ticket/">
-                                <i class="fa fa-life-ring"></i>
-                                    <span class="menu-title">
-                                		<?php echo translate('ticket');?>
-                                    </span>
-                            </a>
-                        </li>
 
                         <?php
 							if($this->crud_model->vendor_permission('report')){
 						?>
                         <!--Menu list item-->
-                        <li <?php if($page_name=="report" ||
-                                        $page_name=="report_stock" ||
-                                            $page_name=="report_wish" ){?>
-                                                     class="active-sub"
-                                                        <?php } ?>>
-                            <a href="#">
-                                <i class="fa fa-file-text"></i>
-                                    <span class="menu-title">
-                                		<?php echo translate('reports');?>
-                                    </span>
-                                		<i class="fa arrow"></i>
-                            </a>
-
-                            <!--REPORT-------------------->
-                            <ul class="collapse <?php if($page_name=="report" ||
-                                                            $page_name=="report_stock" ||
-                                                                $page_name=="report_wish" ){?>
-                                                                             in
-                                                                                <?php } ?> ">
-                                <li <?php if($page_name=="report"){?> class="active-link" <?php } ?> >
-                                	<a href="<?php echo base_url(); ?>vendor/report/">
-                                    	<i class="fa fa-circle fs_i"></i>
-                                            <?php echo translate('product_compare');?>
-                                    </a>
-                                </li>
-                                <?php
-                                if($physical_check=='ok'){
-								?>
-                                <li <?php if($page_name=="report_stock"){?> class="active-link" <?php } ?> >
-                                    <a href="<?php echo base_url(); ?>vendor/report_stock/">
-                                    	<i class="fa fa-circle fs_i"></i>
-                                        	<?php echo translate('product_stock');?>
-                                    </a>
-                                </li>
-                                <?php
-								}
-								?>
-                                <li <?php if($page_name=="report_wish"){?> class="active-link" <?php } ?> >
-                                    <a href="<?php echo base_url(); ?>vendor/report_wish/">
-                                    	<i class="fa fa-circle fs_i"></i>
-                                        	<?php echo translate('product_wishes');?>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                         <?php
 							}
 						?>
-
-                        <?php
-                            if($this->crud_model->vendor_permission('slides')){
-                        ?>
-                        <li <?php if($page_name=="slides"){?> class="active-link" <?php } ?> >
-                            <a href="<?php echo base_url(); ?>vendor/slides/">
-                                <i class="fa fa-sliders"></i>
-                               	<span class="menu-title">
-									<?php echo translate('slider_settings');?>
-                                </span>
-                            </a>
-                        </li>
-                        <?php
-                            }
-                        ?>
                         <?php
                             if($this->crud_model->vendor_permission('site_settings')){
                         ?>
@@ -359,14 +259,6 @@ $digital_check = $this->crud_model->get_type_name_by_id('general_settings','69',
                         <?php
                             if($this->crud_model->vendor_permission('business_settings')){
                         ?>
-                        <li <?php if($page_name=="business_settings"){?> class="active-link" <?php } ?> >
-                            <a href="<?php echo base_url(); ?>vendor/business_settings/">
-                                <i class="fa fa-dollar"></i>
-                                <span class="menu-title">
-                                    <?php echo translate('payment_settings');?>
-                                </span>
-                            </a>
-                        </li>
                         <?php
                             }
                         ?>
@@ -375,14 +267,6 @@ $digital_check = $this->crud_model->get_type_name_by_id('general_settings','69',
                             if($this->crud_model->vendor_permission('business_settings')){
                                 if ($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'no') {
                         ?>
-                        <li <?php if($page_name=="package"){?> class="active-link" <?php } ?> >
-                            <a href="<?php echo base_url(); ?>vendor/package/">
-                                <i class="fa fa-gift"></i>
-                                <span class="menu-title">
-                                    <?php echo translate('upgrade_package');?>
-                                </span>
-                            </a>
-                        </li>
                         <?php
                                 }
                             }

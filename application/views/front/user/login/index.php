@@ -23,6 +23,12 @@
                             	<?php echo translate('not_a_member_yet_?');?>
                                 <a href="<?php echo base_url(); ?>home/login_set/registration">
                                     <?php echo translate('sign_up_now!');?>
+                                    
+                                </a>
+                                OR
+                                <a href="<?php echo base_url(); ?>vendor">
+                                    <?php echo translate('login_as_vendor!');?>
+                                    
                                 </a>
                             </div>
                         </div>
