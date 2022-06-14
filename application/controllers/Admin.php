@@ -3654,12 +3654,14 @@ class Admin extends CI_Controller
             }
             else
             {
+
                 $query = $this->db->get_where('admin', array(
                     'email' => $this->input->post('email')
                 ));
                 if ($query->num_rows() > 0) {
                     $admin_id         = $query->row()->admin_id;
                     $password         = substr(hash('sha512', rand()), 0, 12);
+                    
                     $data['password'] = sha1($password);
                     $this->db->where('admin_id', $admin_id);
                     $this->db->update('admin', $data);
@@ -3684,7 +3686,6 @@ class Admin extends CI_Controller
             }
             else
             {
-                
                 $login_data = $this->db->get_where('admin', array(
                     'email' => $this->input->post('email'),
                     'password' => sha1($this->input->post('password'))
