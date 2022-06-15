@@ -16,6 +16,16 @@
                     	placeholder="<?php echo translate('brand_name'); ?>" class="form-control required">
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="demo-hor-1"><?php echo translate('fa_icon');?></label>
+                <div class="col-sm-6">
+                    <input type="text" name="fa_icon" id="demo-hor-1" 
+                        placeholder="<?php echo translate('fontawsome_icon'); ?>" class="form-control required">
+                        <div>
+                        <span><a href="https://fontawesome.com/v4/icons/">Click here</a> to find icon code</span>
+                    </div>
+                </div>
+            </div>
             
             <div class="form-group">
                 <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('brand_logo');?></label>

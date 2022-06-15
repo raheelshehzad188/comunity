@@ -48,7 +48,7 @@
 
                <div class="elementor-image">
 
-				<img width="275" height="67" src="https://adeeloffical.com/hype-plug/uploads/logo_image/logo-w.png" class="attachment-full size-full" alt="" >											
+				<img width="275" height="67" src="<?php echo base_url(); ?>uploads/logo_image/logo_<?php echo $home_top_logo; ?>.png" class="attachment-full size-full" alt="" >											
 
 				</div>
 

@@ -617,6 +617,7 @@ class Admin extends CI_Controller
         if ($para1 == 'do_add') {
             $type                = 'brand';
             $data['name']        = $this->input->post('name');
+            $data['fa_icon']        = $this->input->post('fa_icon');
             $this->db->insert('brand', $data);
             $id = $this->db->insert_id();
 
@@ -632,6 +633,7 @@ class Admin extends CI_Controller
             recache();
         } elseif ($para1 == "update") {
             $data['name']        = $this->input->post('name');
+            $data['fa_icon']        = $this->input->post('fa_icon');
             $this->db->where('brand_id', $para2);
             $this->db->update('brand', $data);
             if($_FILES['img']['name']!== ''){

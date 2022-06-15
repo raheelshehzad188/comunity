@@ -28,7 +28,7 @@
 
                         ?>
 
-                        <a href="https://marketplace.hypeplug.paris">
+                        <a href="<?= base_url() ?>">
 
                             <img src="<?php echo base_url(); ?>uploads/logo_image/logo_<?php echo $home_top_logo; ?>.png" alt="SuperShop"/>
 

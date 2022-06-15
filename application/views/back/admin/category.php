@@ -1,6 +1,6 @@
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow" ><?php echo translate('manage_categories_(_physical_product_)');?></h1>
+		<h1 class="page-header text-overflow" ><?php echo translate('manage_categories');?></h1>
 	</div>
 	<div class="tab-base">
 		<div class="panel">

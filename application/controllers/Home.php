@@ -84,15 +84,13 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
     {
         //$this->output->enable_profiler(TRUE);
         //$page_data['min'] = $this->get_range_lvl('product_id !=', '', "min");
-        //$page_data['max'] = $this->get_range_lvl('product_id !=', '', "max");
+        $page_data['brands'] = $this->db->get('brand')->result_array();
         $this->get_ranger_val();
         $home_style = $this->db->get_where('ui_settings', array('type' => 'home_page_style'))->row()->value;
 
         if (demo()) {
             $home_style = isset($_REQUEST['requested_homepage']) ? $_REQUEST['requested_homepage'] : $this->db->get_where('ui_settings', array('type' => 'home_page_style'))->row()->value;
         }
-
-
         $page_data['page_name'] = "home/home" . $home_style;
         $page_data['asset_page'] = "home";
         $page_data['page_title'] = translate('home');
