@@ -25,6 +25,7 @@
                         <input type="text" value="<?php echo $row['fa_icon'];?>" 
                             name="fa_icon" id="demo-hor-1" class="form-control required">
                     </div>
+                    <br>
                     <span><a href="https://fontawesome.com/v4/icons/">Click here</a> to find icon code</span>
                 </div>
                 <div class="form-group">

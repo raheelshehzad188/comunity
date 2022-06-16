@@ -19,7 +19,7 @@
 
                 
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="logo">
 
                         <?php
@@ -39,7 +39,7 @@
 
                 </div>
                 
-                <div class="col-md-9">
+                <div class="col-sm-6">
                     <div class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 
                                 <i class="fa fa-bars"></i>
@@ -236,9 +236,17 @@
                                   <?php
                               }
                               ?>
-                                <div class="header-cart">
+                                
+                            </nav>
 
-                                        <div class="cart-wrapper">
+                        </div>
+                      </div>
+                </div>
+
+                <div class="col-sm-4 add_listing">
+                    <ul>
+                        <!-- <li>
+                            <div class="cart-wrapper">
                                             
                                             <a href="#" class="btn btn-theme-transparent" data-toggle="modal" data-target="#popup-cart">
 
@@ -257,19 +265,20 @@
 
                                             </a>
 
-                                            <!-- Mobile menu toggle button -->
 
                                             <a href="#" class="menu-toggle btn btn-theme-transparent"></a>
 
-                                            <!-- /Mobile menu toggle button -->
 
                                         </div>
+                        </li> -->
+                        <li>
+                            <a href="#" class="add_listing_btn">Add Listing <i class="fa fa-plus"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="user_info"> <i class="fa fa-user"></i></a>
+                        </li>
 
-                                    </div>
-                            </nav>
-
-                        </div>
-                      </div>
+                    </ul>
                 </div>
                <!-- <div class="flex-col-6 flex-col-lg-auto text-right">
 
