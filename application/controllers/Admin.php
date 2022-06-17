@@ -676,6 +676,83 @@ class Admin extends CI_Controller
             $this->load->view('back/index', $page_data);
         }
     }
+//raheel add busniuss package logic
+    function bpkg($para1 = '', $para2 = '')
+    {
+        if (!$this->crud_model->admin_permission('brand')) {
+            redirect(base_url() . 'admin');
+        }
+        if ($this->crud_model->get_type_name_by_id('general_settings','68','value') !== 'ok') {
+            redirect(base_url() . 'admin');
+        }
+        if ($para1 == 'do_add') {
+            $type                = 'bpkg';
+            $data['name']        = $this->input->post('name');
+            $this->db->insert('bpkg', $data);
+            $id = $this->db->insert_id();
+
+            $path = $_FILES['img']['name'];
+            $ext = pathinfo($path, PATHINFO_EXTENSION);
+            $data_banner['img']         = demo() ? '' : $id.'.'.$ext;
+            if(!demo()){
+                $this->crud_model->file_up("img", "bpkg", $id, '', 'no', '.'.$ext);
+            }
+            $this->db->where('id', $id);
+            $this->db->update('bpkg', $data_banner);
+            $this->crud_model->set_category_data(0);
+            recache();
+        } elseif ($para1 == "update") {
+            $data['name']        = $this->input->post('name');
+            $data['fa_icon']        = $this->input->post('fa_icon');
+            $this->db->where('brand_id', $para2);
+            $this->db->update('brand', $data);
+            if($_FILES['img']['name']!== ''){
+                $path = $_FILES['img']['name'];
+                $ext = pathinfo($path, PATHINFO_EXTENSION);
+                $data_logo['logo']       = 'brand_'.$para2.'.'.$ext;
+                $this->crud_model->file_up("img", "brand", $para2, '', 'no', '.'.$ext);
+                $this->db->where('brand_id', $para2);
+                $this->db->update('brand', $data_logo);
+            }
+            $this->crud_model->set_category_data(0);
+            recache();
+        } elseif ($para1 == 'delete') {
+
+            if(!demo()){
+
+                if($this->crud_model->get_type_name_by_id('bpkg',$para2,'img'))
+                {
+                    unlink("uploads/bpkg_image/" .$this->crud_model->get_type_name_by_id('bpkg',$para2,'img'));
+                }
+
+                $this->db->where('id', $para2);
+                $this->db->delete('bpkg');
+                $this->crud_model->set_category_data(0);
+                recache();
+            }
+        } elseif ($para1 == 'multi_delete') {
+            if(!demo()){
+                $ids = explode('-', $param2);
+                $this->crud_model->multi_delete('brand', $ids);
+            }
+        } else if ($para1 == 'edit') {
+            $page_data['brand_data'] = $this->db->get_where('brand', array(
+                'brand_id' => $para2
+            ))->result_array();
+            $this->load->view('back/admin/brand_edit', $page_data);
+        } elseif ($para1 == 'list') {
+            $this->db->order_by('id', 'desc');
+            $page_data['all_brands'] = $this->db->get('bpkg')->result_array();
+            $this->load->view('back/admin/bpkg_list', $page_data);
+        } elseif ($para1 == 'add') {
+            $this->load->view('back/admin/bpkg_add');
+        } else {
+
+            $page_data['page_name']  = "bpkg";
+            $page_data['all_brands'] = $this->db->get('bpkg')->result_array();
+            $this->load->view('back/index', $page_data);
+        }
+    }
 
     /*Product coupon add, edit, view, delete */
     function coupon($para1 = '', $para2 = '', $para3 = '')

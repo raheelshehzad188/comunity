@@ -272,10 +272,20 @@ foreach($vendors as $kk=> $vv)
     /////////GET NAME BY TABLE NAME AND ID/////////////
     function get_type_name_by_id($type, $type_id = '', $field = 'name')
     {
+
         if ($type_id != '') {
+            if($type == 'bpkg')
+        {
+            $l = $this->db->get_where($type, array(
+                'id' => $type_id
+            ));
+        }
+        else
+        {
             $l = $this->db->get_where($type, array(
                 $type . '_id' => $type_id
             ));
+        }
             $n = $l->num_rows();
             if ($n > 0) {
                 return $l->row()->$field;
