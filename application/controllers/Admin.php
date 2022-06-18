@@ -688,31 +688,38 @@ class Admin extends CI_Controller
         if ($para1 == 'do_add') {
             $type                = 'bpkg';
             $data['name']        = $this->input->post('name');
+            $data['price']        = $this->input->post('price');
+            $data['ads']        = $this->input->post('ads');
             $this->db->insert('bpkg', $data);
             $id = $this->db->insert_id();
 
-            $path = $_FILES['img']['name'];
+            $path = $_FILES['img']['ads'];
             $ext = pathinfo($path, PATHINFO_EXTENSION);
             $data_banner['img']         = demo() ? '' : $id.'.'.$ext;
             if(!demo()){
                 $this->crud_model->file_up("img", "bpkg", $id, '', 'no', '.'.$ext);
             }
             $this->db->where('id', $id);
+            if($path)
             $this->db->update('bpkg', $data_banner);
             $this->crud_model->set_category_data(0);
             recache();
         } elseif ($para1 == "update") {
             $data['name']        = $this->input->post('name');
-            $data['fa_icon']        = $this->input->post('fa_icon');
-            $this->db->where('brand_id', $para2);
-            $this->db->update('brand', $data);
+            $data['price']        = $this->input->post('price');
+            $data['ads']        = $this->input->post('ads');
+            $this->db->where('id', $para2);
+            $this->db->update('bpkg', $data);
             if($_FILES['img']['name']!== ''){
                 $path = $_FILES['img']['name'];
+
                 $ext = pathinfo($path, PATHINFO_EXTENSION);
-                $data_logo['logo']       = 'brand_'.$para2.'.'.$ext;
-                $this->crud_model->file_up("img", "brand", $para2, '', 'no', '.'.$ext);
-                $this->db->where('brand_id', $para2);
-                $this->db->update('brand', $data_logo);
+
+                $data_logo['img']       = 'bpkg_'.$para2.'.'.$ext;
+                $this->crud_model->file_up("img", "bpkg", $para2, '', 'no', '.'.$ext);
+                $this->db->where('id', $para2);
+                if($path)
+                $this->db->update('bpkg', $data_logo);
             }
             $this->crud_model->set_category_data(0);
             recache();
@@ -733,13 +740,14 @@ class Admin extends CI_Controller
         } elseif ($para1 == 'multi_delete') {
             if(!demo()){
                 $ids = explode('-', $param2);
-                $this->crud_model->multi_delete('brand', $ids);
+                $this->crud_model->multi_delete('bpkg', $ids);
             }
         } else if ($para1 == 'edit') {
-            $page_data['brand_data'] = $this->db->get_where('brand', array(
-                'brand_id' => $para2
+
+            $page_data['data'] = $this->db->get_where('bpkg', array(
+                'id' => $para2
             ))->result_array();
-            $this->load->view('back/admin/brand_edit', $page_data);
+            $this->load->view('back/admin/bpkg_edit', $page_data);
         } elseif ($para1 == 'list') {
             $this->db->order_by('id', 'desc');
             $page_data['all_brands'] = $this->db->get('bpkg')->result_array();

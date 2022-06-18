@@ -4,8 +4,9 @@
 			<thead>
 				<tr>
 					<th><?php echo translate('no');?></th>
-					<th><?php echo translate('logo');?></th>
 					<th><?php echo translate('name');?></th>
+					<th><?php echo translate('price');?></th>
+					<th><?php echo translate('ads');?></th>
 					<th class="text-right"><?php echo translate('options');?></th>
 				</tr>
 			</thead>
@@ -18,20 +19,9 @@
 			?>
                 <tr>
                     <td><?php echo $i; ?></td>
-                    <td >
-                        <?php
-							if(file_exists('uploads/bpkg_image/bpkg_'.$row['img'])){
-						?>
-						<img class="img-md" src="<?php echo base_url(); ?>uploads/bpkg_image/bpkg_<?php echo $row['img']; ?>" />  
-						<?php
-							} else {
-						?>
-						<img class="img-md" src="<?php echo base_url(); ?>uploads/bpkg_image/default.jpg" />
-						<?php
-							}
-						?> 
-                    </td>
                     <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['price']; ?></td>
+                    <td><?php echo $row['ads']; ?></td>
                     <td class="text-right">
                         <a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" 
                             onclick="ajax_modal('edit','<?php echo translate('edit_package'); ?>','<?php echo translate('successfully_edited!'); ?>','brand_edit','<?php echo $row['id']; ?>')" 

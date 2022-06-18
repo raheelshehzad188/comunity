@@ -411,9 +411,14 @@ foreach($vendors as $kk=> $vv)
     {
         
         if ($multi == '') {
-            if (file_exists('uploads/' . $type . '_image/' . $type . '_' . $id . $ext)) {
+            $file = 'uploads/' . $type . '_image/' . $type . '_' . $id . $ext;
+            if($type == 'bpkg')
+            {
+               $file = 'uploads/' . $type . '_image/'  . $id . $ext; 
+            }
+            if (file_exists($file)) {
                 if ($thumb == 'no') {
-                    $srcl = base_url() . 'uploads/' . $type . '_image/' . $type . '_' . $id . $ext;
+                    $srcl = base_url() . $file;
                 } elseif ($thumb == 'thumb') {
                     $srcl = base_url() . 'uploads/' . $type . '_image/' . $type . '_' . $id . '_thumb' . $ext;
                 }

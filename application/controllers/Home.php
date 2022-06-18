@@ -2989,6 +2989,9 @@ $this->db->group_end();  //group ed
             if ($this->crud_model->get_settings_value('general_settings', 'captcha_status', 'value') == 'ok') {
                 $page_data['recaptcha_html'] = $this->recaptcha->render();
             }
+
+            $page_data['pkgs'] = $this->db->get('bpkg')->result_array();
+            $page_data['def'] = $this->db->where('def',1)->get('bpkg')->row();
             $page_data['page_name'] = "vendor/register";
             $page_data['asset_page'] = "register";
             $page_data['page_title'] = translate('registration');

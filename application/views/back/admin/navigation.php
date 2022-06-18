@@ -120,7 +120,7 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                                                     <li <?php if($page_name=="brand"){?> class="active-link" <?php } ?> >
                                                         <a href="<?php echo base_url(); ?>admin/brand">
                                                             <i class="fa fa-circle fs_i"></i>
-                                                                <?php echo translate('brands');?>
+                                                                <?php echo translate('listing_type');?>
                                                         </a>
                                                     </li>
                                                 <?php
@@ -1203,6 +1203,20 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                                 <i class="fa fa-search-plus"></i>
                                 <span class="menu-title">
                                     SEO
+                                </span>
+                            </a>
+                        </li>
+                        <?php
+                            }
+                        ?>
+                        <?php
+                            if(true){
+                        ?>
+                        <li <?php if($page_name=="bpkg"){?> class="active-link" <?php } ?> >
+                            <a href="<?php echo base_url(); ?>admin/bpkg">
+                                <i class="fa fa-search-plus"></i>
+                                <span class="menu-title">
+                                    Signup Packages
                                 </span>
                             </a>
                         </li>
