@@ -96,8 +96,8 @@
                             return;
                         }
 
-                        //var payment_type = $('#ab').val();
-                        var payment_type = '';
+                        var payment_type = $('#ab').val();
+                        // var payment_type = '';
                         var state = check_login_stat('state');
                         state.success(function (data) {
                                  var form = $('#cart_form');

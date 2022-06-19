@@ -11,7 +11,7 @@
                     </a>
                 </div>
                 <?php
-                        if(!isset($_REQUEST['pack']))
+                        if(!isset($_GET['pack']))
                         {
                             include 'pac.php';
                         }
@@ -25,6 +25,7 @@
                         'id' => 'sign_form'
                     ));
                 ?>
+                <input type="hidden" name="pack" value="<?= $_GET['pack'] ?>">
                     <div class="row box_shape">
                         <div class="title">
                             <?php echo translate('vendor_registration');?>
@@ -81,6 +82,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <input class="form-control required" name="address2" type="text" placeholder="<?php echo translate('address_line_2');?>" data-toggle="tooltip" title="<?php echo translate('address_line_2');?>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Business Type</label>
+                                <?php echo $this->crud_model->select_html('brand','buss_type','name','edit','form-control demo-chosen-select required select_country',$country,'',NULL,'select_country'); ?>
                             </div>
                         </div>
                         <div class="col-md-6">

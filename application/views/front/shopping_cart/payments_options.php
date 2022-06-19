@@ -46,10 +46,11 @@
 
             </label>
         </div>
+        <script src="hthttps://checkout.stripe.com/checkout.js"></script>
         <script>
             $(document).ready(function(e) {
-                //<script src="https://js.stripe.com/v2/"><script>
-                //https://checkout.stripe.com/checkout.js
+
+                // 
                 var handler = StripeCheckout.configure({
                     key: '<?php echo $this->db->get_where('business_settings' , array('type' => 'stripe_publishable'))->row()->value; ?>',
                     image: '<?php echo base_url(); ?>template/front/img/stripe.png',
@@ -74,6 +75,7 @@
                 $('#customButtong').on('click', function(e) {
                     // Open Checkout with further options
                     var total = $('#grand').html();
+                    // alert(total);
                     total = total.replace("<?php echo currency(); ?>", '');
                     //total = parseFloat(total.replace(",", ''));
                     total = total/parseFloat(<?php echo exchange(); ?>);

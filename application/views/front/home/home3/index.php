@@ -127,6 +127,8 @@
     	<ul>
     <?php
     foreach ($brands as $key => $value) {
+        if($key <=5)
+        {
     	?>
     	<li>
     	<a href="<?= base_url('/home/text_search'); ?>?list_type=<?= $value['brand_id'] ?>">
@@ -136,6 +138,7 @@
     </li>
 
     	<?php
+    }
     }
     ?>
 </ul>

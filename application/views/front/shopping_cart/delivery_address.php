@@ -87,7 +87,7 @@ if($this->session->userdata('user_login')== "yes"){
 
 
     <div class="col-md-12">
-        <span class="btn btn-theme-dark" onclick="load_smethods();">
+        <span class="btn btn-theme-dark" onclick="load_payments();">
             <?php echo translate('next');?>
         </span>
     </div>

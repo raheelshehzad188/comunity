@@ -163,7 +163,7 @@
             <tfoot>
                 <tr>
                     <td><?php echo translate('grand_total');?>:</td>
-                    <td class="grand_total" id="grand1"><?= currency().$gtot; ?></td>
+                    <td class="grand_total" id="grand"><?= currency().$gtot; ?></td>
                 </tr>
             </tfoot>
         </table>
@@ -189,7 +189,7 @@
 </div>
 
 <div class="col-md-12">
-    <span class="btn btn-theme-dark" onclick="load_payments();">
+    <span class="btn btn-theme-dark" onclick="load_address_form();">
         <?php echo translate('next');?>
     </span>
 </div>

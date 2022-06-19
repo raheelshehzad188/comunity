@@ -2874,6 +2874,47 @@ $this->db->group_end();  //group ed
     }
 
     /* FUNCTION: Concerning Login */
+    function vendor_page($id)
+    {
+        $user = $this->db->where('vendor_id',$id)->get('vendor')->row();
+        
+        $added_by = array (
+  'type' => 'vendor',
+  'id' => $id,
+);
+        $in = array();
+        $in['title'] = $user->company;
+        $in['brand'] = $user->buss_type;
+        $in['added_by'] = json_encode($added_by);
+        $in['is_bpage'] = 1;
+        $this->db->insert('product',$in);
+        $pid = $this->db->insert_id();
+        $this->db->where('vendor_id', $id)->update('vendor',array('bpage'=>$pid));
+        //
+        if($user->pack)
+        {
+            $pack = $this->db->where('id',$user->pack)->get('bpkg')->row();
+            $option = array(
+                'ads' => $pack->ads,
+            );
+            $data = array(
+                'id' => $user->pack,
+                'qty' => 1,
+                'option' => json_encode($option),
+                'vendor' => $vendor,
+                'vendor_name' => $user->name,
+                'price' => $pack->price,
+                'name' =>$pack->name,
+                'shipping' => 0,
+                'tax' => 0
+            );
+            $this->cart->insert($data);
+            echo "checkout";
+            exit();
+
+        }
+        //bpage
+    }
     function vendor_logup($para1 = "", $para2 = "")
     {
         if ($this->crud_model->get_settings_value('general_settings', 'captcha_status', 'value') == 'ok') {
@@ -2923,11 +2964,14 @@ $this->db->group_end();  //group ed
                             $data['country'] = $this->input->post('country');
                             $data['city'] = $this->input->post('city');
                             $data['zip'] = $this->input->post('zip');
+                            $data['pack'] = $this->input->post('pack');
+                            $data['buss_type'] = $this->input->post('buss_type');
                             $data['create_timestamp'] = time();
                             $data['approve_timestamp'] = 0;
                             $data['approve_timestamp'] = 0;
                             $data['membership'] = 0;
                             $data['status'] = 'pending';
+                            $data['status'] = 'approved';
 
                             if ($this->input->post('password1') == $this->input->post('password2')) {
                                 $password = $this->input->post('password1');
@@ -4230,10 +4274,7 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
     }
     function cart_checkout($para1 = "")
     {
-        $carted = $this->cart->contents();
-        if (count($carted) <= 0) {
-            redirect(base_url() . 'home/', 'refresh');
-        }
+        
         $con_rate = $this->get_rate();//get rate of euro
 
         if ($para1 == "orders") {
@@ -4470,10 +4511,11 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
     /* FUNCTION: Finalising Purchase*/
     function cart_finish($para1 = "", $para2 = "")
     {
-        $carted = $this->cart->contents();
+
+        /*$carted = $this->cart->contents();
         if (count($carted) <= 0) {
             redirect(base_url() . 'home/', 'refresh');
-        }
+        }*/
         
 
         $carted = $this->cart->contents();
@@ -4496,6 +4538,8 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
 
         if ($this->input->post('payment_type') == 'paypal') {
             if ($para1 == 'go') {
+
+
 
                 $data['product_details'] = $product_details;
                 $data['shipping_address'] = json_encode($_POST);
@@ -4526,6 +4570,8 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
                     }
                     $data['guest_id'] = $sale_id . '-' . $randomString;
                 }
+
+
 
                 $vendors = $this->crud_model->vendors_in_sale($sale_id);
                 $delivery_status = array();
@@ -4584,6 +4630,8 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
                 $this->paypal->add_field('return', base_url() . 'home/paypal_success');
 
                 $this->paypal->submit_paypal_post();
+                exit();
+                // die("Here-end");
                 // submit the fields to paypal
             }
         } else if ($this->input->post('payment_type') == 'bitcoin') {

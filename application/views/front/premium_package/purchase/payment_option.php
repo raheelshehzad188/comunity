@@ -108,23 +108,23 @@
     <?php
         } if($c2_set == 'ok'){
     ?>
-    <!-- <div class="cc-selector col-sm-4">
+     <div class="cc-selector col-sm-4">
         <input id="mastercardc2" style="display:block;" type="radio" name="payment_type" value="c2"/>
         <label class="drinkcard-cc" style="margin-bottom:0px; width:100%; overflow:hidden; " for="mastercardc2" onclick="radio_check('mastercardc2')">
                 <img src="<?php echo base_url(); ?>template/front/img/preview/payments/c2.jpg" width="100%" height="100%" style=" text-align-last:center;" alt="<?php echo translate('cash_on_delivery');?>" />
 
         </label>
-    </div> -->
+    </div> 
     <?php
         }if($vp_set == 'ok'){
     ?>
-    <!-- <div class="cc-selector col-sm-4">
+     <div class="cc-selector col-sm-4">
         <input id="mastercardc3" style="display:block;" type="radio" name="payment_type" value="vp"/>
         <label class="drinkcard-cc" style="margin-bottom:0px; width:100%; overflow:hidden; " for="mastercardc3" onclick="radio_check('mastercardc3')">
                 <img src="<?php echo base_url(); ?>template/front/img/preview/payments/vp.jpg" width="100%" height="100%" style=" text-align-last:center;" alt="<?php echo translate('voguepay');?>" />
 
         </label>
-    </div> -->
+    </div> 
     <?php } ?>
     <?php
         if($pum_set == 'ok'){
@@ -151,7 +151,7 @@
 </div>
 <div class="row" style="border-top: 1px solid #ccc;margin: 1px;padding: 2px 0px">
     <?php
-        /* if($ssl_set == 'ok'){
+         if($ssl_set == 'ok'){
     ?>
     <div class="cc-selector col-sm-4">
         <input id="mastercard_ssl" style="display:block;" type="radio" name="payment_type" value="ssl"/>
@@ -161,7 +161,7 @@
         </label>
     </div>
     <?php
-        } */
+        } 
     ?>
     <?php
     if ($this->crud_model->get_type_name_by_id('general_settings','84','value') == 'ok') {

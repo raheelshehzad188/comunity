@@ -111,68 +111,24 @@
 </style>
 
                       <div class="row container" style="width:104%;">
+                        <?php
+                        foreach ($pkgs as $k => $v) {
+                          ?>
                           <div class="col-md-3 col-sm-12 col-xs-12">
                              <!-- here -->
                               <div id="pricing-table" class="clear">
                                 <div class="plan">
-                                    <h3>Enterprise<span>$59</span></h3>
-                                    <a class="signup" href="">Sign up</a>         
+                                    <h3><?= $v['name'] ?><span><?= ($v['price'] == 0)?"Free":$v['price']; ?></span></h3>
+                                    <a class="signup" href="<?= base_url('vendor_logup/registration'); ?>?pack=<?= $v['id'] ?>">Sign up</a>         
                                     <ul>
-                                        <li><b>10GB</b> Disk Space</li>
-                                        <li><b>100GB</b> Monthly Bandwidth</li>
-                                        <li><b>20</b> Email Accounts</li>
-                            			<li><b>Unlimited</b> subdomains</li>			
+                                        <li><b><?=  $v['ads'] ?> </b> Avalible Ads</li>
                                     </ul> 
                                 </div>
                                 </div>
                               
                           </div>
-                          <div class="col-md-3 col-sm-12 col-xs-12">
-                             <!-- here -->
-                              <div id="pricing-table" class="clear">
-                                <div class="plan">
-                                    <h3>Enterprise<span>$59</span></h3>
-                                    <a class="signup" href="">Sign up</a>         
-                                    <ul>
-                                        <li><b>10GB</b> Disk Space</li>
-                                        <li><b>100GB</b> Monthly Bandwidth</li>
-                                        <li><b>20</b> Email Accounts</li>
-                            			<li><b>Unlimited</b> subdomains</li>			
-                                    </ul> 
-                                </div>
-                                </div>
-                              
-                          </div>
-                          <div class="col-md-3 col-sm-12 col-xs-12">
-                             <!-- here -->
-                              <div id="pricing-table" class="clear">
-                                <div class="plan">
-                                    <h3>Enterprise<span>$59</span></h3>
-                                    <a class="signup" href="">Sign up</a>         
-                                    <ul>
-                                        <li><b>10GB</b> Disk Space</li>
-                                        <li><b>100GB</b> Monthly Bandwidth</li>
-                                        <li><b>20</b> Email Accounts</li>
-                            			<li><b>Unlimited</b> subdomains</li>			
-                                    </ul> 
-                                </div>
-                                </div>
-                              
-                          </div>
-                          <div class="col-md-3 col-sm-12 col-xs-12">
-                             <!-- here -->
-                              <div id="pricing-table" class="clear">
-                                <div class="plan">
-                                    <h3>Enterprise<span>$59</span></h3>
-                                    <a class="signup" href="">Sign up</a>         
-                                    <ul>
-                                        <li><b>10GB</b> Disk Space</li>
-                                        <li><b>100GB</b> Monthly Bandwidth</li>
-                                        <li><b>20</b> Email Accounts</li>
-                            			<li><b>Unlimited</b> subdomains</li>			
-                                    </ul> 
-                                </div>
-                                </div>
-                              
-                          </div>
+                          <?php
+                        }
+                        ?>
+                          <a class="pkg_skip" href="<?= base_url('vendor_logup/registration'); ?>?pack=0">Skip and continue</a>
                       </div>

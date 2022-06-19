@@ -13,35 +13,29 @@ echo form_open(base_url() . 'home/cart_finish/go', array(
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <!-- PAGE -->
 <section class="page-section color">
+
     <div class="container box_shadow">
         <h3 class="block-title alt">
             <i class="fa fa-angle-down"></i>
             <?php echo translate('1');?>.
-            <?php echo translate('delivery_address');?>
-        </h3>
-        <div action="#" class="form-delivery delivery_address">
-        </div>
-        <h3 class="block-title alt">
-            <i class="fa fa-angle-down"></i>
-            <?php echo translate('2');?>.
-            <?php echo translate('shipping_methods');?>
-        </h3>
-        <div class="row shipping_methods">
-
-        </div>
-
-        <h3 class="block-title alt">
-            <i class="fa fa-angle-down"></i>
-            <?php echo translate('3');?>.
             <?php echo translate('orders');?>
         </h3>
         <div class="row orders">
 
         </div>
+        <h3 class="block-title alt">
+            <i class="fa fa-angle-down"></i>
+            <?php echo translate('2');?>.
+            <?php echo translate('customer_information');?>
+        </h3>
+        <div action="#" class="form-delivery delivery_address">
+        </div>
+
+        
 
         <h3 class="block-title alt">
             <i class="fa fa-angle-down"></i>
-            <?php echo translate('4');?>.
+            <?php echo translate('3');?>.
             <?php echo translate('payments_options');?>
         </h3>
         <div class="panel-group payments-options" id="accordion" role="tablist" aria-multiselectable="true">
@@ -94,7 +88,8 @@ function other(){
 		$('.delivery_address').html(' ');
         var state = check_login_stat('state');
         state.success(function (data) {
-            load_address_form();
+            load_orders();
+            // load_payments();
             // return false;
             // if(data == 'hypass'){
             //     load_address_form();
@@ -104,35 +99,7 @@ function other(){
         });
     });
     function load_smethods(){
-        $('.require_alert').remove();
-        var find = 0;
-        var mid = '.delivery_address .required';
-        $(mid).each(function(){
-            var here = $(this);
-            if(here.val() == ''){
-                find = 1;
-                if(true){
-                    find = 1;
-                    here.css({borderColor: 'red'});
-                    if(here.attr('type') == 'number'){
-                        txt = '*'+mbn;
-                    }
-                    
-                    if(here.closest('div').find('.require_alert').length){
-
-                    } else {
-                        find = 1;
-                        var take = '';
-                        var txt = 'Required';
-                        here.closest('div').append(''
-                            +'  <span id="'+take+'" class="label label-danger require_alert" >'
-                            +'      '+txt
-                            +'  </span>'
-                        );
-                    }
-                }
-            }//if empty
-        });
+        
         if(find == 0)
         {
         $('.shipping_methods').show();
@@ -198,6 +165,37 @@ function other(){
     }
 
     function load_payments(){
+        $('.require_alert').remove();
+        var find = 0;
+        var mid = '.delivery_address .required';
+        $(mid).each(function(){
+            var here = $(this);
+            if(here.val() == ''){
+                find = 1;
+                if(true){
+                    find = 1;
+                    here.css({borderColor: 'red'});
+                    if(here.attr('type') == 'number'){
+                        txt = '*'+mbn;
+                    }
+                    
+                    if(here.closest('div').find('.require_alert').length){
+
+                    } else {
+                        find = 1;
+                        var take = '';
+                        var txt = 'Required';
+                        here.closest('div').append(''
+                            +'  <span id="'+take+'" class="label label-danger require_alert" >'
+                            +'      '+txt
+                            +'  </span>'
+                        );
+                    }
+                }
+            }//if empty
+        });
+        if(find == 0)
+        {
 		$('#order_place_btn').removeClass('disabled')
         var okay = 'yes';
         var sel = 'no';
@@ -236,6 +234,7 @@ function other(){
                 scrollTop: $(".delivery_address").offset().top-(2*top_off)
             }, 1000);
         }
+    }//if no error
     }
 
     function radio_check(id){
