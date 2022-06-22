@@ -17,7 +17,8 @@ $brand = $this->db->where('brand_id',$brand)->get('brand')->row();
 
 	              <div class="add_tocart forbrand">
 
-	                  <a href="#"><?= ucfirst($brand->name); ?></a>
+	                  <a href="#"><?= ucfirst($brand->name); ?>
+	                  </a>
 
 	              </div>
 	              <div class="add_tocart forgender ">
@@ -50,8 +51,30 @@ $brand = $this->db->where('brand_id',$brand)->get('brand')->row();
 	                </div>
 
 	                <div class="inner">
+	                	<?php
+	                	if($comp_cover)
+	                	{
+	                		$img = $this->crud_model->get_img($comp_cover);
+	                		if(isset($img->secure_url))
+	                		{
 
-	                  <img src="<?php echo $this->crud_model->file_view('product',$product_id,'','','thumb','src','multi','one'); ?>" class="owl-lazy" alt="" >
+	                			?>
+	                			<img src="<?php echo $img->secure_url; ?>" class="owl-lazy" alt="" >
+	                			<?php
+	                		}
+
+	                	}
+	                	else
+	                	{
+	                		?>
+	                		<img src="<?php echo $this->crud_model->file_view('product',$product_id,'','','thumb','src','multi','one'); ?>" class="owl-lazy" alt="" >
+
+	                		<?php
+
+	                	}
+	                	?>
+
+	                  
 
 	                </div>
 
@@ -59,6 +82,22 @@ $brand = $this->db->where('brand_id',$brand)->get('brand')->row();
 
 	              <div class="links-on-image"></div>
 
+	            </div>
+	            <div class="comp_logo">
+	            	<?php
+	                	if($comp_logo)
+	                	{
+	                		$img = $this->crud_model->get_img($comp_logo);
+	                		if(isset($img->secure_url))
+	                		{
+
+	                			?>
+	                			<img src="<?php echo $img->secure_url; ?>" class="owl-lazy" alt="" >
+	                			<?php
+	                		}
+
+	                	}
+	                	?>
 	            </div>
 
 	            <div class="product-content">

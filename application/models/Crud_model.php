@@ -21,6 +21,11 @@ class Crud_model extends CI_Model
         var_dump($para2);
         die();
     }
+    public function get_img($id)
+    {
+        return $this->db->where('id',$id)->get('media')->row();
+
+    }
     public function add_img($path, $data)
     {
         $in = array(

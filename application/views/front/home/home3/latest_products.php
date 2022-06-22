@@ -22,6 +22,7 @@
 
                     $featured=$this->db->order_by("product_id", "desc")->where('parent_id',0)->get('product')->result();
 
+
                     foreach($featured as $row){
 
                 		echo $this->html_model->product_box($row, 'grid', $box_style);
