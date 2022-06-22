@@ -21,6 +21,17 @@ class Crud_model extends CI_Model
         var_dump($para2);
         die();
     }
+    public function add_img($path, $data)
+    {
+        $in = array(
+            'path'=> $path,
+            'public_id'=> (isset($data['public_id'])?$data['public_id']:''),
+            'secure_url'=> (isset($data['secure_url'])?$data['secure_url']:''),
+        );
+        $this->db->insert('media',$in);
+        return $this->db->insert_id();
+
+    }
     public function getMaxPrice($pid)
     {
         $vendors = $this->db->where('parent_id', $pid);

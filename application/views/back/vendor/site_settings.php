@@ -1,7 +1,7 @@
 
 <div id="content-container"> 
     <div id="page-title">
-        <h1 class="page-header text-overflow"><?php echo translate('manage_site');?></h1>
+        <h1 class="page-header text-overflow"><?php echo translate('manage_business_page');?></h1>
     </div>
     <div class="tab-base">
         <div class="panel">

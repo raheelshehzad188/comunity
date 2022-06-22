@@ -2874,7 +2874,7 @@ $this->db->group_end();  //group ed
     }
 
     /* FUNCTION: Concerning Login */
-    function vendor_page($id)
+    private function vendor_page($id)
     {
         $user = $this->db->where('vendor_id',$id)->get('vendor')->row();
         
@@ -2890,7 +2890,7 @@ $this->db->group_end();  //group ed
         $this->db->insert('product',$in);
         $pid = $this->db->insert_id();
         $this->db->where('vendor_id', $id)->update('vendor',array('bpage'=>$pid));
-        //
+        //s
         if($user->pack)
         {
             $pack = $this->db->where('id',$user->pack)->get('bpkg')->row();
@@ -2977,6 +2977,7 @@ $this->db->group_end();  //group ed
                                 $password = $this->input->post('password1');
                                 $data['password'] = sha1($password);
                                 $this->db->insert('vendor', $data);
+
                                 $msg = 'done';
                                 if ($this->email_model->account_opening('vendor', $data['email'], $password) == false) {
                                     $msg = 'done_but_not_sent';
@@ -2984,6 +2985,7 @@ $this->db->group_end();  //group ed
                                     $msg = 'done_and_sent';
                                 }
                             }
+                            $this->vendor_page($this->db->insert_id());
                             echo $msg;
                         } else {
                             echo translate('please_fill_the_captcha');
@@ -2999,6 +3001,8 @@ $this->db->group_end();  //group ed
                         $data['country'] = $this->input->post('country');
                         $data['city'] = $this->input->post('city');
                         $data['zip'] = $this->input->post('zip');
+                        $data['pack'] = $this->input->post('pack');
+                            $data['buss_type'] = $this->input->post('buss_type');
                         $data['create_timestamp'] = time();
                         $data['approve_timestamp'] = 0;
                         $data['approve_timestamp'] = 0;
@@ -3009,6 +3013,8 @@ $this->db->group_end();  //group ed
                             $password = $this->input->post('password1');
                             $data['password'] = sha1($password);
                             $this->db->insert('vendor', $data);
+                            $this->vendor_page($this->db->insert_id());
+
                             $msg = 'done';
                             if ($this->email_model->account_opening('vendor', $data['email'], $password) == true) {
                                 if ($this->email_model->vendor_reg_email_to_admin($data['email'], $password) == false) {
@@ -3020,7 +3026,9 @@ $this->db->group_end();  //group ed
                                 $msg = 'done_and_sent';
                             }
                         }
-                        echo $msg;
+                        
+                        
+                            echo $msg;
                     }
                 } else {
                     echo 'Disallowed charecter : " ' . $char . ' " in the POST';
@@ -4621,8 +4629,8 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
                 if ($this->crud_model->get_type_name_by_id('business_settings', '3', 'value') == 'fixed') {
                     $this->paypal->add_field('shipping_1', $this->cart->format_number(($this->crud_model->get_type_name_by_id('business_settings', '2', 'value') / $exchange)));
                 }
-                //$this->paypal->add_field('amount', $grand_total);
-                //$this->paypal->add_field('currency_code', 'currency_code()');
+                // $this->paypal->add_field('amount', $grand_total);
+                // $this->paypal->add_field('currency_code', 'currency_code()');
                 $this->paypal->add_field('custom', $sale_id);
                 $this->paypal->add_field('business', $paypal_email);
                 $this->paypal->add_field('notify_url', base_url() . 'home/paypal_ipn');

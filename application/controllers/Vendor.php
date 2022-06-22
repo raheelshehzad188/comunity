@@ -2955,8 +2955,43 @@ $price = $this->crud_model->getMainPrice($v['product_id']);
             redirect(base_url() . 'vendor');
         }
         if(!demo()){
-            move_uploaded_file($_FILES["logo"]['tmp_name'], 'uploads/vendor_logo_image/logo_' . $this->session->userdata('vendor_id') . '.png');
-            move_uploaded_file($_FILES["banner"]['tmp_name'], 'uploads/vendor_banner_image/banner_' . $this->session->userdata('vendor_id') . '.jpg');
+            $uid = $this->session->userdata('vendor_id');
+            $user = $this->db->where('vendor_id',$uid)->get('vendor')->row();
+            if($user->bpage)
+            {
+                //code here
+            }
+            $this->load->library('cloudinarylib');
+            if(isset($_FILES["logo"]['tmp_name']) && $_FILES["logo"]['tmp_name'])
+            {
+
+                $path = 'uploads/vendor_logo_image/logo_' . $this->session->userdata('vendor_id') . '.png';
+
+                move_uploaded_file($_FILES["logo"]['tmp_name'], 'uploads/vendor_logo_image/logo_' . $this->session->userdata('vendor_id') . '.png');
+                
+                $data = \Cloudinary\Uploader::upload($path);
+                if(isset($data['public_id']))
+                {
+                    $logo_id = $this->crud_model->add_img($path,$data);
+                    $this->db->where('product_id',$user->bpage)->update('product',array('comp_logo'=>$logo_id));
+                }
+            }
+            if(isset($_FILES["banner"]['tmp_name']) && $_FILES["banner"]['tmp_name'])
+            {
+
+
+                $path = 'uploads/vendor_banner_image/banner_' . $this->session->userdata('vendor_id') . '.png';
+
+                move_uploaded_file($_FILES["banner"]['tmp_name'], 'uploads/vendor_banner_image/banner_' . $this->session->userdata('vendor_id') . '.png');
+                // $this->load->library('cloudinarylib');
+                $data = \Cloudinary\Uploader::upload($path);
+
+                if(isset($data['public_id']))
+                {
+                    $logo_id = $this->crud_model->add_img($path,$data);
+                    $this->db->where('product_id',$user->bpage)->update('product',array('comp_cover'=>$logo_id));
+                }
+            }
             recache();
         }
     }

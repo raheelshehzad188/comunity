@@ -1150,10 +1150,26 @@ if (keyCode == 13){
 				beforeSend: function() {
 					here.html(ing); // change submit button text
 				},
-				success: function(data) {					
+				success: function(data) {
+				a					
 					here.fadeIn();
 					here.html(prv);
-					if(data == 'done'){
+					if(data == 'checkout'){
+						notify(logup_success,'success','bottom','right'); 
+						setTimeout(
+							function() {
+								var url = window.location.href;
+								if(url.search("vendor_logup") !== -1){
+									//$('.vendor_login_btn')[0].click();
+									location.replace("<?php echo base_url(); ?>home/vendor_login_msg");
+								} else{
+									location.replace("<?php echo base_url(); ?>home/cart_checkout");
+								}
+							}, 2000
+						);
+						//sound('successful_logup');  		
+					}
+					else if(data == 'done'){
 						notify(logup_success,'success','bottom','right'); 
 						setTimeout(
 							function() {

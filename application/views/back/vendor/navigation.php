@@ -247,7 +247,7 @@ $digital_check = $this->crud_model->get_type_name_by_id('general_settings','69',
                             <a href="<?php echo base_url(); ?>vendor/site_settings/general_settings/">
                                 <i class="fa fa-wrench"></i>
                                     <span class="menu-title">
-                                        <?php echo translate('settings');?>
+                                        <?php echo translate('business_page');?>
                                     </span>
                             </a>
                         </li>
