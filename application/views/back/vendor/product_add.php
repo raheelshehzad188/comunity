@@ -1,3 +1,87 @@
+<style>
+.btn1{
+    
+    outline: 0!important;
+    border: none;
+    background: transparent;
+}
+btn1 .fa{
+    font-size: 25px;
+    color: #cecece;
+}
+.form h4{
+    font-size:14px;
+}
+.form .btn{
+    background-color: white;
+    border: 1px dashed #cecece;
+}
+.drop_box {
+  margin: 10px 0;
+  padding: 30px;
+  display: flex;
+  background-color: #ededed;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px dashed #cecece;
+  border-radius: 5px;
+  width:150px;
+}
+.form input {
+  margin: 10px 0;
+  width: 100%;
+  background-color: #e2e2e2;
+  border: none;
+  outline: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+}
+.flip-card {
+  background-color: transparent;
+  width: 300px;
+    height: 110px;
+        margin: 10px 0;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateX(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.flip-card-back p{
+      padding: 50px 0 50px;
+}
+.flip-card-front i{
+    font-size: 25px;
+    padding: 8px 9px;
+    margin-top: 25px;
+    border-radius: 40px;
+}
+
+.flip-card-back {
+  background-color: black;
+  color: white;
+  transform: rotateX(180deg);
+}
+</style>
 <div class="row">
     <div class="col-md-12">
         <?php
@@ -13,13 +97,22 @@
                 <div class="panel-control" style="float: left;">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a data-toggle="tab" href="#customer_choice_options"><?php echo translate('customer_choice_options'); ?></a>
+                            <a data-toggle="tab" href="#customer_choice_options"><?php echo translate('listing_type'); ?></a>
                         </li>
                         <li >
-                            <a data-toggle="tab" href="#product_details"><?php echo translate('product_details'); ?></a>
+                            <a data-toggle="tab" href="#general"><?php echo translate('general'); ?></a>
+                        </li>
+                        <li >
+                            <a data-toggle="tab" href="#event_images"><?php echo translate('event_images'); ?></a>
+                        </li>
+                        <li >
+                            <a data-toggle="tab" href="#location"><?php echo translate('location'); ?></a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#business_details"><?php echo translate('business_details'); ?></a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#extra_field"><?php echo translate('extra_field'); ?></a>
                         </li>
                         
                     </ul>
@@ -29,10 +122,10 @@
                 <div class="tab-base">
                     <!--Tabs Content-->                    
                     <div class="tab-content">
-                        <div id="product_details" class="tab-pane fade ">
+                        <div id="general" class="tab-pane fade ">
         
                             <div class="form-group btm_border">
-                                <h4 class="text-thin text-center"><?php echo translate('product_details'); ?></h4>                            
+                                <h4 class="text-thin text-center"><?php echo translate('general'); ?></h4>                            
                             </div>
 
                             <div class="form-group btm_border">
@@ -54,19 +147,7 @@
                                 <div class="col-sm-6" id="sub_cat">
                                 </div>
                             </div>
-                            
-                            <div class="form-group btm_border" id="brn" style="display:none;">
-                                <label class="col-sm-4 control-label" for="demo-hor-4"><?php echo translate('brand');?></label>
-                                <div class="col-sm-6" id="brand">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-5"><?php echo translate('unit');?></label>
-                                <div class="col-sm-6">
-                                    <input type="text" name="unit" id="demo-hor-5" placeholder="<?php echo translate('unit_(e.g._kg,_pc_etc.)'); ?>" class="form-control unit required">
-                                </div>
-                            </div>              
+                                        
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-11"><?php echo translate('tags');?></label>
                                 <div class="col-sm-6">
@@ -133,102 +214,76 @@
                             
 
                         </div>
+                        <div id="event_images" class="tab-pane fade ">
+        
+                            <div class="form-group btm_border">
+                                <h4 class="text-thin text-center"><?php echo translate('event_images'); ?></h4>                            
+                            </div>
+                            <p><?php echo translate('cover_image'); ?></p>
+                              <div class="card">
+                                <div class="drop_box">
+                                  <input type="file" id="fileID" style="display:none;">
+                                  <button class="btn1"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+                                </div>
+                            <small>Maximum file size: 1GB</small>
+                              </div>
+                            
+
+                        </div>
+                        <div id="event_images" class="tab-pane fade ">
+        
+
+                        </div>
+                        <div id="location" class="tab-pane fade ">
+                            <div id="googleMap" style="width:100%;height:400px;"></div>
+
+                        </div>
                         <div id="business_details" class="tab-pane fade">
                             <div class="form-group btm_border">
                                 <h4 class="text-thin text-center"><?php echo translate('business_details'); ?></h4>                            
                             </div>
                             <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-6"><?php echo translate('sale_price');?></label>
+                                <label class="col-sm-4 control-label" for="demo-hor-6"><?php echo translate('phone_number');?></label>
                                 <div class="col-sm-4">
-                                    <input type="number" name="sale_price" id="demo-hor-6" min='0' step='.01' placeholder="<?php echo translate('sale_price');?>" class="form-control required">
+                                    <input type="number" name="phone_number" id="demo-hor-6" min='0' step='.01' placeholder="<?php echo translate('phone_number');?>" class="form-control required">
                                 </div>
-                                <span class="btn"><?php echo currency('','def'); ?> / </span>
-                                <span class="btn unit_set"></span>
                             </div>
                             
                             <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-7"><?php echo translate('purchase_price');?></label>
+                                <label class="col-sm-4 control-label" for="demo-hor-7"><?php echo translate('email');?></label>
                                 <div class="col-sm-4">
-                                    <input type="number" name="purchase_price" id="demo-hor-7" min='0' step='.01' placeholder="<?php echo translate('purchase_price');?>" class="form-control required">
+                                    <input type="email" name="email" id="demo-hor-7" min='0' step='.01' placeholder="<?php echo translate('email');?>" class="form-control required">
                                 </div>
-                                <span class="btn"><?php echo currency('','def'); ?> / </span>
-                                <span class="btn unit_set"></span>
-                            </div>
-                            
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-8"><?php echo translate('shipping_cost');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="shipping_cost" id="demo-hor-8" min='0' step='.01' placeholder="<?php echo translate('shipping_cost');?>" class="form-control">
                                 </div>
-                                <span class="btn"><?php echo currency('','def'); ?> / </span>
-                                <span class="btn unit_set"></span>
-                            </div>
-                            
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-9"><?php echo translate('product_tax');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="tax" id="demo-hor-9" min='0' step='.01' placeholder="<?php echo translate('product_tax');?>" class="form-control">
                                 </div>
-                                <div class="col-sm-1">
-                                    <select class="demo-chosen-select" name="tax_type">
-                                        <option value="percent">%</option>
-                                        <option value="amount"><?php echo currency('','def'); ?></option>
-                                    </select>
-                                </div>
-                                <span class="btn unit_set"></span>
-                            </div>
-                            
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-10"><?php echo translate('product_discount');?></label>
-                                <div class="col-sm-4">
-                                    <input type="number" name="discount" id="demo-hor-10" min='0' step='.01' placeholder="<?php echo translate('product_discount');?>" class="form-control">
-                                </div>
-                                <div class="col-sm-1">
-                                    <select class="demo-chosen-select" name="discount_type">
-                                        <option value="percent">%</option>
-                                        <option value="amount"><?php echo currency('','def'); ?></option>
-                                    </select>
-                                </div>
-                                <span class="btn unit_set"></span>
-                            </div>
-                        </div>
                         <div id="customer_choice_options" class="tab-pane fade active in">
-                            <div class="form-group btm_border">
-                                <h4 class="text-thin text-center"><?php echo translate('customer_choice_options'); ?></h4>                            
-                            </div>
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-14"><?php echo translate('color'); ?></label>
-                                <div class="col-sm-4"  id="more_colors">
-                                  <div class="col-md-12" style="margin-bottom:8px;">
-                                      <div class="col-md-10">
-                                          <div class="input-group demo2">
-                                               <input type="text" value="#ccc" name="color[]" class="form-control" />
-                                               <span class="input-group-addon"><i></i></span>
-                                            </div>
-                                      </div>
-                                      <span class="col-md-2">
-                                          <span class="remove_it_v rmc btn btn-danger btn-icon icon-lg fa fa-trash" ></span>
-                                      </span>
+                           
+                            <div class="row">
+                                 <?php
+                            foreach($brands as $k=>$v){
+                            ?>
+                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                    <a href="#"><div class="flip-card">
+                                  <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <i class="fa <?= $v['fa_icon'];?>" aria-hidden="true"></i>
+                                        <br>
+                                        <p><?= $v['name'];?></p>
+                                    </div>
+                                    <div class="flip-card-back">
+                                      <p><?= $v['name'];?></p>
+                                    </div>
                                   </div>
                                 </div>
-                                <div class="col-sm-2">
-                                    <div id="more_color_btn" class="btn btn-primary btn-labeled fa fa-plus">
-                                        <?php echo translate('add_more_colors');?>
-                                    </div>
+                                </a>
                                 </div>
+                                <?php 
+                            }
+                            ?>
+                                <div class="col-md-4 col-sm-12 col-xs-12"></div>
+                                <div class="col-md-4 col-sm-12 col-xs-12"></div>
                             </div>
                             
-                            <div id="more_additional_options"></div>
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-inputpass"></label>
-                                <div class="col-sm-6">
-                                    <h4 class="pull-left">
-                                        <i><?php echo translate('if_you_need_more_choice_options_for_customers_of_this_product_,please_click_here.');?></i>
-                                    </h4>
-                                    <div id="more_option_btn" class="btn btn-mint btn-labeled fa fa-plus pull-right">
-                                    <?php echo translate('add_customer_input_options');?></div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -481,7 +536,42 @@
             event.preventDefault();
         });
     });
+    
+    
+    const dropArea = document.querySelector(".drop_box"),
+  button = dropArea.querySelector("button"),
+  dragText = dropArea.querySelector("header"),
+  input = dropArea.querySelector("input");
+let file;
+var filename;
+
+button.onclick = () => {
+  input.click();
+};
+
+input.addEventListener("change", function (e) {
+  var fileName = e.target.files[0].name;
+  let filedata = `
+    <form action="" method="post">
+    <div class="form">
+    <h4>${fileName}</h4>
+    <button class="btn">Upload</button>
+    </div>
+    </form>`;
+  dropArea.innerHTML = filedata;
+});
+
+
+
+function myMap() {
+var mapProp= {
+  center:new google.maps.LatLng(51.508742,-0.120850),
+  zoom:5,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
 
 <style>
     .btm_border{

@@ -648,8 +648,9 @@ class Vendor extends CI_Controller
             $this->db->order_by('product_id', 'desc');
             $this->db->where('added_by',json_encode(array('type'=>'vendor','id'=>$this->session->userdata('vendor_id'))));
             $this->db->where('download=',NULL);
+            $page_data=array();
             $page_data['all_product'] = $this->db->get('product')->result_array();
-            $this->load->view('back/vendor/product_list', $page_data);
+             $this->load->view('back/vendor/product_list', $page_data);
         } elseif ($para1 == 'list_data') {
             $limit      = $this->input->get('limit');
             $search     = $this->input->get('search');
@@ -828,9 +829,13 @@ class Vendor extends CI_Controller
             echo $this->crud_model->get_type_name_by_id('product', $para2, 'purchase_price');
         } elseif ($para1 == 'add') {
             if ($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'no') {
+                $page_data = array();
+               // $page_data['brand'] =  $this->db->get('brand')->result_array();
                 if($this->crud_model->can_add_product($this->session->userdata('vendor_id'))){
-                    // echo "Here";
-                    $this->load->view('back/vendor/product_add');
+                    //echo "Here";
+                    $page_data['brands'] =  $this->db->get('brand')->result_array();
+
+                    $this->load->view('back/vendor/product_add', $page_data);
                 } else {
                     $this->load->view('back/vendor/product_limit');
                 }
@@ -2940,6 +2945,49 @@ $price = $this->crud_model->getMainPrice($v['product_id']);
                 'keywords' => $this->input->post('keywords')
             ));
             recache();
+        }
+    }
+    
+    function gallary($para1 = "")
+    {
+       
+        if ($para1 == "set") {
+            
+            $this->load->library('upload');
+            $dataInfo = array();
+            $files = $_FILES;
+            $cpt = count($_FILES['logo']['name']);
+            for($i=0; $i<$cpt; $i++)
+            {           
+                
+                $this->load->library('cloudinarylib');
+                if(isset($_FILES["logo"]['tmp_name']) && $_FILES["logo"]['tmp_name'])
+                {
+    
+                    $path = 'uploads/vendor_logo_image/logo_' . $this->session->userdata('vendor_id') . '.png';
+    
+                    move_uploaded_file($_FILES["logo"]['tmp_name'], 'uploads/vendor_logo_image/logo_' . $this->session->userdata('vendor_id') .$i. '.png');
+                    
+                    $data = \Cloudinary\Uploader::upload($path);
+                    if(isset($data['public_id']))
+                    {
+                        $logo_id = $this->crud_model->add_img($path,$data);
+                        array_push($dataInfo,$logo_id);
+                    }
+                }
+            }
+            // print_r($dataInfo);
+            // return $dataInfo;
+            $this->db->where('vendor_id', $this->session->userdata('vendor_id'));
+            $query = $this->db->update('vendor', array(
+                'gallary' => $dataInfo,
+            ));
+            
+            if(!$query){
+                return "error";
+            }else{
+                return "okya";
+            }
         }
     }
     /* Manage Favicons */

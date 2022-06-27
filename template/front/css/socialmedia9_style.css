@@ -5,6 +5,9 @@
 body {
     line-height: 1
 }
+.related_box{
+    padding: 0 0 50px;
+}
 .user_cart {
     padding: 5px 0 0;
 }
@@ -1483,8 +1486,6 @@ ul.tabs li.current ,ul.tabs li.current  b,ul.tabs li:hover  b,ul.tabs li:hover i
 }
 .tab-content {
     background: transparent;
-    padding: 30px 0;
-    margin-bottom: 32px;
 }
 .tab-content.current{
   display: inherit;
@@ -5425,7 +5426,7 @@ position: relative;
 }
 .listing_wrap{padding: 33px 0;}
 .listing_info{padding: 0 0 34px;}
-.listing_info h4{font-size: 33px;font-weight: 600 !i;}
+.listing_info h4{font-size: 33px;font-weight: 600 !important;}
 .listing_info p{
     margin: 0;
     font-size: 16px;
@@ -5662,7 +5663,7 @@ img{border:0;}
     margin: -8px 0 0;
     display: inherit;
 }
-.cashon_delivery h4{color: #f26122;font-weight: bold !i;}
+.cashon_delivery h4{color: #f26122;font-weight: bold !important;}
 .cashon_delivery ul{padding: 0 0 0 34px;position: r;}
 .cashon_delivery ul li{margin: 0 0 10px;font-size: 13px;font-weight: 600;position: relative;}
 .cashon_delivery ul li i{
@@ -5676,7 +5677,194 @@ img{border:0;}
 }
 
 
+/*second page*/
+.banner_rating{
+    background: url(https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b.jpg);
+background-size: cover;
+background-repeat: no-repeat;
+height: 507px;
+;;;;;;;;;;;;;;;;;;;;;padding: 211px 0 0;;;;;;;;;;;;;;;;;;;;;;
+}
+.rating_box{padding: 0;}
+.rating_info{
+    position: relative;
+    padding: 8px 0 0 100px;
+}
+.rating_info > img{width: 84px;position: absolute;border-radius: 100%;height: 84px;object-fit: cover;left: 0;}
+.rating_info h3{color: #fff;font-size: 32px;}
+.rating_info h3 img{width: 23px;vertical-align: middle;}
+.rating_info p{margin: 0;color: #fff;font-size: 16px;}
+.rating_info p i{color: #fff;margin: 0 1px 0 0px;}
+.price_range{text-align: right;padding: 27px 0 0;}
 
+.price_range ul li{display: inline-block;vertical-align: middle;margin: 0 0 0 18px;}
+.price_range h4{color: #fff;margin: 0 0 7px;}
+
+.price_range b{
+    color: #fff;
+    font-size: 19px;
+}
+.price_range a{background: #ef8321;color: #fff;border-radius: 4px;display: inline-block;padding: 14px 28px;font-size: 17px;}
+
+
+ul.tabss{
+    margin: 0px 0 45px;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+    background: #fff;
+}
+ul.tabss li{
+    background: none;
+    color: #222;
+    display: inline-block;
+    padding: 13px 49px;
+    cursor: pointer;
+    font-size: 16px;
+}
+ul.tabss li.current{
+    color: #222;
+    border: none;
+    border-bottom: 2px solid #ef8321;
+}
+.tab-content{
+    display: none;
+}
+.tab-content.current{
+    display: inherit;
+}
+
+.listing_inner{padding: 13px 0 0;}
+.listing_inner ul {text-align: center;margin: 0;padding: 17px 0 77px;}
+.listing_inner ul li{display: inline-block;margin: 0 5px;}
+.listing_inner ul li a{border-radius: 33px;padding: 10px 20px;display: inline-block;font-size: 15px;background: #fff;}
+.listing_inner ul li a i{font-size: 14px;margin: 0 3px 0 0;}
+
+.description h4{margin: 0 0 6px;font-size: 22px;padding: 0 0 0 21px;}
+.description h4 i,.smedesign h4 i{color: #000;margin: 0 4px 0 0;font-size: 14px;}
+.description p{margin: 0;font-size: 14px;line-height: 1.6;}
+.smedesign{background: rgb(255, 255, 255);padding: 20px;margin-bottom: 18px;box-shadow: rgb(0 0 0 / 7%) 0px 1px 4px;border-radius: 5px;}
+
+.locationbox p{margin: 7px 0 0;}
+.locationbox p a{
+    background: #ef8321;
+    color: #fff;
+    padding: 8px 16px;
+    display: inline-block;
+    border-radius: 33px;
+    margin: 0 0 0 5px;
+}
+
+.smedesign ul li{display: inline-block;width: 31%;margin: 11px 10px 1px 0;cursor: pointer;}
+.smedesign ul li a{font-size: 12px;font-weight: 500;}
+.smedesign ul li a i{
+    background: #f5f5f5;
+    border-radius: 100%;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    padding: 9px 0 0;
+    font-size: 16px;
+    margin: 0 2px 0 0;
+}
+.smedesign ul li a:hover i{
+    background: #ef8321;
+    color: #fff;
+}
+.smedesign ul li a:hover{
+ color: #ef8321;   
+}
+.tabs_wrap{
+    padding-bottom: 29px;
+}
+
+.locationbox h4 span{float: right;}
+.right_box .locationbox h4{
+font-size: 16px;
+cursor: pointer;
+    margin: 0 0 9px;
+}
+.clock_time{display: none;}
+.clock_time p{border-bottom: 1px solid #ccc;padding: 4px 0 8px;}
+.clock_time span{
+    float: right;
+}
+.gallery_box ul{
+    text-align: center;
+}
+.gallery_box ul li{
+    display: inline-block;
+}
+.gallery_box ul li img{
+    width: 100%;
+    height: 218px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.formbox_inner{margin: 20px 0 16px;}
+.formbox_inner label{display: block;font-size: 13px;}
+.formbox_inner input{margin: 0;border: 1px solid #ccc;width: 100%;height: 38px;padding: 0;font-size: 14px;color: #000;background: #f5f5f5;border-radius: 3px;}
+.formbox_inner textarea{margin: 0;border: 1px solid #ccc;width: 100%;height: 100px;padding: 0;font-size: 14px;color: #000;background: #f5f5f5;border-radius: 3px;}
+.formbox_inner button{
+    background: #ef8321;
+    color: #fff;
+    border-radius: 33px;
+    display: inline-block;
+    padding: 12px 28px;
+    font-size: 18px;
+    width: 100%;
+    border: none;
+}
+.stickyheader .logo {
+    margin: 0;
+}
+.eventsbox{
+    padding-top: 0;
+}
+.nostore h4 {
+    text-align: center;
+    margin: 52px 0 0;
+    font-size: 16px;
+}
+.eventsbox{
+    padding-bottom: 100px;
+}
+.reviesbox{
+    position: relative;
+    padding: 0 0 0 67px;
+}
+.reviesbox h4{font-weight: 600 !important;color: #ef8321;}
+.reviesbox  img{width: 50px;border-radius: 100%;position: absolute;left: 0;height: 50px;object-fit: cover;}
+.reviesbox p{margin: 0;}
+#formbox_contact{
+/*    width: 480px;
+    margin: 66px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;*/
+}
+.full_bg{
+        background: #ff4d30;
+    padding: 63px 0;
+    margin: 61px 0 0;
+}
+
+.full_bg .cashon_delivery{padding: 27px 0 0 20px;}
+.full_bg .cashon_delivery a{
+background: #fff;
+color: #000;
+}
+.full_bg .cashon_delivery h3 {
+    color: #fff;
+    font-size: 36px;
+    line-height: 1.3;
+}
+.full_bg .cashon_delivery p{color: #fff;font-size: 19px;margin: 0 0 25px;}
+.full_bg .cashon_delivery li{color: #fff;}
+.full_bg .cashon_delivery li i{color: #fff;}
+
+.full_bg  .cashon_delivery h4 {
+    color: #fff;
+}
 /*responsive*/
 
 @media(max-width: 1250px){
@@ -5892,5 +6080,76 @@ img{border:0;}
 .arrowbox {
     left: 32px;
     top: 111px;
+}
+.banner_rating {
+    padding: 132px 0 37px;
+    height: auto;
+}
+.price_range {
+    text-align: left;
+}
+.rating_info h3 {
+    font-size: 24px;
+}
+.price_range ul li {
+    margin: 0 11px 0 0;
+}
+.eventsbox {
+    padding-bottom: 0;
+}
+.sidegapp_pro{
+    padding: 0;
+}
+.listing_info h4 {
+    font-size: 20px;
+}
+.rating_info,.left_box,.right_box {
+    padding: 0;
+}
+.locationbox h4 span {
+    float: none;
+}
+.description h4 {
+    margin: 5px 0 6px;
+    font-size: 13px;
+}
+.reviesbox img {
+    position: static;
+}
+.reviesbox {
+    padding: 0;
+}
+.smedesign ul li {
+    display: inline-block;
+    width: 100%;
+    margin: 7px 0px 1px 0;
+    cursor: pointer;
+}
+.smedesign ul li a {
+    font-size: 14px;
+    font-weight: 500;
+}
+.listing_inner ul li {
+    margin: 0 3px 6px;
+}
+.listing_inner ul li a {
+    padding: 9px 6px;
+    font-size: 12px;
+}
+.rating_info > img {
+    position: static;
+}
+ul.tabss li {
+    padding: 13px 6px;
+    font-size: 13px;
+}
+.full_bg {
+    margin: 25px 0;
+}
+.full_bg .cashon_delivery h3 {
+    font-size: 28px;
+}
+.full_bg .cashon_delivery,.sidegapp_contact {
+    padding: 0;
 }
 }

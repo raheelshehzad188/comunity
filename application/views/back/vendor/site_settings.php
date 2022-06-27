@@ -8,7 +8,10 @@
             <div class="tab-base tab-stacked-left">
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a data-toggle="tab" href="#demo-stk-lft-tab-1"><?php echo translate('vendor_detail');?></a>
+                        <a data-toggle="tab" href="#demo-stk-lft-tab-0"><?php echo translate('vendor_detail');?></a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#demo-stk-lft-tab-1"><?php echo translate('gallary');?></a>
                     </li>
                     <li>
                         <a data-toggle="tab" href="#demo-stk-lft-tab-2"><?php echo translate('vendor_images');?></a>
@@ -25,7 +28,7 @@
                     <span id="genset"></span>
                     
                     
-                    <div id="demo-stk-lft-tab-1" class="tab-pane fade active in">
+                    <div id="demo-stk-lft-tab-0" class="tab-pane fade active in">
                         <div class="col-md-12">
                             <div class="panel">
                                 <div class="panel-heading margin-bottom-20">
@@ -117,16 +120,56 @@
                                     </div>
                                 </div>
                                 
+
+                                <div class="panel-footer text-right">
+                                    <span class="btn btn-success btn-labeled fa fa-check submitter enterer"  data-ing='<?php echo translate('saving'); ?>' data-msg='<?php echo translate('settings_updated!'); ?>'>
+                                    <?php echo translate('save');?></span>
+                                </div>
+                            </form>               
+                        </div>
+                        </div> 
+                    </div>
+                    
+                    <div id="demo-stk-lft-tab-1" class="tab-pane fade <?php if($tab_name=="gallary") {?>active in<?php } ?>">
+                        <div class="col-md-12">
+                            <div class="panel">
+                                <div class="panel-heading margin-bottom-20">
+                                    <h3 class="panel-title">
+                                        <?php echo translate('bussiness_detail');?>
+                                    </h3>
+                                </div>
+                            <?php 
+                                $description =  $this->db->get_where('vendor',array('vendor_id' => $this->session->userdata('vendor_id')))->row()->description;
+                                $keywords =  $this->db->get_where('vendor',array('vendor_id' => $this->session->userdata('vendor_id')))->row()->keywords;
+                                $seo_title =  $this->db->get_where('vendor',array('vendor_id' => $this->session->userdata('vendor_id')))->row()->seo_title;
+                                $seo_description =  $this->db->get_where('vendor',array('vendor_id' => $this->session->userdata('vendor_id')))->row()->seo_description;
+                            ?>
+							<?php
+                                echo form_open(base_url() . 'vendor/gallary/set', array(
+                                    'class' => 'form-horizontal',
+                                    'method' => 'post',
+                                    'id' => 'gallary-form',
+                                    'enctype' => 'multipart/form-data'
+                                ));
+                            ?>
+                                
                                 <div class="form-group margin-top-10">
-                                    <label class="col-sm-2 control-label margin-top-10" for="demo-hor-inputemail"><h5><?php echo translate('gallary');?></h5> <br><i>(<?php echo translate('suggested_width');?>:<?php echo translate('height');?> - 300px:300px*)</i></label>
-                                    <div class="col-sm-9">
+                                    <label class="col-sm-3 control-label margin-top-10" for="demo-hor-inputemail"><h5><?php echo translate('gallary');?></h5> <br><i>(<?php echo translate('suggested_width');?>:<?php echo translate('height');?> - 300px:300px*)</i></label>
+                                    <div class="col-sm-9" id="gallary_image">
                                         <div class="col-sm-2">
+                                        <span class="pull-left btn btn-default btn-file margin-top-10">
+                                            <?php echo translate('gallary_images');?>
+                                            <input type="file" name="logo" class="form-control" multiple="" id="imgInp">
+                                        </span>
+                                        </div>
+                                        <div class="col-sm-2" style="margin: 14px;">
                                             <?php if(file_exists('uploads/vendor_logo_image/logo_'.$this->session->userdata('vendor_id').'.png')){?>
                                             <img class="img-responsive img-md img-border" src="<?php echo base_url(); ?>uploads/vendor_logo_image/logo_<?php echo $this->session->userdata('vendor_id'); ?>.png" id="blah" style="width:auto !important;" >
                                             <?php }else{ ?>
                                             <img class="img-responsive img-md img-border" src="<?php echo base_url(); ?>uploads/vendor_logo_image/default.jpg" id="blah" style="width:auto !important;" >
                                         <?php }?>
                                         </div>
+                                        <div class="col-sm-5"></div>
                                     </div>
                                 </div>
                                 
@@ -431,6 +474,45 @@
 		$("form").submit(function(e){
 			return false;
 		});
+		
+	$("#gallary-form").on('submit',(function(e) {
+	  e.preventDefault();
+	  $.ajax({
+	        url: "<?= base_url().'/vendor/gallary/set' ?>",
+		    type: "POST",
+		    data:  new FormData(this),
+		    contentType: false,
+	        cache: false,
+	   		processData:false,
+	   		beforeSend : function()
+	   		{
+	    		$("#err").fadeOut();
+	   		},
+	   		success: function(data)
+	      	{
+			    if(data=='error')
+			    {
+			     // invalid file format.
+			     $("#err").html("Invalid File !").fadeIn();
+			     $(".alert1").html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong>Try Again<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'); 
+			    	$("#excleupload")[0].reset(); 
+			    }
+			    else
+			    {
+			    	const obj = JSON.parse(data);
+			    	$(".alert1").html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong>successfully inserted<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'); 
+			    	$("#excleupload")[0].reset(); 
+			    	$('.upload__img-box').append("<div style='background-image: url(uploads/"+obj.path+");margin: 16px;' class='img-bg'><div class='upload__img-close'><i onclick='delimage("+obj.id+")'' id='img_"+obj.id+"' class='fa fa-times-circle-o' aria-hidden='true' style='color: white;font-size: 24px;position: relative;float: right;' ></i></div></div>");
+			    	$("#myform")[0].reset(); 
+			    }
+	      	},
+	     	error: function(e) 
+		    {
+		    	$("#err").html(e).fadeIn();
+		    }          
+	  });
+
+	 }));
 
 	});
 </script>

@@ -229,18 +229,12 @@
                             <li>
                                <a href="#">
                                <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="mi restaurant_menu" style="color: #fff; "></i>
+                               <i class="fa fa-cutlery" style="color: #fff; "></i>
                                </span>
                                <span class="category-name">Restaurants</span>
                                </a>
                             </li>
-                            <li data-toggle="tooltip" data-placement="top" data-original-title="Nightlife" data-html="true">
-                               <div class="categories-dropdown dropdown c27-more-categories">
-                                  <a href="#other-categories">
-                                  <span class="cat-icon cat-more">+1</span>
-                                  </a>
-                               </div>
-                            </li>
+                            
                          </ul>
                          <div class="ld-info">
                             <ul>
@@ -309,18 +303,12 @@
                             <li>
                                <a href="#">
                                <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="mi restaurant_menu" style="color: #fff; "></i>
+                               <i class="fa fa-cutlery" style="color: #fff; "></i>
                                </span>
                                <span class="category-name">Restaurants</span>
                                </a>
                             </li>
-                            <li data-toggle="tooltip" data-placement="top" data-original-title="Nightlife" data-html="true">
-                               <div class="categories-dropdown dropdown c27-more-categories">
-                                  <a href="#other-categories">
-                                  <span class="cat-icon cat-more">+1</span>
-                                  </a>
-                               </div>
-                            </li>
+                            
                          </ul>
                          <div class="ld-info">
                             <ul>
@@ -388,18 +376,12 @@
                             <li>
                                <a href="#">
                                <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="mi restaurant_menu" style="color: #fff; "></i>
+                               <i class="fa fa-cutlery" style="color: #fff; "></i>
                                </span>
                                <span class="category-name">Restaurants</span>
                                </a>
                             </li>
-                            <li data-toggle="tooltip" data-placement="top" data-original-title="Nightlife" data-html="true">
-                               <div class="categories-dropdown dropdown c27-more-categories">
-                                  <a href="#other-categories">
-                                  <span class="cat-icon cat-more">+1</span>
-                                  </a>
-                               </div>
-                            </li>
+                            
                          </ul>
                          <div class="ld-info">
                             <ul>
@@ -467,18 +449,12 @@
                             <li>
                                <a href="#">
                                <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="mi restaurant_menu" style="color: #fff; "></i>
+                               <i class="fa fa-cutlery" style="color: #fff; "></i>
                                </span>
                                <span class="category-name">Restaurants</span>
                                </a>
                             </li>
-                            <li data-toggle="tooltip" data-placement="top" data-original-title="Nightlife" data-html="true">
-                               <div class="categories-dropdown dropdown c27-more-categories">
-                                  <a href="#other-categories">
-                                  <span class="cat-icon cat-more">+1</span>
-                                  </a>
-                               </div>
-                            </li>
+                            
                          </ul>
                          <div class="ld-info">
                             <ul>
@@ -546,18 +522,12 @@
                             <li>
                                <a href="#">
                                <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="mi restaurant_menu" style="color: #fff; "></i>
+                               <i class="fa fa-cutlery" style="color: #fff; "></i>
                                </span>
                                <span class="category-name">Restaurants</span>
                                </a>
                             </li>
-                            <li data-toggle="tooltip" data-placement="top" data-original-title="Nightlife" data-html="true">
-                               <div class="categories-dropdown dropdown c27-more-categories">
-                                  <a href="#other-categories">
-                                  <span class="cat-icon cat-more">+1</span>
-                                  </a>
-                               </div>
-                            </li>
+                            
                          </ul>
                          <div class="ld-info">
                             <ul>
