@@ -87,12 +87,12 @@ $brand = $this->db->where('brand_id',$brand)->get('brand')->row();
 	            	<?php
 	                	if($comp_logo)
 	                	{
-	                		$img = $this->crud_model->get_img($comp_logo);
-	                		if(isset($img->secure_url))
+	                		$img = $this->crud_model->size_img($comp_logo,30,30);
+	                		if($img)
 	                		{
 
 	                			?>
-	                			<img src="<?php echo $img->secure_url; ?>" class="owl-lazy" alt="" >
+	                			<img src="<?php echo $img; ?>" class="owl-lazy" alt="" >
 	                			<?php
 	                		}
 

@@ -1,127 +1,13 @@
 
 <style type="text/css">
-	.owl-carousel {
-    display: block !important;
-}
-.category_menu .main-slider-row .owl-stage-outer, .category_menu .main-slider-row .owl-stage, .category_menu .main-slider-row .owl-item, .category_menu .main-slider-row .item, .category_menu .owl-carousel .owl-item img {
-    min-height: 100vh !important;
-    object-fit: cover;
-}   
-.navbar-nav-items li a {
-    color: #fff;
-}
-.brands {
-    text-align: center;
-    padding: 70px 0 17px;
-}       
-.brands ul li {
-    display: inline-block;
-    padding: 0 24px;
-        transition: transform .35s cubic-bezier(.38,3,.57,1.6);
-}
-.brands i {
-        transition: transform .35s cubic-bezier(.38,3,.57,1.6);
-    color: #fff;
-    display: block;
-    font-size: 44px;
-}       
-.brands h4 {
-    color: #fff;
-    margin: 16px 0 6px;
-    font-size: 16px;   
-    font-weight: 600 !important; 
-}
-.brands ul li:hover i {
-    -webkit-transform: translate3d(0,-4px,0);
-    -moz-transform: translate3d(0,-4px,0);
-    transform: translate3d(0,-4px,0);
-}
-.bannerSearch form .chakra-icon.css-17jqirj {
-    left: auto;
-    top: 0;
-    right: 0;
-    background: #f16f22;
-    padding: 15px 13px;
-    width: 52px;
-}
-.searchplace{
-    padding-top: 25px;
-    text-align: center;
-}
-.searchplace button {
-    background: #f16f22;
-    color: #fff;
-    padding: 14px 39px;
-    font-size: 17px;
-    border: none;
-    border-radius: 33px;
-}   
-.bannerSearch form #home-search {   
-    padding: 15px 15px 15px 0px;
-}
-
-/*header right*/
-
-.navbar-nav-items li a {
-    font: inherit;
-}
-.add_listing {
-    text-align: right;
-    padding: 12px 0 0;
-}  
-
-.add_listing ul {
-    margin: 0;
-}
-.add_listing ul li {
-    display: inline-block;
-    padding: 0 5px;
-}   
-.add_listing ul li a i {
-    vertical-align: middle;
-}  
-.stickyheader ul li a{
-    color: #000;        
-}
-.stickyheader .add_listing {
-    padding: 1px 0 0;
-}
-.stickyheader  .navbar_items {
-    padding: 5px 0;
-    text-align: left;
-}
-.cart-wrapper a{
-        color: #fff;
-    font-size: 15px;                
-}
-.navbar_items {
-    padding: 10px 0;
-    text-align: left;
-}   
-.navbar-nav-items li a {
-    font-size: 16px !important;
-} 
-.add_listing ul li .add_listing_btn {
-    background: #f16522;
-    padding: 10px 22px;
-    color: #fff;
-    display: inline-block;
-    border-radius: 33px;
-    font-size: 14px;
-}
-.add_listing .user_info {
-    background: #fff;
-    color: #000;
-    width: 36px;
-    height: 36px;
-    display: inline-block;
-    text-align: center;
-    border-radius: 100%;
-    padding: 0;
-    font-size: 21px;
-}   
+	
 </style>
+<div class="arrowbox">
+        <img class="textbox" src="https://ads.strokedev.net/uploads/logo_image/h1-slider-img-1.png" alt="">
+        <img class="arrow_box" src="https://ads.strokedev.net/uploads/logo_image/h1-slider-img-2.png" alt="">
+    </div>
 <div class="bannerSearch">
+    
     <!-- <h1>Buy & Sell <br><span>What's Now & Next</span></h1> -->
     <div class="brands">
     	<ul>
@@ -148,9 +34,20 @@
         <svg viewBox="0 0 512 512" focusable="false" class="chakra-icon css-17jqirj" aria-hidden="true"><path fill="#fff" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg>
     </form>
        <div class="searchplace">
-            <button type="button">Search places </button>
+            <button type="button">Search places <i class="fa fa-angle-right"></i> </button>
        </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
 <?php 
 	if($this->crud_model->get_type_name_by_id('general_settings','62','value') == 'ok'){
 
@@ -159,6 +56,74 @@
 	}
 
 ?>
+<div class="menuwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 bakeries" id="firstrow">
+                <div class="img_box">
+                    <img src="https://ads.strokedev.net/uploads/logo_image/h1-listing-img-1.jpg">
+                    <div class="inner_bakeries">
+                    <a href="#">
+                        <img src="https://ads.strokedev.net/uploads/logo_image/listing-category-img-4.png" alt="">
+                        <h4>Bakeries </h4>
+                        <p>Check out selection</p>
+                    </a>
+                </div>
+                </div>
+                
+            </div>
+            <div class="col-sm-3 bakeries" id="secondrow">
+                <div class="img_box samllboxes">
+                    <img src="https://ads.strokedev.net/uploads/logo_image/h1-listing-img-2.jpg">
+                    <div class="inner_bakeries">
+                    <a href="#">
+                        <img src="https://ads.strokedev.net/uploads/logo_image/listing-category-img-4.png" alt="">
+                        <h4>Apartments </h4>
+                        <p>Check out selection</p>
+                    </a>
+                </div>
+                </div>
+                
+                <div class="img_box">
+                    <img src="https://ads.strokedev.net/uploads/logo_image/h1-listing-img-3.jpg">
+                    <div class="inner_bakeries">
+                    <a href="#">
+                        <img src="https://ads.strokedev.net/uploads/logo_image/listing-category-img-4.png" alt="">
+                        <h4>Galleries</h4>
+                        <p>Check out selection</p>
+                    </a>
+                </div>
+                </div>
+                
+            </div>
+            <div class="col-sm-6 bakeries">
+                <div class="img_box" id="big_box">
+                    <img src="https://ads.strokedev.net/uploads/logo_image/h1-listing-img-4.jpg">
+                    <div class="inner_bakeries">
+                    <a href="#">
+                        <img src="https://ads.strokedev.net/uploads/logo_image/listing-category-img-4.png" alt="">
+                        <h4>Asian </h4>
+                        <p>Check out our latest selection of creative job positions</p>
+                    </a>
+                </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="parallexeffect">
+    <div class="container">
+        <div class="middlebox_content">
+            <h3>Visit the Best Restaurants</h3>
+            <p>Sheepish yet the slapped adventurously sincere less dalmatian assentingly wherever left ethereal yet the slapped adventurously sincere less dalmatian assentingly wherever left ethereal</p>
+            <a href="#">Add Listing </a>
+        </div>
+    </div>
+</div>
 
 <?php 
 	include 'top_banner.php';
@@ -168,6 +133,8 @@
 	
 
 ?>
+
+
 
 <?php
 

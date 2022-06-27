@@ -1,12 +1,11 @@
 <div class="row">
     <div class="col-md-12">
-		<?php
-		    die("OKK");
+        <?php
             echo form_open(base_url() . 'vendor/product/do_add/', array(
                 'class' => 'form-horizontal',
                 'method' => 'post',
                 'id' => 'product_add',
-				'enctype' => 'multipart/form-data'
+                'enctype' => 'multipart/form-data'
             ));
         ?>
             <!--Panel heading-->
@@ -14,14 +13,15 @@
                 <div class="panel-control" style="float: left;">
                     <ul class="nav nav-tabs">
                         <li class="active">
+                            <a data-toggle="tab" href="#customer_choice_options"><?php echo translate('customer_choice_options'); ?></a>
+                        </li>
+                        <li >
                             <a data-toggle="tab" href="#product_details"><?php echo translate('product_details'); ?></a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#business_details"><?php echo translate('business_details'); ?></a>
                         </li>
-                        <li>
-                            <a data-toggle="tab" href="#customer_choice_options"><?php echo translate('customer_choice_options'); ?></a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="tab-base">
                     <!--Tabs Content-->                    
                     <div class="tab-content">
-                    	<div id="product_details" class="tab-pane fade active in">
+                        <div id="product_details" class="tab-pane fade ">
         
                             <div class="form-group btm_border">
                                 <h4 class="text-thin text-center"><?php echo translate('product_details'); ?></h4>                            
@@ -45,7 +45,7 @@
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('category');?></label>
                                 <div class="col-sm-6">
-                                    <?php echo $this->crud_model->select_html('category','category','category_name','add','demo-chosen-select required','',NULL,NULL,'get_country'); ?>
+                                    <?php echo $this->crud_model->select_html('category','category','category_name','add','demo-chosen-select required','','digital',NULL,'get_cat'); ?>
                                 </div>
                             </div>
                             
@@ -192,7 +192,7 @@
                                 <span class="btn unit_set"></span>
                             </div>
                         </div>
-                        <div id="customer_choice_options" class="tab-pane fade">
+                        <div id="customer_choice_options" class="tab-pane fade active in">
                             <div class="form-group btm_border">
                                 <h4 class="text-thin text-center"><?php echo translate('customer_choice_options'); ?></h4>                            
                             </div>
@@ -240,7 +240,7 @@
     
             <div class="panel-footer">
                 <div class="row">
-                	<div class="col-md-11">
+                    <div class="col-md-11">
                         <span class="btn btn-purple btn-labeled fa fa-refresh pro_list_btn pull-right" 
                             onclick="ajax_set_full('add','<?php echo translate('add_product'); ?>','<?php echo translate('successfully_added!'); ?>','product_add',''); "><?php echo translate('reset');?>
                         </span>
@@ -277,15 +277,15 @@
     }
 
     function other_forms(){}
-	
-	function set_summer(){
+    
+    function set_summer(){
         $('.summernotes').each(function() {
             var now = $(this);
             var h = now.data('height');
             var n = now.data('name');
-			if(now.closest('div').find('.val').length == 0){
-            	now.closest('div').append('<input type="hidden" class="val" name="'+n+'">');
-			}
+            if(now.closest('div').find('.val').length == 0){
+                now.closest('div').append('<input type="hidden" class="val" name="'+n+'">');
+            }
             now.summernote({
                 toolbar: [
                     ['style', ['style']],
@@ -302,7 +302,7 @@
             });
             now.closest('div').find('.val').val(now.code());
         });
-	}
+    }
 
     function option_count(type){
         var count = $('#option_count').val();
@@ -319,11 +319,11 @@
         $('.demo-chosen-select').chosen();
         $('.demo-cs-multiselect').chosen({width:'100%'});
     }
-	
+    
     $(document).ready(function() {
         set_select();
-		set_summer();
-		createColorpickers();
+        set_summer();
+        createColorpickers();
     });
 
     function other(){
@@ -334,7 +334,7 @@
         $('#sub').hide('slow');
         ajax_load(base_url+'vendor/product/sub_by_cat/'+id,'sub_cat','other');
     }
-	function get_brnd(id){
+    function get_brnd(id){
         $('#brn').hide('slow');
         ajax_load(base_url+'vendor/product/brand_by_sub/'+id,'brand','other');
         $('#brn').show('slow');
@@ -345,13 +345,13 @@
         $(".unit_set").html($(".unit").val());
     });
 
-	function createColorpickers() {
-	return false
-		$('.demo2').colorpicker({
-			format: 'rgba'
-		});
-		
-	}
+    function createColorpickers() {
+    
+        $('.demo2').colorpicker({
+            format: 'rgba'
+        });
+        
+    }
     
     $("#more_btn").click(function(){
         $("#more_additional_fields").append(''
@@ -459,35 +459,35 @@
             +'      <div class="col-md-12" style="margin-bottom:8px;">'
             +'          <div class="col-md-10">'
             +'              <div class="input-group demo2">'
-			+'		     	   <input type="text" value="#ccc" name="color[]" class="form-control" />'
-			+'		     	   <span class="input-group-addon"><i></i></span>'
-			+'		        </div>'
+            +'                 <input type="text" value="#ccc" name="color[]" class="form-control" />'
+            +'                 <span class="input-group-addon"><i></i></span>'
+            +'              </div>'
             +'          </div>'
             +'          <span class="col-md-2">'
             +'              <span class="remove_it_v rmc btn btn-danger btn-icon icon-lg fa fa-trash" ></span>'
             +'          </span>'
             +'      </div>'
-  		);
-		//createColorpickers();
-    });		           
+        );
+        createColorpickers();
+    });                
 
     $('body').on('click', '.rmc', function(){
         $(this).parent().parent().remove();
     });
 
 
-	$(document).ready(function() {
-		$("form").submit(function(e){
-			event.preventDefault();
-		});
-	});
+    $(document).ready(function() {
+        $("form").submit(function(e){
+            event.preventDefault();
+        });
+    });
 </script>
 
 <style>
-	.btm_border{
-		border-bottom: 1px solid #ebebeb;
-		padding-bottom: 15px;	
-	}
+    .btm_border{
+        border-bottom: 1px solid #ebebeb;
+        padding-bottom: 15px;   
+    }
 </style>
 
 

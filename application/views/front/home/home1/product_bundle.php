@@ -1,16 +1,16 @@
 <!-- PAGE -->
-<section class="page-section featured-products sl-bundled">
+<section class="page-section featured-products sl-bundled" style="background-color: #fff;">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h2 class="section-title section-title-lg">
+                        <h2 class="section-title section-title-lg section-title-2">
                             <span>
-                                <span class="thin"> <?php echo translate('bundled_products');?></span>
+                                <?php echo translate('bundled_products');?>
                             </span>
                         </h2>
-                        <div class="featured-products-carousel">
+                        <div class="carousel-arrow-alt">
                             <div class="owl-carousel-2" id="most-viewed-carousel">
                                 <?php
                                     $box_style =  $this->db->get_where('ui_settings',array('ui_settings_id' => 42))->row()->value;

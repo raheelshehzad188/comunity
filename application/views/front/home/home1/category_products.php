@@ -7,15 +7,18 @@
 <!-- PAGE -->
 <section class="page-section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tabs-wrapper content-tabs home1_category_box">
+        <div class="row mx-0 d-lg-flex">
+        	<div class="col-md-3 px-0">
+        		<div class="home-3-category d-flex align-items-center h-100" style="background-image: url('<?php echo $this->crud_model->file_view('category',$row['category'],'','','no','src','',''); ?>');">
+        			<div>
+	        			<h2><?php echo $this->crud_model->get_type_name_by_id('category',$row['category'],'category_name'); ?></h2>
+	        			<a href="<?php echo base_url(); ?>home/category/<?php echo $row['category']; ?>" class="btn"><?php echo translate('browse_all');?></a>
+        			</div>
+        		</div>
+        	</div>
+            <div class="col-md-9 px-0">
+                <div class="tabs-wrapper content-tabs home3_category_box">
                     <ul class="nav nav-tabs">
-                        <li class="category_title" style="background:<?php echo $row['color_back'];?>;border:1px solid <?php echo $row['color_back'];?>;">
-                            <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category']; ?>" style="color:<?php echo $row['color_text'];?>">
-                                <?php echo $this->crud_model->get_type_name_by_id('category',$row['category'],'category_name'); ?>
-                            </a>
-                        </li>
                         <?php
 						if(!empty($row['sub_category'])){
 							$i=0;
@@ -32,9 +35,6 @@
 							}
 						}
 						?>
-                        <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category']; ?>" class="see_more hidden-xs hidden-sm" style="background:<?php echo $row['color_back'];?>; border:1px solid <?php echo $row['color_back'];?>; color:<?php echo $row['color_text'];?>;">
-                        	<i class="fa fa-link"></i>
-                        </a>
                     </ul>
                     <div class="tab-content">
                     	<?php
@@ -43,15 +43,15 @@
 							foreach($sub_categories as $row2){
 						?>
                         <div class="tab-pane fade <?php if($j==0){ echo 'in active';}?>" id="tab<?php echo $row2; ?>">
-                            <div class="row" style="margin-top:-15px;">
+                            <div id="category-carousel-<?php echo $row2; ?>" class="category-carousel owl-theme carousel-arrow-alt">
                             	<?php
 									$box_style =  $this->db->get_where('ui_settings',array('ui_settings_id' => 34))->row()->value;
 									$products= $this->crud_model->product_list_set('sub_category',6,$row2);
 									foreach($products as $row3){
 								?>
-                                <div class="col-md-2 col-sm-6 col-xs-6 padding-lr-10-md" style="margin-top:15px;">
+
                                 	<?php echo $this->html_model->product_box($row3,'grid', $box_style); ?>
-                                </div>
+
                                 <?php
 									}
 								?>
@@ -76,30 +76,30 @@
 ?>
 <script>
 $(document).ready(function(){
-	setTimeout( function(){ 
-		set_cat_product_box_height();
-	},1000 );
+
+    $('.category-carousel').owlCarousel({
+        autoplay: true,
+        loop: true,
+        margin: 30,
+        dots: false,
+        nav: true,
+        navText: [
+            "<i class='fa fa-angle-left'></i>",
+            "<i class='fa fa-angle-right'></i>"
+        ],
+        responsive: {
+            0: {items: 2},
+            479: {items: 2},
+            768: {items: 3},
+            991: {items: 3},
+            1024: {items: 4}
+        }
+    });
+
 });
 
-function set_cat_product_box_height(){
-	var max_img = 0;
-	$('.home1_category_box img').each(function(){
-        var current_height= parseInt($(this).css('height'));
-		if(current_height >= max_img){
-			max_img = current_height;
-		}
-    });
-	$('.home1_category_box img').css('height',max_img);
-	
-	var max_title=0;
-	$('.home1_category_box .caption-title').each(function(){
-        var current_height= parseInt($(this).css('height'));
-		if(current_height >= max_title){
-			max_title = current_height;
-		}
-    });
-	$('.home1_category_box .caption-title').css('height',max_title);
-}
+
+
 </script>
 <style>
 @media(max-width: 768px) {

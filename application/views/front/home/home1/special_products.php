@@ -2,24 +2,26 @@
 <section class="page-section special-products hidden-xs hidden-sm">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 product-list">
-                <h4 class="special-products-title">
+            <div class="col-md-4">
+                <h4 class="section-title section-title-2">
                     <span>
                         <?php echo translate('latest_products');?>
                     </span>
                 </h4>
                 <?php
-                    $latest=$this->crud_model->product_list_set('latest',3);
+                    $latest=$this->crud_model->product_list_set('latest',4);
                     foreach($latest as $row){
                 ?>
-                <div class="product-box-sm" style="width:100%">
+                <div class="product-box-sm product-box-sm-2">
                     <div class="row">
-                        <div class="col-md-4" style="max-height:110px; overflow:hidden;">
-                            <img class="media-object img-responsive pull-left image_delay" style="width:100%;" src="<?php echo img_loading(); ?>" data-src="<?php echo $this->crud_model->file_view('product',$row['product_id'],'100','','thumb','src','multi','one');?>" alt="">
+                        <div class="col-md-4">
+                            <a href="<?php echo $this->crud_model->product_link($row['product_id']); ?>" class="d-block">
+                                <img class="img-responsive image_delay" style="width:100%;" src="<?php echo img_loading(); ?>" data-src="<?php echo $this->crud_model->file_view('product',$row['product_id'],'100','','thumb','src','multi','one');?>" alt="">
+                            </a>
                         </div>
                         <div class="col-md-8">
                             <div class="inro-section">
-                                <h4 class="title">
+                                <h4 class="title text-truncate">
                                     <a href="<?php echo $this->crud_model->product_link($row['product_id']); ?>">
                                     <?php echo $row['title']; ?>
                                     </a>
@@ -32,24 +34,10 @@
                             </div>
                             <?php $rating = $this->crud_model->rating($row['product_id']); ?>
                             <div class="rateit" data-rateit-value="<?= $rating ?>" data-rateit-ispreset="true" data-rateit-readonly="true" ></div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="price pull-left">
-                                        <ins>
-                                            <?php echo currency($this->crud_model->get_product_price($row['product_id'])); ?>
-                                        </ins>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="buttons">
-                                        <span class="btn-icon wishlist pull-right" onclick="to_wishlist(<?php echo $row['product_id'];?>,event)" data-original-title="<?php echo translate('add_to_wishlist');?>" data-toggle="tooltip" data-placement="left">
-                                            <i class="fa fa-heart"></i>
-                                        </span>
-                                        <span class="btn-icon pull-right" onclick="to_cart(<?php echo $row['product_id'];?>,event)" data-original-title="<?php echo translate('add_to_cart');?>" data-toggle="tooltip" data-placement="left">
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </span>
-                                    </div>
-                                </div>
+                            <div class="price p-0">
+                                <span>
+                                    <?php echo currency($this->crud_model->get_product_price($row['product_id'])); ?>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -58,24 +46,26 @@
                     }
                 ?>
             </div>
-            <div class="col-md-4 product-list">
-                <h4 class="special-products-title">
+            <div class="col-md-4">
+                <h4 class="section-title section-title-2">
                     <span>
                         <?php echo translate('recently_viewed');?>
                     </span>
                 </h4>
                 <?php
-                    $recently_viewed=$this->crud_model->product_list_set('recently_viewed',3);
+                    $recently_viewed=$this->crud_model->product_list_set('recently_viewed',4);
                     foreach($recently_viewed as $row){
                 ?>
-                <div class="product-box-sm" style="width:100%">
+                <div class="product-box-sm product-box-sm-2">
                     <div class="row">
-                        <div class="col-md-4" style="max-height:110px; overflow:hidden;">
-                            <img class="media-object img-responsive pull-left image_delay" style="width:100%;" src="<?php echo img_loading(); ?>" data-src="<?php echo $this->crud_model->file_view('product',$row['product_id'],'100','','thumb','src','multi','one');?>" alt="">
+                        <div class="col-md-4">
+                            <a href="<?php echo $this->crud_model->product_link($row['product_id']); ?>">
+                                <img class="img-responsive image_delay" style="width:100%;" src="<?php echo img_loading(); ?>" data-src="<?php echo $this->crud_model->file_view('product',$row['product_id'],'100','','thumb','src','multi','one');?>" alt="">
+                            </a>
                         </div>
                         <div class="col-md-8">
                             <div class="inro-section">
-                                <h4 class="title">
+                                <h4 class="title text-truncate">
                                     <a href="<?php echo $this->crud_model->product_link($row['product_id']); ?>">
                                     <?php echo $row['title']; ?>
                                     </a>
@@ -88,24 +78,10 @@
                             </div>
                             <?php $rating = $this->crud_model->rating($row['product_id']); ?>
                             <div class="rateit" data-rateit-value="<?= $rating ?>" data-rateit-ispreset="true" data-rateit-readonly="true" ></div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="price pull-left">
-                                        <ins>
-                                            <?php echo currency($this->crud_model->get_product_price($row['product_id'])); ?>
-                                        </ins>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="buttons">
-                                        <span class="btn-icon wishlist pull-right" onclick="to_wishlist(<?php echo $row['product_id'];?>,event)" data-original-title="<?php echo translate('add_to_wishlist');?>" data-toggle="tooltip" data-placement="left">
-                                            <i class="fa fa-heart"></i>
-                                        </span>
-                                        <span class="btn-icon pull-right" onclick="to_cart(<?php echo $row['product_id'];?>,event)" data-original-title="<?php echo translate('add_to_cart');?>" data-toggle="tooltip" data-placement="left">
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </span>
-                                    </div>
-                                </div>
+                            <div class="price p-0">
+                                <span>
+                                    <?php echo currency($this->crud_model->get_product_price($row['product_id'])); ?>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -114,24 +90,26 @@
                     }
                 ?>
             </div>
-            <div class="col-md-4 product-list">
-                <h4 class="special-products-title">
+            <div class="col-md-4">
+                <h4 class="section-title section-title-2">
                     <span>
                         <?php echo translate('most_viewed');?>
                     </span>
                 </h4>
                 <?php
-                    $most_viewed=$this->crud_model->product_list_set('most_viewed',3);
+                    $most_viewed=$this->crud_model->product_list_set('most_viewed',4);
                     foreach($most_viewed as $row){
                 ?>
-                <div class="product-box-sm" style="width:100%">
+                <div class="product-box-sm product-box-sm-2">
                     <div class="row">
-                        <div class="col-md-4" style="max-height:110px; overflow:hidden;">
-                            <img class="media-object img-responsive pull-left image_delay" style="width:100%;"  src="<?php echo img_loading(); ?>" data-src="<?php echo $this->crud_model->file_view('product',$row['product_id'],'100','','thumb','src','multi','one');?>" alt="">
+                        <div class="col-md-4">
+                            <a href="<?php echo $this->crud_model->product_link($row['product_id']); ?>">
+                                <img class="media-object img-responsive pull-left image_delay" style="width:100%;"  src="<?php echo img_loading(); ?>" data-src="<?php echo $this->crud_model->file_view('product',$row['product_id'],'100','','thumb','src','multi','one');?>" alt="">
+                            </a>
                         </div>
                         <div class="col-md-8">
                             <div class="inro-section">
-                                <h4 class="title">
+                                <h4 class="title text-truncate">
                                     <a href="<?php echo $this->crud_model->product_link($row['product_id']); ?>">
                                     <?php echo $row['title']; ?>
                                     </a>
@@ -144,24 +122,10 @@
                             </div>
                             <?php $rating = $this->crud_model->rating($row['product_id']); ?>
                             <div class="rateit" data-rateit-value="<?= $rating ?>" data-rateit-ispreset="true" data-rateit-readonly="true" ></div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="price pull-left">
-                                        <ins>
-                                            <?php echo currency($this->crud_model->get_product_price($row['product_id'])); ?>
-                                        </ins>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="buttons">
-                                        <span class="btn-icon wishlist pull-right" onclick="to_wishlist(<?php echo $row['product_id'];?>,event)" data-original-title="<?php echo translate('add_to_list');?>" data-toggle="tooltip" data-placement="left">
-                                            <i class="fa fa-heart"></i>
-                                        </span>
-                                        <span class="btn-icon pull-right" onclick="to_cart(<?php echo $row['product_id'];?>,event)" data-original-title="<?php echo translate('add_to_cart');?>" data-toggle="tooltip" data-placement="left">
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </span>
-                                    </div>
-                                </div>
+                            <div class="price p-0">
+                                <span>
+                                    <?php echo currency($this->crud_model->get_product_price($row['product_id'])); ?>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -191,7 +155,7 @@ function set_special_product_box(){
         }
     });
     $('.product-box-sm').css('height',max_height);
-
+    
     var max_title=0;
     $('.special-products .inro-section').each(function(){
         var current_height= parseInt($(this).css('height'));

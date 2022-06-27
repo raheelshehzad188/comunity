@@ -5,12 +5,12 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h2 class="section-title section-title-lg">
+                        <h2 class="section-title section-title-lg section-title-2">
                             <span>
-                                <span class="thin"> <?php echo translate('classified_products');?></span>
+                                <?php echo translate('classified_products');?>
                             </span>
                         </h2>
-                        <div class="featured-products-carousel">
+                        <div class="carousel-arrow-alt">
                             <div class="owl-carousel-3" id="most-viewed-carousel">
                                 <?php
                                     $limit =  $this->db->get_where('ui_settings',array('ui_settings_id' => 44))->row()->value;

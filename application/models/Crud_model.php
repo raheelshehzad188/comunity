@@ -15,6 +15,21 @@ class Crud_model extends CI_Model
     {
         parent::__construct();
     }
+    
+    public function size_img($id,$height, $width)
+    {
+        $public_id = 'default_sg7wzq';
+        $row =  $this->db->where('id',$id)->get('media')->row();
+        if($row)
+        {
+            $public_id = $row->public_id;
+
+        }
+        $url = 'https://res.cloudinary.com/community-hubland-ltd/image/upload/c_scale,h_'.$height.',q_'.$width.'/'.$public_id.'.jpg';
+        // var_dump($url);
+        return $url;
+
+    }
 
     public function _fill_admin($para2)
     {

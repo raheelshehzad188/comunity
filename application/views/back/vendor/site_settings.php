@@ -8,6 +8,9 @@
             <div class="tab-base tab-stacked-left">
                 <ul class="nav nav-tabs">
                     <li class="active">
+                        <a data-toggle="tab" href="#demo-stk-lft-tab-1"><?php echo translate('vendor_detail');?></a>
+                    </li>
+                    <li>
                         <a data-toggle="tab" href="#demo-stk-lft-tab-2"><?php echo translate('vendor_images');?></a>
                     </li>
                     <li>
@@ -20,7 +23,124 @@
 
                 <div class="tab-content bg_grey">
                     <span id="genset"></span>
-                    <div id="demo-stk-lft-tab-2" class="tab-pane fade active in">
+                    
+                    
+                    <div id="demo-stk-lft-tab-1" class="tab-pane fade active in">
+                        <div class="col-md-12">
+                            <div class="panel">
+                                <div class="panel-heading margin-bottom-20">
+                                    <h3 class="panel-title">
+                                        <?php echo translate('bussiness_detail');?>
+                                    </h3>
+                                </div>
+                            <?php 
+                                $description =  $this->db->get_where('vendor',array('vendor_id' => $this->session->userdata('vendor_id')))->row()->description;
+                                $keywords =  $this->db->get_where('vendor',array('vendor_id' => $this->session->userdata('vendor_id')))->row()->keywords;
+                                $seo_title =  $this->db->get_where('vendor',array('vendor_id' => $this->session->userdata('vendor_id')))->row()->seo_title;
+                                $seo_description =  $this->db->get_where('vendor',array('vendor_id' => $this->session->userdata('vendor_id')))->row()->seo_description;
+                            ?>
+							<?php
+                                echo form_open(base_url() . 'vendor/seo_settings/set', array(
+                                    'class' => 'form-horizontal',
+                                    'method' => 'post',
+                                    'id' => '',
+                                    'enctype' => 'multipart/form-data'
+                                ));
+                            ?>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="demo-hor-inputemail">
+                                        <?php echo translate('name'); ?>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <div class="col-sm-">
+                                            <input type="text"  name="name" value="<?php echo $name; ?>" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="">
+                                        <?php echo translate('tag_line');?>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <textarea name="tag_line"
+                                                  placeholder="<?php echo translate('Tag Line')?>"
+                                                  class="form-control required" rows='4' ><?php echo $tag_line; ?></textarea>
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="">
+                                        <?php echo translate('description');?>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <textarea name="description"
+                                                  placeholder="<?php echo translate('Description')?>"
+                                                  class="form-control required" rows='4' ><?php echo $description; ?></textarea>
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="demo-hor-inputemail">
+                                        <?php echo translate('tags'); ?>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <div class="col-sm-">
+                                            <input type="text"  data-role="tagsinput" name="tags" value="<?php echo $tags; ?>" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="demo-hor-inputemail">
+                                        <?php echo translate('region'); ?>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <div class="col-sm-">
+                                            <input type="text"  data-role="tagsinput" name="region" value="<?php echo $region; ?>" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="demo-hor-inputemail">
+                                        <?php echo translate('categories'); ?>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <div class="col-sm-">
+                                            <input type="text"  data-role="tagsinput" name="categories" value="<?php echo $categories; ?>" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group margin-top-10">
+                                    <label class="col-sm-2 control-label margin-top-10" for="demo-hor-inputemail"><h5><?php echo translate('gallary');?></h5> <br><i>(<?php echo translate('suggested_width');?>:<?php echo translate('height');?> - 300px:300px*)</i></label>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2">
+                                            <?php if(file_exists('uploads/vendor_logo_image/logo_'.$this->session->userdata('vendor_id').'.png')){?>
+                                            <img class="img-responsive img-md img-border" src="<?php echo base_url(); ?>uploads/vendor_logo_image/logo_<?php echo $this->session->userdata('vendor_id'); ?>.png" id="blah" style="width:auto !important;" >
+                                            <?php }else{ ?>
+                                            <img class="img-responsive img-md img-border" src="<?php echo base_url(); ?>uploads/vendor_logo_image/default.jpg" id="blah" style="width:auto !important;" >
+                                        <?php }?>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="panel-footer text-right">
+                                    <span class="btn btn-success btn-labeled fa fa-check submitter enterer"  data-ing='<?php echo translate('saving'); ?>' data-msg='<?php echo translate('settings_updated!'); ?>'>
+                                    <?php echo translate('save');?></span>
+                                </div>
+                            </form>               
+                        </div>
+                        </div> 
+                    </div>
+                    
+                    <div id="demo-stk-lft-tab-2" class="tab-pane fade <?php if($tab_name=="vendor_images") {?>active in<?php } ?>">
                         <div class="col-md-12">
                             <div class="panel">
                                 <div class="panel-heading">
@@ -190,7 +310,7 @@
                     </div>
                     <!-- START : MANAGE SEO------>
                     <div id="demo-stk-lft-tab-5" class="tab-pane fade">
-                         <div class="col-md-12">
+                        <div class="col-md-12">
                             <div class="panel">
                                 <div class="panel-heading margin-bottom-20">
                                     <h3 class="panel-title">

@@ -19,7 +19,7 @@
 
                 
 
-                <div class="col-md-2">
+                <div class="col-sm-2 left_logo">
                     <div class="logo">
 
                         <?php

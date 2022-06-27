@@ -7,7 +7,7 @@ $brand = $this->db->where('brand_id',$brand)->get('brand')->row();
 
 ?>
 
-<div class="col-md-12 col-sm-12">
+<div class="col-md-3 col-sm-3">
 
 	      <div class="product-col product-wq_onimage post-1131 product">
 
@@ -17,24 +17,7 @@ $brand = $this->db->where('brand_id',$brand)->get('brand')->row();
 
 	              <div class="add_tocart forbrand">
 
-	                  <a href="#">
-	                      <?php
-
-	                    if(isset($brand->name))
-
-	                    {
-
-	                        ?>
-
-	                        
-
-	                   <div class="onhot"><?= ucfirst($brand->name); ?></div>
-
-	                   <?php
-
-	                    }
-
-	                    ?>
+	                  <a href="#"><?= ucfirst($brand->name); ?>\
 	                  </a>
 
 	              </div>
@@ -43,7 +26,6 @@ $brand = $this->db->where('brand_id',$brand)->get('brand')->row();
 	                  <a href="#"><?= ucfirst($gender); ?></a>
 
 	              </div>
-
 	              <a href="<?php echo $this->crud_model->product_link($product_id); ?>">
 
 	                <div class="labels">
@@ -69,8 +51,30 @@ $brand = $this->db->where('brand_id',$brand)->get('brand')->row();
 	                </div>
 
 	                <div class="inner">
+	                	<?php
+	                	if($comp_cover)
+	                	{
+	                		$img = $this->crud_model->get_img($comp_cover);
+	                		if(isset($img->secure_url))
+	                		{
 
-	                  <img src="<?php echo $this->crud_model->file_view('product',$product_id,'','','thumb','src','multi','one'); ?>" class="owl-lazy" alt="" >
+	                			?>
+	                			<img src="<?php echo $img->secure_url; ?>" class="owl-lazy" alt="" >
+	                			<?php
+	                		}
+
+	                	}
+	                	else
+	                	{
+	                		?>
+	                		<img src="<?php echo $this->crud_model->file_view('product',$product_id,'','','thumb','src','multi','one'); ?>" class="owl-lazy" alt="" >
+
+	                		<?php
+
+	                	}
+	                	?>
+
+	                  
 
 	                </div>
 
@@ -78,6 +82,22 @@ $brand = $this->db->where('brand_id',$brand)->get('brand')->row();
 
 	              <div class="links-on-image"></div>
 
+	            </div>
+	            <div class="comp_logo">
+	            	<?php
+	                	if($comp_logo)
+	                	{
+	                		$img = $this->crud_model->size_img($comp_logo,30,30);
+	                		if($img)
+	                		{
+
+	                			?>
+	                			<img src="<?php echo $img; ?>" class="owl-lazy" alt="" >
+	                			<?php
+	                		}
+
+	                	}
+	                	?>
 	            </div>
 
 	            <div class="product-content">

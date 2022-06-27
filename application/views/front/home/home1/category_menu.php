@@ -2,227 +2,205 @@
 
 <section class="page-section category_menu">
 
-    <div class="container">
+    <div class="">
 
-        <div class="row main-slider-row flex-no-gutters">
+        <div class=" main-slider-row flex-no-gutters">
 
-            <div class="col-md-10 col-xs-12">
+           <!--  <div class="col-lg-3 col-xs-12 mt0-sm hidden-md hidden-sm hidden-xs">
 
-                <div class="row flex-no-gutters">
+                <!-- side bar menu 
 
-                    <div class="col-lg-3 col-xs-12 mt0-sm hidden-md hidden-sm hidden-xs">
+                <div class="sidebar-menu-left">
 
-                        <!-- side bar menu -->
+                    <div class="responsive sidebar-megamenu">
 
-                        <div class="sidebar-menu-left">
+                        <div class="vertical-menu no-gutter">       
 
-                            <div class="responsive sidebar-megamenu">
+                            <nav class="navbar-default">
 
-                                <div class="vertical-menu no-gutter">       
+                                <div class="container-megamenu vertical ">
 
-                                    <nav class="navbar-default">
+                                    <div class="vertical-wrapper">
 
-                                        <div class="container-megamenu vertical ">
+                                        <span id="remove-verticalmenu" class="fa fa-times"></span>
 
-                                            <div class="vertical-wrapper">
+                                        <div class="megamenu-pattern">
 
-                                                <span id="remove-verticalmenu" class="fa fa-times"></span>
+                                            <ul class="megamenu">
 
-                                                <div class="megamenu-pattern">
+                                                <?php
 
-                                                    <ul class="megamenu">
+                                                    $selected =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 35))->row()->value,true);
 
-                                                        <?php
+                                                    $this->db->where_in('category_id',$selected);
 
-                                                            $selected =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 35))->row()->value,true);
+                                                    $categories=$this->db->get('category')->result_array();
 
-                                                            $this->db->where_in('category_id',$selected);
+                                                    // echo '<br>'.count($categories).'<br>';
 
-                                                            $categories=$this->db->get('category')->result_array();
+                                                    $count = 1;
 
-                                                            // echo '<br>'.count($categories).'<br>';
+                                                    foreach($categories as $row){
 
-                                                            $count = 1;
+                                                        if ($count <= 10) {
 
-                                                            foreach($categories as $row){
+                                                            if($this->crud_model->if_publishable_category($row['category_id'])){
 
-                                                                if ($count <= 10) {
+                                                ?>
 
-                                                                    if($this->crud_model->if_publishable_category($row['category_id'])){
+                                                <li class="item-vertical style1 with-sub-menu hover category_side_set">
 
-                                                        ?>
+                                                    <p class="close-menu"></p>
 
-                                                        <li class="item-vertical style1 with-sub-menu hover category_side_set">
+                                                    <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category_id']; ?>" class="clearfix ">
 
-                                                            <p class="close-menu"></p>
+                                                        <span>
 
-                                                            <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category_id']; ?>" class="clearfix ">
+                                                            <strong> 
 
-                                                                <span>
+                                                                <i class="icon icon1"></i>
 
-                                                                    <strong> 
+                                                                <?php echo $row['category_name']; ?>
 
-                                                                        <i class="icon icon1"></i>
+                                                             </strong>
 
-                                                                        <?php echo $row['category_name']; ?>
+                                                         </span> 
 
-                                                                     </strong>
+                                                         <span class="label"> </span> 
 
-                                                                 </span> 
+                                                    </a>
 
-                                                                 <span class="label"> </span> 
+                                                    <div class="sub-menu" data-subwidth="100" style="width: 690px; display: none; right: 0px;">
 
-                                                            </a>
+                                                        <div class="content" style="display: none;">
 
-                                                            <div class="sub-menu" data-subwidth="100" style="width: 690px; display: none; right: 0px;">
+                                                            <div class="row">
 
-                                                                <div class="content" style="display: none;">
+                                                                <?php
 
-                                                                    <div class="row">
+                                                                    $sub_categories = json_decode($row['data_subdets'],true);
+
+                                                                    if($sub_categories!=NULL){
+
+                                                                ?>
+
+                                                                <div class="col-sm-8">
+
+                                                                    <div class="categories ">
 
                                                                         <?php
 
-                                                                            $sub_categories = json_decode($row['data_subdets'],true);
+                                                                            $i=0;
 
-                                                                            if($sub_categories!=NULL){
+                                                                            foreach($sub_categories as $row1){
+
+                                                                                if($i%3==0){
 
                                                                         ?>
 
-                                                                        <div class="col-sm-8">
+                                                                        <div class="row">
 
-                                                                            <div class="categories ">
+                                                                            <?php
+
+                                                                                }
+
+                                                                            ?>
+
+                                                                            <div class="col-sm-4 static-menu">
 
                                                                                 <?php
 
-                                                                                    $i=0;
-
-                                                                                    foreach($sub_categories as $row1){
-
-                                                                                        if($i%3==0){
+                                                                                if($row['digital']!=='ok'){
 
                                                                                 ?>
 
-                                                                                <div class="row">
+                                                                                <div class="menu">
 
-                                                                                    <?php
+                                                                                    <ul>
 
-                                                                                        }
+                                                                                        <li>
 
-                                                                                    ?>
+                                                                                            <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category_id']; ?>/<?php echo $row1['sub_id']; ?>" class="main-menu">
 
-                                                                                    <div class="col-sm-4 static-menu">
+                                                                                                <?php echo $row1['sub_name'];?>
 
-                                                                                        <?php
-
-                                                                                        if($row['digital']!=='ok'){
-
-                                                                                        ?>
-
-                                                                                        <div class="menu">
+                                                                                            </a>
 
                                                                                             <ul>
 
+                                                                                                <?php
+
+                                                                                                $brands=explode(';;;;;;',$row1['brands']);
+
+                                                                                                    foreach($brands as $row2){
+
+                                                                                                        if($row2 !== ''){
+
+                                                                                                            $brand = explode(':::',$row2);
+
+                                                                                                ?>
+
                                                                                                 <li>
 
-                                                                                                    <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category_id']; ?>/<?php echo $row1['sub_id']; ?>" class="main-menu">
+                                                                                                    <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category_id']; ?>/<?php echo $row1['sub_id']; ?>-<?php echo $brand[0]; ?>">
 
-                                                                                                        <?php echo $row1['sub_name'];?>
+                                                                                                        <?php echo $brand[1];?>
 
                                                                                                     </a>
 
-                                                                                                    <ul>
-
-                                                                                                        <?php
-
-                                                                                                        $brands=explode(';;;;;;',$row1['brands']);
-
-                                                                                                            foreach($brands as $row2){
-
-                                                                                                                if($row2 !== ''){
-
-                                                                                                                    $brand = explode(':::',$row2);
-
-                                                                                                        ?>
-
-                                                                                                        <li>
-
-                                                                                                            <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category_id']; ?>/<?php echo $row1['sub_id']; ?>-<?php echo $brand[0]; ?>">
-
-                                                                                                                <?php echo $brand[1];?>
-
-                                                                                                            </a>
-
-                                                                                                        </li>
-
-                                                                                                        <?php
-
-                                                                                                                }
-
-                                                                                                            }
-
-                                                                                                        ?>
-
-                                                                                                    </ul>
-
                                                                                                 </li>
+
+                                                                                                <?php
+
+                                                                                                        }
+
+                                                                                                    }
+
+                                                                                                ?>
 
                                                                                             </ul>
 
-                                                                                        </div>
+                                                                                        </li>
 
-                                                                                        <?php
-
-                                                                                        }else{
-
-                                                                                        ?>
-
-                                                                                        <ul>
-
-                                                                                            <li>
-
-                                                                                                <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category_id']; ?>/<?php echo $row1['sub_id']; ?>" class="main-menu">
-
-                                                                                                    <?php echo $row1['sub_name'];?>
-
-                                                                                                </a>
-
-                                                                                            </li>
-
-                                                                                        </ul>
-
-                                                                                        <?php
-
-                                                                                        }
-
-                                                                                        ?>
-
-                                                                                   </div>
-
-                                                                                    <?php
-
-                                                                                        $i++;
-
-                                                                                        if($i%3==0){
-
-                                                                                    ?>
+                                                                                    </ul>
 
                                                                                 </div>
 
                                                                                 <?php
 
-                                                                                    }
+                                                                                }else{
 
-                                                                                }
+                                                                                ?>
 
-                                                                                if($i%3!==0){
+                                                                                <ul>
 
-                                                                                    echo '</div>';
+                                                                                    <li>
+
+                                                                                        <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category_id']; ?>/<?php echo $row1['sub_id']; ?>" class="main-menu">
+
+                                                                                            <?php echo $row1['sub_name'];?>
+
+                                                                                        </a>
+
+                                                                                    </li>
+
+                                                                                </ul>
+
+                                                                                <?php
 
                                                                                 }
 
                                                                                 ?>
 
-                                                                            </div>
+                                                                           </div>
+
+                                                                            <?php
+
+                                                                                $i++;
+
+                                                                                if($i%3==0){
+
+                                                                            ?>
 
                                                                         </div>
 
@@ -230,41 +208,55 @@
 
                                                                             }
 
+                                                                        }
+
+                                                                        if($i%3!==0){
+
+                                                                            echo '</div>';
+
+                                                                        }
+
                                                                         ?>
 
-                                                                        <div class="col-sm-4 padding-r-0-md">
+                                                                    </div>
 
-                                                                            <div class="img-banner">
+                                                                </div>
 
-                                                                                <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category_id']; ?>">
+                                                                <?php
 
-                                                                                    <?php
+                                                                    }
 
-                                                                                    if(file_exists('uploads/category_image/'.$row['banner'])){
+                                                                ?>
 
-                                                                                    ?>
+                                                                <div class="col-sm-4 padding-r-0-md">
 
-                                                                                    <img class="img-responsive image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo base_url();?>uploads/category_image/<?php echo $row['banner']; ?>" alt="banner"/> 
+                                                                    <div class="img-banner">
 
-                                                                                    <?php
+                                                                        <a href="<?php echo base_url(); ?>home/category/<?php echo $row['category_id']; ?>">
 
-                                                                                        } else {
+                                                                            <?php
 
-                                                                                    ?>
+                                                                            if(file_exists('uploads/category_image/'.$row['banner'])){
 
-                                                                                    <img  class="image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo base_url(); ?>uploads/category_image/default.jpg" />
+                                                                            ?>
 
-                                                                                    <?php
+                                                                            <img class="img-responsive image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo base_url();?>uploads/category_image/<?php echo $row['banner']; ?>" alt="banner"/> 
 
-                                                                                        }
+                                                                            <?php
 
-                                                                                    ?>
+                                                                                } else {
 
-                                                                                </a>
+                                                                            ?>
 
-                                                                            </div>
+                                                                            <img  class="image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo base_url(); ?>uploads/category_image/default.jpg" />
 
-                                                                        </div>
+                                                                            <?php
+
+                                                                                }
+
+                                                                            ?>
+
+                                                                        </a>
 
                                                                     </div>
 
@@ -272,115 +264,41 @@
 
                                                             </div>
 
-                                                        </li>
+                                                        </div>
 
-                                                        <?php
+                                                    </div>
 
-                                                                    }
+                                                </li>
 
-                                                                }
-
-                                                                $count++;
+                                                <?php
 
                                                             }
 
-                                                        ?>
+                                                        }
 
-                                                        <li class="loadmore">
+                                                        $count++;
 
-                                                            <a href="<?php echo base_url(); ?>home/all_category">
+                                                    }
 
-                                                                <i class="fa fa-plus-square-o"></i>
+                                                ?>
 
-                                                                <span class="more-view"> 
+                                                <li class="loadmore">
 
-                                                                    <?php echo translate('more_categories');?>
+                                                    <a href="<?php echo base_url(); ?>home/all_category">
 
-                                                                </span>
+                                                        <i class="fa fa-plus-square-o"></i>
 
-                                                            </a>
+                                                        <span class="more-view"> 
 
-                                                        </li>
+                                                            <?php echo translate('more_categories');?>
 
-                                                    </ul>
+                                                        </span>
 
-                                                </div>
+                                                    </a>
 
-                                            </div>
+                                                </li>
 
-                                        </div>
-
-                                    </nav>  
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <!-- /side bar menu -->
-
-                    </div>
-
-                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-
-                        <div class="main-slider">
-
-                            <div class="owl-carousel" id="main-slider">
-                                <div class="bannerSearch">
-            <h1>Buy & Sell <br><span>What's Now & Next</span></h1>
-            <form action=".">
-                <input type="search" id="home-search" name="q" placeholder="Search..." value="" class="searchbox" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" aria-label="Search">
-                <svg viewBox="0 0 512 512" focusable="false" class="chakra-icon css-17jqirj" aria-hidden="true">
-                    <path fill="currentColor"></path>
-                </svg>
-            </form>
-        </div>
-                                <?php
-
-                                $this->db->order_by("slides_id", "desc");
-
-                                $this->db->where("uploaded_by", "admin");
-
-                                $this->db->where("status", "ok");
-
-                                $slides=$this->db->get('slides')->result_array();
-
-                                $i=1;
-
-                                foreach($slides as $row){
-
-                                ?>
-
-                                <div class="item slide<?php echo $i; ?> alt">
-
-                                    <img class="slide-img image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo $this->crud_model->file_view('slides',$row['slides_id'],'100','','no','src','','','.jpg') ?>" alt="" />
-
-                                    <div class="caption">
-
-                                        <div class="div-table">
-
-                                            <div class="div-cell">
-
-                                                <div class="caption-content">
-
-                                                    <p class="caption-text">
-
-                                                        <?php if($row['button_text']!=NULL){ ?>
-
-                                                        <a class="btn pull-right" style="background:<?php echo $row['button_color']; ?>; color:<?php echo $row['text_color']; ?>" href="<?php echo $row['button_link']; ?>">
-
-                                                            <?php echo $row['button_text']; ?>
-
-                                                        </a>
-
-                                                        <?php } ?>
-
-                                                    </p>
-
-                                                </div>
-
-                                            </div>
+                                            </ul>
 
                                         </div>
 
@@ -388,15 +306,7 @@
 
                                 </div>
 
-                                <?php
-
-                                    $i++;
-
-                                }
-
-                                ?>
-
-                            </div>
+                            </nav>  
 
                         </div>
 
@@ -404,69 +314,79 @@
 
                 </div>
 
+                <!-- /side bar menu 
+
             </div>
+            -->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-            <div class="col-md-2 col-xs-12 hidden-sm hidden-xs" style="background: #fff; box-shadow: 2px 1px 6px #dcdcdc;">  
+                <div class="main-slider">
 
-                <h2 class="section-title" style="margin:15px auto;">
+                    <div class="owl-carousel" id="main-slider">
 
-                    <?php echo translate('today\'s_deal');?>
+                        <?php
 
-                </h2>
+                        $this->db->order_by("slides_id", "desc");
 
-                <div class="todays_deal">   
+                        $this->db->where("uploaded_by", "admin");
 
-                    <?php
+                        $this->db->where("status", "ok");
 
-                        $limit =  $this->db->get_where('ui_settings',array('ui_settings_id' => 30))->row()->value;
+                        $slides=$this->db->get('slides')->result_array();
 
-                        $todays_deal=$this->crud_model->product_list_set('deal',$limit);
+                        $i=1;
 
-                        foreach($todays_deal as $row){
+                        foreach($slides as $row){
 
-                    ?>
+                        ?>
 
-                    <div class="thumbnail">
+                        <div class="item slide<?php echo $i; ?> alt">
 
-                        <div class="media">
+                            <img class="" src="<?php echo $this->crud_model->file_view('slides',$row['slides_id'],'100','','no','src','','','.jpg') ?>"alt="" />
 
-                            <span class="media-link" style="height: auto;">
+                            <div class="caption">
 
-                                <img class="img-responsive image_delay" src="<?php echo img_loading(); ?>" data-src="<?php echo $this->crud_model->file_view('product',$row['product_id'],'','','thumb','src','multi','one');?>" alt="">
+                                <div class="div-table">
 
-                                <span class="icon-view" onclick="quick_view('<?php echo $this->crud_model->product_link($row['product_id'],'quick'); ?>')" data-toggle="tooltip" data-original-title="<?php  echo translate('quick_view'); ?>" data-placement="auto">
+                                    <div class="div-cell">
 
-                                    <strong>
+                                        <div class="caption-content">
 
-                                        <i class="fa fa-eye"></i>
+                                            <p class="caption-text">
 
-                                    </strong>
+                                                <?php if($row['button_text']!=NULL){ ?>
 
-                                </span>
+                                                <a class="btn pull-right" style="background:<?php echo $row['button_color']; ?>; color:<?php echo $row['text_color']; ?>" href="<?php echo $row['button_link']; ?>">
 
-                            </span>
+                                                    <?php echo $row['button_text']; ?>
 
-                            <div class="title">
+                                                </a>
 
-                                <a href="<?php echo $this->crud_model->product_link($row['product_id']); ?>">
+                                                <?php } ?>
 
-                                    <?php echo $row['title']; ?>
+                                            </p>
 
-                                </a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
 
                             </div>
 
                         </div>
 
-                    </div>
+                        <?php
 
-                    <?php
+                            $i++;
 
                         }
 
-                    ?>
+                        ?>
 
-                </div> 
+                    </div>
+
+                </div>
 
             </div>
 
