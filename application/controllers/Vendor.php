@@ -417,6 +417,7 @@ class Vendor extends CI_Controller
         }
         
         if ($para1 == 'do_add') {
+
             $option              = $this->input->post('option');
             $options = array();
             $num_of_imgs = 0;
@@ -428,8 +429,6 @@ class Vendor extends CI_Controller
             $data['description']        = $this->input->post('description');
             $data['sub_category']       = $this->input->post('sub_category');
             $data['sale_price']         = $this->input->post('sale_price');
-            /* $data['purchase_price']     = $this->input->post('purchase_price');*/
-            $data['parent_id']     = $this->input->post('parent_id');
             $data['add_timestamp']      = time();
             $data['download']           = NULL;
             $data['featured']           = 'no';
@@ -477,30 +476,35 @@ class Vendor extends CI_Controller
                     $id = $this->db->insert_id();
                     $this->crud_model->_set_variation($id);
                     $this->benchmark->mark_time();
+                    $this->load->library('cloudinarylib');
                     if($id && isset($_FILES['sneakerimg']['name']) && !empty($_FILES['sneakerimg']['name'])){
                     
                         $sneakerimg = $this->crud_model->file_up("sneakerimg", "product", 'sneakerimg_'.time());
-                        $this->db->where('product_id',$id)->update('product',array('sneakerimg'=>$sneakerimg));
-                        unset($sneakerimg);
+                    $data = \Cloudinary\Uploader::upload($sneakerimg);
+                    if(isset($data['public_id']))
+                    {
+                        $logo_id = $this->crud_model->add_img($sneakerimg,$data);
+                        array_push($dataInfo,$logo_id);
+                        $this->db->where('product_id',$id)->update('product',array('comp_logo'=>$logo_id));
                         
                         
                     }
+                }
                     
                     if($id && isset($_FILES['sideimg']['name']) && !empty($_FILES['sideimg']['name'])){
                     
                         $sneakerimg = $this->crud_model->file_up("sideimg", "product", 'sideimg_'.time());
-                        $this->db->where('product_id',$id)->update('product',array('sideimg'=>$sneakerimg));
-                        unset($sneakerimg);
+                        $data = \Cloudinary\Uploader::upload($sneakerimg);
+                    if(isset($data['public_id']))
+                    {
+                        $logo_id = $this->crud_model->add_img($sneakerimg,$data);
+                        $this->db->where('product_id',$id)->update('product',array('comp_cover'=>$logo_id));
+                        
                         
                     }
-                    
-                    if($id && isset($_FILES['boxImg']['name']) && !empty($_FILES['boxImg']['name'])){
-                    
-                        $sneakerimg = $this->crud_model->file_up("boxImg", "product", 'boxImg_'.time());
-                        $this->db->where('product_id',$id)->update('product',array('boxImg'=>$sneakerimg));
-                        unset($sneakerimg);
                         
                     }
+
                 } else {
                     echo 'already uploaded maximum product';
                 }
@@ -586,8 +590,10 @@ class Vendor extends CI_Controller
                     if($id && isset($_FILES['sideimg']['name']) && !empty($_FILES['sideimg']['name'])){
                     
                         $sneakerimg = $this->crud_model->file_up("sideimg", "product", 'sideimg_'.time());
-                        $this->db->where('product_id',$id)->update('product',array('sideimg'=>$sneakerimg));
-                        unset($sneakerimg);
+                        $this->db->where('product_id',$id)->update('product',array('comp_cover'=>$sneakerimg));
+
+                        var_dump($sneakerimg);
+                        die();
                         
                     }
                     
@@ -628,7 +634,8 @@ class Vendor extends CI_Controller
             $page_data['sizes'] = $attrs;
             $page_data['product_data'] = $this->db->get_where('product', array(
                 'product_id' => $para2
-            ))->result_array();
+            ))->row();
+            $page_data['brands'] =  $this->db->get('brand')->result_array();
             echo $this->load->view('back/vendor/product_edit', $page_data,true);
         } else if ($para1 == 'view') {
             $page_data['product_data'] = $this->db->get_where('product', array(
@@ -678,9 +685,18 @@ class Vendor extends CI_Controller
             $data       = array();
             foreach ($products as $row) {
 
-               $category = $row['category'];
-                $cat = $this->db->where('category_id',$category)->get('category')->row();
+
+               $category = $row['brand'];
+                $cat = $this->db->where('brand_id',$category)->get('brand')->row();
+                if($row['comp_logo'])
+                {
+                    $img = $this->crud_model->size_img($row['comp_logo'],30,30);
+
+                }
+                else
+                {
                    $img = $this->crud_model->file_view('product',$row['parent_id'],'','','thumb','src','multi','one'); 
+                }
                 $res    = array(
                              'item'        => '',
                              'getMainPrice'        => '',
@@ -697,55 +713,22 @@ class Vendor extends CI_Controller
                           $child[] = $row['product_id'];
                           $min = '';
                           $max = '';
-                          //get sizes
-                          $allsizes = $this->db->where('rate >',0)->where('product',$row['product_id'])->get('stock')->result_array();
-                          $size == '';
-                          foreach($allsizes as $k=> $v)
-                          {
-                              //get value
-                              $s = $this->db->where('product_id',$v['product'])->where('id',$v['attribute'])->get('attribute_to_values')->row();
-                              if(isset($s->value))
-                              {
-                                  $size = $size.'<div class="list_size">'.$s->value.'</div>';
-                              }
-                          }
                           if($child)
                           {
                           $all_rates = $this->db->where('rate >',0)->where_in('product', $child)->get('stock')->result_array();
                           $gmin = 0;
                           $gmax = 0;
-                          foreach($all_rates as $k=> $v)
-                          {
-                              if($k == 0)
-                              {
-                                  $gmin = $v['rate'];
-                                  $gmax = $v['rate'];
-                              }
-                              if($gmin > $v['rate'])
-                              {
-                                  $gmin = $v['rate'];
-                              }
-                              if($gmax < $v['rate'])
-                              {
-                                  $gmax = $v['rate'];
-                              }
                           }
-                          $min = $gmin;
-                          $max = $gmax;
-                          }
-                          $sku = $this->crud_model->get_type_name_by_id('product', $row['parent_id'], 'sku');
+                          $sku = $this->crud_model->get_type_name_by_id('product', $row['product_id'], 'sku');
                           $cat_name = "";
                           
-                          if(isset($cat->category_name))
+                          if(isset($cat->name))
                           {
-                          $cat_name = $cat->category_name;
+                          $cat_name = $cat->name;
                           }
 
-                $res['item']  = '<img class="img-sm" style="height:auto !important; border:1px solid #ddd;padding:2px; border-radius:2px !important;float: left;" src="'.$img.'"  /><div class="next_div" ><small>'.$cat_name.'</small><p><b>'.$row['title'].'</b></p><span>'.$sku.'</span></div>';
-                $res['min_price']  = $min;
-                $res['max_price']  = $max;
-                $res['sizes']  = $size;
-                $res['title']  = $row['title'];
+                $res['item']  = '<img class="img-sm" style="height:auto !important; border:1px solid #ddd;padding:2px; border-radius:2px !important;float: left;" src="'.$img.'"  /><div class="next_div" ><small>'.$cat_name.'</small>s</div>';
+                $res['list_type']  = $cat_name;
                 if($row['status'] == 'ok'){
                     $res['publish']  = '<input id="pub_'.$row['product_id'].'" class="sw1" type="checkbox" data-id="'.$row['product_id'].'" checked />';
                 } else {

@@ -44,7 +44,9 @@ btn1 .fa{
         margin: 10px 0;
   perspective: 1000px;
 }
-
+.flip-card-front:active{
+ border: 1px solid #000;
+}
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -165,6 +167,44 @@ btn1 .fa{
                                     <span id="previewImg" ></span>
                                 </div>
                             </div>
+
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-12">Busniuss logo</label>
+                                <div class="col-sm-6">
+                                    <span class="pull-left btn btn-default btn-file"> <?php echo translate('choose_file');?>
+                                        <input type="file" value="<?= ($row['sneakerimg'])?$row['sneakerimg']:""; ?>" name="sneakerimg" onchange="preview1(this);" id="demo-hor-inputpass" class="form-control">
+                                    </span>
+                                    <br><br>
+                                    <span id="previewImg1" >
+                                        
+                                        <?php
+                                            if($row['comp_logo'])
+                                            {
+                                                ?>
+                                                <img class="img-responsive" width="100" src="<?= base_url();?><?= $row['comp_logo']?>" data-id="_paris/uploads/product" alt="User_Image"><?php
+                                            }
+                                        ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group btm_border">
+                                <label class="col-sm-4 control-label" for="demo-hor-12">Cover Image</label>
+                                <div class="col-sm-6">
+                                    <span class="pull-left btn btn-default btn-file"> <?php echo translate('choose_file');?>
+                                        <input type="file" name="sideimg" onchange="preview2(this);" id="demo-hor-inputpass" class="form-control">
+                                    </span>
+                                    <br><br>
+                                    <span id="previewImg2" >
+                                        <?php
+                                            if($row['sideimg'])
+                                            {
+                                                ?>
+                                                <img class="img-responsive" width="100" src="<?= base_url();?><?= $row['sideimg']?>" data-id="_paris/uploads/product" alt="User_Image"><?php
+                                            }
+                                        ?>
+                                    </span>
+                                </div>
+                            </div>
                             
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-13"><?php echo translate('description'); ?></label>
@@ -211,7 +251,10 @@ btn1 .fa{
                                     <?php echo translate('add_more_fields');?></div>
                                 </div>
                             </div>
-                            
+                            <div style="float:right">
+                            <span><button class="btn_primary">add</button></span>
+                            <span><button class="btn_danger">edit</button></span>
+                            </div>
 
                         </div>
                         <div id="event_images" class="tab-pane fade ">
@@ -259,10 +302,11 @@ btn1 .fa{
                         <div id="customer_choice_options" class="tab-pane fade active in">
                            
                             <div class="row">
+                                <input type="hidden" id="brand" name="brand"/>
                                  <?php
                             foreach($brands as $k=>$v){
                             ?>
-                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="col-md-4 col-sm-12 col-xs-12" onclick="selecttype('<?= $v['brand_id'];?>')">
                                     <a href="#"><div class="flip-card">
                                   <div class="flip-card-inner">
                                     <div class="flip-card-front">
@@ -287,9 +331,6 @@ btn1 .fa{
                         </div>
                     </div>
                 </div>
-
-                <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
-                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
         
             </div>
     
@@ -390,9 +431,7 @@ btn1 .fa{
         ajax_load(base_url+'vendor/product/sub_by_cat/'+id,'sub_cat','other');
     }
     function get_brnd(id){
-        $('#brn').hide('slow');
-        ajax_load(base_url+'vendor/product/brand_by_sub/'+id,'brand','other');
-        $('#brn').show('slow');
+        
     }
     function get_sub_res(id){}
 
@@ -431,65 +470,6 @@ btn1 .fa{
     function previous_tab(){
         $('.nav-tabs li.active').prev().find('a').click();                     
     }
-    
-    $("#more_option_btn").click(function(){
-        option_count('add');
-        var co = $('#option_count').val();
-        $("#more_additional_options").append(''
-            +'<div class="form-group" data-no="'+co+'">'
-            +'    <div class="col-sm-4">'
-            +'        <input type="text" name="op_title[]" class="form-control required"  placeholder="<?php echo translate('customer_input_title'); ?>">'
-            +'    </div>'
-            +'    <div class="col-sm-5">'
-            +'        <select class="demo-chosen-select op_type required" name="op_type[]" >'
-            +'            <option value="">(none)</option>'
-            +'            <option value="text">Text Input</option>'
-            +'            <option value="single_select">Dropdown Single Select</option>'
-            +'            <option value="radio">Radio</option>'
-            +'        </select>'
-            +'        <div class="col-sm-12 options">'
-            +'          <input type="hidden" name="op_set'+co+'[]" value="none" >'
-            +'        </div>'
-            +'    </div>'
-            +'    <input type="hidden" name="op_no[]" value="'+co+'" >'
-            +'    <div class="col-sm-2">'
-            +'        <span class="remove_it_o rmo btn btn-danger btn-icon btn-circle icon-lg fa fa-times" onclick="delete_row(this)"></span>'
-            +'    </div>'
-            +'</div>'
-        );
-        set_select();
-    });
-    
-    $("#more_additional_options").on('change','.op_type',function(){
-        var co = $(this).closest('.form-group').data('no');
-        if($(this).val() !== 'text' && $(this).val() !== ''){
-            $(this).closest('div').find(".options").html(''
-                +'    <div class="col-sm-12">'
-                +'        <div class="col-sm-12 options margin-bottom-10"></div><br>'
-                +'        <div class="btn btn-mint btn-labeled fa fa-plus pull-right add_op">'
-                +'        <?php echo translate('add_options_for_choice');?></div>'
-                +'    </div>'
-            );
-        } else if ($(this).val() == 'text' || $(this).val() == ''){
-            $(this).closest('div').find(".options").html(''
-                +'    <input type="hidden" name="op_set'+co+'[]" value="none" >'
-            );
-        }
-    });
-    
-    $("#more_additional_options").on('click','.add_op',function(){
-        var co = $(this).closest('.form-group').data('no');
-        $(this).closest('.col-sm-12').find(".options").append(''
-            +'    <div>'
-            +'        <div class="col-sm-10">'
-            +'          <input type="text" name="op_set'+co+'[]" class="form-control required"  placeholder="<?php echo translate('option_name'); ?>">'
-            +'        </div>'
-            +'        <div class="col-sm-2">'
-            +'          <span class="remove_it_n rmon btn btn-danger btn-icon btn-circle icon-sm fa fa-times" onclick="delete_row(this)"></span>'
-            +'        </div>'
-            +'    </div>'
-        );
-    });
     
     $('body').on('click', '.rmo', function(){
         $(this).parent().parent().remove();
@@ -570,6 +550,47 @@ var mapProp= {
 };
 var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 }
+function selecttype(id)
+{
+    $('#brand').val(id);
+    next_tab();
+}
+window.preview1 = function (input) {
+        if (input.files && input.files[0]) {
+            $("#previewImg1").html('');
+            $(input.files).each(function () {
+                var reader = new FileReader();
+                reader.readAsDataURL(this);
+                reader.onload = function (e) {
+                    $("#previewImg1").append("<div style='float:left;border:4px solid #303641;padding:5px;margin:5px;'><img height='80' src='" + e.target.result + "'></div>");
+                }
+            });
+        }
+    }
+    window.preview2 = function (input) {
+        if (input.files && input.files[0]) {
+            $("#previewImg2").html('');
+            $(input.files).each(function () {
+                var reader = new FileReader();
+                reader.readAsDataURL(this);
+                reader.onload = function (e) {
+                    $("#previewImg2").append("<div style='float:left;border:4px solid #303641;padding:5px;margin:5px;'><img height='80' src='" + e.target.result + "'></div>");
+                }
+            });
+        }
+    }
+    window.preview3 = function (input) {
+        if (input.files && input.files[0]) {
+            $("#previewImg3").html('');
+            $(input.files).each(function () {
+                var reader = new FileReader();
+                reader.readAsDataURL(this);
+                reader.onload = function (e) {
+                    $("#previewImg2").append("<div style='float:left;border:4px solid #303641;padding:5px;margin:5px;'><img height='80' src='" + e.target.result + "'></div>");
+                }
+            });
+        }
+    }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
 

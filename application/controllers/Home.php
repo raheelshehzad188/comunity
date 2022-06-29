@@ -2589,6 +2589,10 @@ $this->db->group_end();  //group ed
         } else {
             $type = 'other';
         }
+        if($product_data->row()->is_bpage)
+        {
+            $type = 'bpage';
+        }
         $page_data['product_details'] = $this->db->get_where('product', array('product_id' => $para1, 'parent_id' => '0'))->result_array();
         $page_data['vendors'] = $vendors;
         $page_data['page_name'] = "product_view/" . $type . "/page_view";

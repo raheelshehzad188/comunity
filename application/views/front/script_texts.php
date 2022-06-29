@@ -1151,7 +1151,7 @@ if (keyCode == 13){
 					here.html(ing); // change submit button text
 				},
 				success: function(data) {
-				a					
+							
 					here.fadeIn();
 					here.html(prv);
 					if(data == 'checkout'){
@@ -1159,12 +1159,7 @@ if (keyCode == 13){
 						setTimeout(
 							function() {
 								var url = window.location.href;
-								if(url.search("vendor_logup") !== -1){
-									//$('.vendor_login_btn')[0].click();
-									location.replace("<?php echo base_url(); ?>home/vendor_login_msg");
-								} else{
-									location.replace("<?php echo base_url(); ?>home/cart_checkout");
-								}
+								location.replace("<?php echo base_url(); ?>home/cart_checkout");
 							}, 2000
 						);
 						//sound('successful_logup');  		

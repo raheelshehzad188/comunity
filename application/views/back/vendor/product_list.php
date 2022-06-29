@@ -30,14 +30,8 @@
                 <th data-field="item" data-align="right" data-sortable="true">
                     <?php echo translate('item');?>
                 </th>
-                <th data-field="min_price" data-align="center" data-sortable="true">
-                    <?php echo translate('min_price');?>
-                </th>
-                <th data-field="sizes" data-align="center" data-sortable="true">
-                    <?php echo translate('sizes');?>
-                </th>
-                <th data-field="max_price" data-align="center" data-sortable="true">
-                    <?php echo translate('max_price');?>
+                <th data-field="list_type" data-align="center" data-sortable="true">
+                    <?php echo translate('list_type');?>
                 </th>
                 <th data-field="options" data-sortable="false" data-align="right">
                     <?php echo translate('options');?>

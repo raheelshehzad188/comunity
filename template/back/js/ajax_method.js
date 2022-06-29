@@ -402,7 +402,7 @@
             var here = $(this);
             
             if(here.val() == ''){
-                console.log(here);
+                console.log(here.attr('name'));
                 if(!here.is('select')){
                     here.css({borderColor: 'red'});
                     if(here.attr('type') == 'number'){
