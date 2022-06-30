@@ -135,7 +135,7 @@
                             <div class="panel">
                                 <div class="panel-heading margin-bottom-20">
                                     <h3 class="panel-title">
-                                        <?php echo translate('bussiness_detail');?>
+                                        <?php echo translate('manage_search_engine_optimization');?>
                                     </h3>
                                 </div>
                             <?php 
@@ -148,39 +148,58 @@
                                 echo form_open(base_url() . 'vendor/gallary/set', array(
                                     'class' => 'form-horizontal',
                                     'method' => 'post',
-                                    'id' => 'gallary-form',
+                                    'id' => '',
                                     'enctype' => 'multipart/form-data'
                                 ));
                             ?>
-                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="demo-hor-inputemail">
+                                        <?php echo translate('title'); ?>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <div class="col-sm-">
+                                            <input type="text"  data-role="tagsinput" name="title0" value="<?php echo $keywords; ?>" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="">
+                                        <?php echo translate('Description');?>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <textarea name="description0"
+                                                  placeholder="<?php echo translate('description')?>"
+                                                  class="form-control required" rows='4' ><?php echo $seo_description; ?></textarea>
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
                                 <div class="form-group margin-top-10">
-                                    <label class="col-sm-3 control-label margin-top-10" for="demo-hor-inputemail"><h5><?php echo translate('gallary');?></h5> <br><i>(<?php echo translate('suggested_width');?>:<?php echo translate('height');?> - 300px:300px*)</i></label>
-                                    <div class="col-sm-9" id="gallary_image">
+                                    <label class="col-sm-3 control-label margin-top-10" for="demo-hor-inputemail"><h5><?php echo translate('logo');?></h5> <br><i>(<?php echo translate('suggested_width');?>:<?php echo translate('height');?> - 300px:300px*)</i></label>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2">
+                                            <img class="img-responsive img-md img-border" src="<?php echo base_url(); ?>uploads/vendor_logo_image/default.jpg" id="blah" style="width:auto !important;" >
+                                        </div>
                                         <div class="col-sm-2">
                                         <span class="pull-left btn btn-default btn-file margin-top-10">
-                                            <?php echo translate('gallary_images');?>
-                                            <input type="file" name="logo" class="form-control" multiple="" id="imgInp">
+                                            <?php echo translate('select_image');?>
+                                            <input type="file" name="image0" class="form-control" id="imgInp">
                                         </span>
-                                        </div>
-                                        <div class="col-sm-2" style="margin: 14px;">
-                                            <?php if(file_exists('uploads/vendor_logo_image/logo_'.$this->session->userdata('vendor_id').'.png')){?>
-                                            <img class="img-responsive img-md img-border" src="<?php echo base_url(); ?>uploads/vendor_logo_image/logo_<?php echo $this->session->userdata('vendor_id'); ?>.png" id="blah" style="width:auto !important;" >
-                                            <?php }else{ ?>
-                                            <img class="img-responsive img-md img-border" src="<?php echo base_url(); ?>uploads/vendor_logo_image/default.jpg" id="blah" style="width:auto !important;" >
-                                        <?php }?>
                                         </div>
                                         <div class="col-sm-5"></div>
                                     </div>
-                                </div>
-                                
+                                </div><hr>
+                                <div id="size-section"></div>
 
                                 <div class="panel-footer text-right">
+                                    <span class="btn btn-success btn-labeled fa fa-plus enterer" id="size-btn" >
+                                    <?php echo translate('Add New Image');?></span>
+                                    
                                     <span class="btn btn-success btn-labeled fa fa-check submitter enterer"  data-ing='<?php echo translate('saving'); ?>' data-msg='<?php echo translate('settings_updated!'); ?>'>
                                     <?php echo translate('save');?></span>
                                 </div>
                             </form>               
                         </div>
-                        </div> 
+                        </div>
                     </div>
                     
                     <div id="demo-stk-lft-tab-2" class="tab-pane fade <?php if($tab_name=="vendor_images") {?>active in<?php } ?>">
@@ -430,6 +449,18 @@
 <div style="display:none;" id="site"></div>
 <!-- for logo settings -->
 <script>
+
+    var i = 1;
+	$("#size-btn").click(function () {
+	   $("#size-section").append('<div><div class="form-group"><span onclick="remove_size('+i+')" id="size-remove-btn-'+ i +'" class="remove size-remove" style="position:relative;float:right;right:57px;font-size:26px;cursor:pointer"><i class="fa fa-times"></i></span><label class="col-sm-2 control-label" for="demo-hor-inputemail"><?php echo translate('title'); ?></label><div class="col-sm-8"><div class="col-sm-"><input data-role="tagsinput" name="title'+i+'" value="<?php echo $keywords; ?>" class="form-control"></div></div></div><div class="form-group"><label class="col-sm-2 control-label" for=""><?php echo translate('Description');?></label><div class="col-sm-8"><textarea name="description'+i+'" placeholder="<?php echo translate('description')?>" class="form-control required" rows="4"><?php echo $seo_description; ?></textarea></div><div class="col-sm-2"></div></div><div class="form-group margin-top-10"><label class="col-sm-3 control-label margin-top-10" for="demo-hor-inputemail"><h5><?php echo translate('logo');?></h5><br><i>(<?php echo translate('suggested_width');?>:<?php echo translate('height');?>- 300px:300px*)</i></label><div class="col-sm-9"><div class="col-sm-2"><img class="img-responsive img-md img-border" src="<?php echo base_url(); ?>uploads/vendor_logo_image/default.jpg" id="blah" style="width:auto!important"></div><div class="col-sm-2"><span class="pull-left btn btn-default btn-file margin-top-10"><?php echo translate('select_image');?><input type="file" name="image'+i+'" class="form-control" id="imgInp"></span></div><div class="col-sm-5"></div></div></div><hr></div>');
+	   i = i+1;
+	});
+	
+	function remove_size(a) {
+		$("#size-remove-btn-"+a+"").parent().parent().remove();
+		// alert(a);
+	}
+	
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -474,45 +505,6 @@
 		$("form").submit(function(e){
 			return false;
 		});
-		
-	$("#gallary-form").on('submit',(function(e) {
-	  e.preventDefault();
-	  $.ajax({
-	        url: "<?= base_url().'/vendor/gallary/set' ?>",
-		    type: "POST",
-		    data:  new FormData(this),
-		    contentType: false,
-	        cache: false,
-	   		processData:false,
-	   		beforeSend : function()
-	   		{
-	    		$("#err").fadeOut();
-	   		},
-	   		success: function(data)
-	      	{
-			    if(data=='error')
-			    {
-			     // invalid file format.
-			     $("#err").html("Invalid File !").fadeIn();
-			     $(".alert1").html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong>Try Again<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'); 
-			    	$("#excleupload")[0].reset(); 
-			    }
-			    else
-			    {
-			    	const obj = JSON.parse(data);
-			    	$(".alert1").html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong>successfully inserted<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'); 
-			    	$("#excleupload")[0].reset(); 
-			    	$('.upload__img-box').append("<div style='background-image: url(uploads/"+obj.path+");margin: 16px;' class='img-bg'><div class='upload__img-close'><i onclick='delimage("+obj.id+")'' id='img_"+obj.id+"' class='fa fa-times-circle-o' aria-hidden='true' style='color: white;font-size: 24px;position: relative;float: right;' ></i></div></div>");
-			    	$("#myform")[0].reset(); 
-			    }
-	      	},
-	     	error: function(e) 
-		    {
-		    	$("#err").html(e).fadeIn();
-		    }          
-	  });
-
-	 }));
 
 	});
 </script>

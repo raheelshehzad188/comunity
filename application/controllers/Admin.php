@@ -108,7 +108,6 @@ class Admin extends CI_Controller
         }
         if ($para1 == 'do_add') {
             $data['category_name'] = $this->input->post('category_name');
-            $data['fa_icon'] = $this->input->post('fa_icon');
             $this->db->insert('category', $data);
             $id = $this->db->insert_id();
 
@@ -144,7 +143,6 @@ class Admin extends CI_Controller
             $this->load->view('back/admin/category_edit', $page_data);
         } elseif ($para1 == "update") {
             $data['category_name'] = $this->input->post('category_name');
-            $data['fa_icon'] = $this->input->post('fa_icon');
             $this->db->where('category_id', $para2);
             $this->db->update('category', $data);
             if($_FILES['img']['name']!== ''){

@@ -11,12 +11,14 @@
     <input type="hidden" name="brand" id="brandaa">
     <input type="hidden" name="vendor" id="vendoraa">
     <input type="hidden" name="featured" id="featuredaa">
-    <input type="hidden" name="range" id="rangeaa">
+    <input type="hidden" name="range" value="0;500" id="rangeaa">
     <input type="hidden" name="text" id="search_text">
     <input type="hidden" name="view_type" id="view_type" value="grid">
     <input type="hidden" name="sort" id="sorter" value="">
+    <input type="hidden" name="gender" id="gender" value="">
+    <input type="hidden" name="size" id="size" value="">
 
-</form>
+</form> 
 <input type="hidden" class="first_load_check" value="no">
 
 <style>
@@ -29,12 +31,14 @@
     var range 				= '<?php echo $range; ?>';
     var cur_sub_category 	= '<?php echo $cur_sub_category; ?>';
     var cur_brand 			= '<?php echo $cur_brand; ?>';
+    var all_brands 		= '';
     var cur_category 		= '<?php echo $cur_category; ?>';
     var search_text 		= '<?php echo $text; ?>';
     var url_text 			= '<?php echo $text_url; ?>';
     var base_url 			= '<?php echo base_url(); ?>';
-	
+// 	alert(all_brands);
     $(document).ready(function(){
+        search_text = $('#srch').val();
     	var title_page 		= $('title').html();
     	var curr_url 		= window.location.href;
     	var newHREF			= curr_url.replace(url_text,search_text);
@@ -43,6 +47,7 @@
         var univ_max = $('#univ_max').val(); 
         $('.on_click_search').on('click',function(){
 			var set_cat = $('#cur_cat').val();
+			
 			var brands = $(".search_cat_click[data-cat='" + set_cat +"']").data('brands');
 			set_brands(brands);
 			var mint = $(this).closest('ul').closest('li').find('.search_cat').data('min');
@@ -157,6 +162,7 @@
     });
 	
 	function set_brands(brands){
+	    return 0;
 		brands = brands.split(';;;;;;');
 		var select_brand_options = '';
 		for(var i=0, len=brands.length; i < len; i++){
@@ -210,14 +216,34 @@
 	function delayed_search(){
 		setTimeout(function(){ do_product_search('0'); }, 500);
 	};
+	$('input[type=radio][name=gender]').change(function() {
+	    $('#gender').val(this.value);
+    do_product_search('0');
+});
+$('input[type=radio][name=brand]').change(function() {
+	    $('#brandaa').val(this.value);
+	   // alert(this.value);
+        do_product_search('0');
+});
+$('#srch').keyup(function() {
+    alert();
+        do_product_search('0');
+});
+$('input[type=radio][name=size]').change(function() {
+	    $('#size').val(this.value);
+	   // alert(this.value);
+        do_product_search('0');
+});
 	
     function do_product_search(page){
-
         $('#categoryaa').val($('#cur_cat').val());
         $('#sub_categoryaa').val($('.search_sub:checked').map(function() {return this.value;}).get().join(','));
-        $('#search_text').val($('#texted').val());
+        search_text = $('#srch').val();
+        $('#search_text').val(search_text);
+        //gender
         $('#vendoraa').val($('.set_vendor').find('.vendor_search').val());
-        $('#brandaa').val($('.set_brand').find('.brand_search').val());
+        
+        // $('#brandaa').val($('input[type=radio][name=brand]').val());
         $('#sorter').val($('.sorter_search').val());
         //alert($('#sub_categoryaa').val());
 

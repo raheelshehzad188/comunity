@@ -2289,20 +2289,27 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
         }
         die("compelete");
     }
-    /* FUNCTION: Loads Product List */
     function listed($para1 = "", $para2 = "", $para3 = "")
     {
         $this->load->library('Ajax_pagination');
         if ($para1 == "click") {
-            $physical_product_activation = $this->db->get_where('general_settings', array('type' => 'physical_product_activation'))->row()->value;
-            $digital_product_activation = $this->db->get_where('general_settings', array('type' => 'digital_product_activation'))->row()->value;
-            $vendor_system = $this->db->get_where('general_settings', array('type' => 'vendor_system'))->row()->value;
+            // $this->fill_db(); 
             if ($this->input->post('range')) {
                 $range = $this->input->post('range');
+            }
+            if ($this->input->post('size')) {
+                $size = $this->input->post('size');
+            }
+            if ($this->input->post('brand')) {
+                $brand = $this->input->post('brand');
             }
             if ($this->input->post('text')) {
                 $text = $this->input->post('text');
             }
+            if ($this->input->post('gender')) {
+                $gender = $this->input->post('gender');
+            }
+            ; 
             $category = $this->input->post('category');
             $category = explode(',', $category);
             $sub_category = $this->input->post('sub_category');
@@ -2313,21 +2320,15 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
             $cat = '';
             $setter = '';
             $vendors = array();
-            $approved_users = $this->db->get_where('vendor', array('status' => 'approved'))->result_array();
-            foreach ($approved_users as $row) {
-                $vendors[] = $row['vendor_id'];
-            }
+            if(isset($size) && !empty($size))
+            {
+                // $this->db->where_in('avalible_sizes',$size);
+                $this->db->group_start();  //group start
+$this->db->like('avalible_sizes',','.$size);
+$this->db->or_like('avalible_sizes',','.$size.','); 
+$this->db->or_like('avalible_sizes',$size); 
+$this->db->group_end();  //group ed
 
-            if ($vendor_system !== 'ok') {
-                $this->db->like('added_by', '{"type":"admin"', 'both');
-            }
-
-            if ($physical_product_activation == 'ok' && $digital_product_activation !== 'ok') {
-                $this->db->where('download', NULL);
-            } else if ($physical_product_activation !== 'ok' && $digital_product_activation == 'ok') {
-                $this->db->where('download', 'ok');
-            } else if ($physical_product_activation !== 'ok' && $digital_product_activation !== 'ok') {
-                $this->db->where('product_id', '');
             }
 
             if (isset($text)) {
@@ -2336,76 +2337,112 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
                 }
             }
 
-            if ($vendor = $this->input->post('vendor')) {
-                if (in_array($vendor, $vendors)) {
-                    $this->db->where('added_by', '{"type":"vendor","id":"' . $vendor . '"}');
-                } else {
-                    $this->db->where('product_id', '');
+            if (isset($gender)) {
+                if ($gender !== '') {
+                    $this->db->where('gender', $gender);
                 }
             }
-
-
-            $this->db->where('status', 'ok');
-            if ($featured == 'ok') {
-                $this->db->where('featured', 'ok');
+            if (isset($brand)) {
+                if ($brand !== '') {
+                    $this->db->where('brand', $brand);
+                }
             }
+            if($range)
+            {
+                $range = explode(';',$range);
+                if(isset($range[0]))
+                $this->db->where('sale_price >=',$range[0]);
+                if(isset($range[1]))
+                $this->db->where('sale_price <=',$range[1]);
+            }
+
+
+            $this->db->where('parent_id', '0');
 
             if ($brand !== '0' && $brand !== '') {
                 $this->db->where('brand', $brand);
             }
+            $this->db->order_by('product_id', 'desc');
+            //get total
+            $obj = $this->db;
+            $tot = $this->db->get('product')->result_array();
+            $tot_pro = count($tot);
+            if ($this->input->post('range')) {
+                $range = $this->input->post('range');
+            }
+            if ($this->input->post('size')) {
+                $size = $this->input->post('size');
+            }
+            if ($this->input->post('brand')) {
+                $brand = $this->input->post('brand');
+            }
+            if ($this->input->post('text')) {
+                $text = $this->input->post('text');
+            }
+            if ($this->input->post('gender')) {
+                $gender = $this->input->post('gender');
+            }
+            if(isset($size) && !empty($size))
+            {
+                // $this->db->where_in('avalible_sizes',$size);
+                $this->db->group_start();  //group start
+$this->db->like('avalible_sizes',','.$size);
+$this->db->or_like('avalible_sizes',','.$size.','); 
+$this->db->or_like('avalible_sizes',$size); 
+$this->db->group_end();  //group ed
 
-            if (isset($range)) {
-                $p = explode(';', $range);
-                $this->db->where('sale_price >=', $p[0]);
-                $this->db->where('sale_price <=', $p[1]);
+            }
+            if (isset($text)) {
+                if ($text !== '') {
+                    $this->db->like('title', $text, 'both');
+                }
             }
 
-            $query = array();
-            if (count($sub_category) > 0) {
-                $i = 0;
-                foreach ($sub_category as $row) {
-                    $i++;
-                    if ($row !== "") {
-                        if ($row !== "0") {
-                            $query[] = $row;
-                            $setter = 'get';
-                        } else {
-                            $this->db->where('sub_category !=', '0');
-                        }
-                    }
-                }
-                if ($setter == 'get') {
-                    $this->db->where_in('sub_category', $query);
+            if (isset($gender)) {
+                if ($gender !== '') {
+                    $this->db->where('gender', $gender);
                 }
             }
-
-            if (count($category) > 0 && $setter !== 'get') {
-                $i = 0;
-                foreach ($category as $row) {
-                    $i++;
-                    if ($row !== "") {
-                        if ($row !== "0") {
-                            if ($i == 1) {
-                                $this->db->where('category', $row);
-                            } else {
-                                $this->db->or_where('category', $row);
-                            }
-                        } else {
-                            $this->db->where('category !=', '0');
-                        }
-                    }
+            if (isset($brand)) {
+                if ($brand !== '') {
+                    $this->db->where('brand', $brand);
                 }
+            }
+            if(isset($range) && !empty($range))
+            {
+                $range = explode(';',$range);
+                if(isset($range[0]))
+                $this->db->where('sale_price >=',$range[0]);
+                if(isset($range[1]))
+                $this->db->where('sale_price <=',$range[1]);
+            }
+
+
+            $this->db->where('parent_id', '0');
+
+            if ($brand !== '0' && $brand !== '') {
+                $this->db->where('brand', $brand);
             }
             $this->db->order_by('product_id', 'desc');
 
-            // pagination
-            $config['total_rows'] = $this->db->count_all_results('product');
+
+            
+            $per_page = 16;
+            $tot_page = $tot_pro/$per_page;
+            $page_data['tpage'] = $tot_page;
+            $page_data['cpage'] = $para2;
+            $para2 = (Int) $para2;
+            $start = $para2 * $per_page;
+            $this->db->limit($per_page, $start);
+            $pros =  $this->db->get('product')->result_array();
+            $config = array(); 
+            
+            $config['total_rows'] = count($pros);
+            
+            
+            $page_data['all_products'] = $pros;
             $config['base_url'] = base_url() . 'index.php?home/listed/';
-            if ($featured !== 'ok') {
-                $config['per_page'] = 12;
-            } else if ($featured == 'ok') {
-                $config['per_page'] = 12;
-            }
+            $config['per_page'] = 12;
             $config['uri_segment'] = 5;
             $config['cur_page_giv'] = $para2;
 
@@ -2440,112 +2477,17 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
             $config['num_tag_open'] = '<li><a rel="grow" class="btn-u btn-u-sea grow" onClick="' . $function . '">';
             $config['num_tag_close'] = '</a></li>';
             $this->ajax_pagination->initialize($config);
+            
 
 
-            $this->db->where('status', 'ok');
-            if ($featured == 'ok') {
-                $this->db->where('featured', 'ok');
-                $grid_items_per_row = 3;
-                $name = 'Featured';
-            } else {
-                $grid_items_per_row = 3;
-            }
-
-            if (isset($text)) {
-                if ($text !== '') {
-                    $this->db->like('title', $text, 'both');
-                }
-            }
-
-            if ($physical_product_activation == 'ok' && $digital_product_activation !== 'ok') {
-                $this->db->where('download', NULL);
-            } else if ($physical_product_activation !== 'ok' && $digital_product_activation == 'ok') {
-                $this->db->where('download', 'ok');
-            } else if ($physical_product_activation !== 'ok' && $digital_product_activation !== 'ok') {
-                $this->db->where('product_id', '');
-            }
-
-            if ($vendor_system !== 'ok') {
-                $this->db->like('added_by', '{"type":"admin"', 'both');
-            }
-
-            if ($vendor = $this->input->post('vendor')) {
-                if (in_array($vendor, $vendors)) {
-                    $this->db->where('added_by', '{"type":"vendor","id":"' . $vendor . '"}');
-                } else {
-                    $this->db->where('product_id', '');
-                }
-            }
+            // if (isset($text)) {
+            //     if ($text !== '') {
+            //         $this->db->like('title', $text, 'both');
+            //     }
+            // }
 
 
-            if ($brand !== '0' && $brand !== '') {
-                $this->db->where('brand', $brand);
-            }
-
-            if (isset($range)) {
-                $p = explode(';', $range);
-                $this->db->where('sale_price >=', $p[0]);
-                $this->db->where('sale_price <=', $p[1]);
-            }
-
-            $query = array();
-            if (count($sub_category) > 0) {
-                $i = 0;
-                foreach ($sub_category as $row) {
-                    $i++;
-                    if ($row !== "") {
-                        if ($row !== "0") {
-                            $query[] = $row;
-                            $setter = 'get';
-                        } else {
-                            $this->db->where('sub_category !=', '0');
-                        }
-                    }
-                }
-                if ($setter == 'get') {
-                    $this->db->where_in('sub_category', $query);
-                }
-            }
-
-            if (count($category) > 0 && $setter !== 'get') {
-                $i = 0;
-                foreach ($category as $rowc) {
-                    $i++;
-                    if ($rowc !== "") {
-                        if ($rowc !== "0") {
-                            if ($i == 1) {
-                                $this->db->where('category', $rowc);
-                            } else {
-                                $this->db->or_where('category', $rowc);
-                            }
-                        } else {
-                            $this->db->where('category !=', '0');
-                        }
-                    }
-                }
-            }
-
-            $sort = $this->input->post('sort');
-
-            if ($sort == 'most_viewed') {
-                $this->db->order_by('number_of_view', 'desc');
-            }
-            if ($sort == 'condition_old') {
-                $this->db->order_by('product_id', 'asc');
-            }
-            if ($sort == 'condition_new') {
-                $this->db->order_by('product_id', 'desc');
-            }
-            if ($sort == 'price_low') {
-                $this->db->order_by('sale_price', 'asc');
-            }
-            if ($sort == 'price_high') {
-                $this->db->order_by('sale_price', 'desc');
-            } else {
-                $this->db->order_by('product_id', 'desc');
-            }
-
-            $page_data['all_products'] = $this->db->get('product', $config['per_page'], $para2)->result_array();
+            // $this->db->where('parent_id', '0');
 
             if ($name != '') {
                 $name .= ' : ';
@@ -2566,8 +2508,7 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
             } else {
                 $name = 'All Products';
             }
-
-        } elseif ($para1 == "load") {
+        }elseif ($para1 == "load") {
             $page_data['all_products'] = $this->db->get('product')->result_array();
         }
         $page_data['vendor_system'] = $this->db->get_where('general_settings', array('type' => 'vendor_system'))->row()->value;

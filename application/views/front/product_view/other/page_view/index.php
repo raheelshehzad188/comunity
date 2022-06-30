@@ -125,6 +125,7 @@
             <div class="container">
                 <div class="description smedesign gallery_box">
                         <h4><i class="fa fa-photo"></i> Gallery</h4>
+                        
                         <ul>
                             <li>
                                 <img src="https://ads.strokedev.net/uploads/slider_image/1fd48709ffaba7.jpg">
@@ -1051,6 +1052,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 
 

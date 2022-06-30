@@ -7,7 +7,6 @@
 					<th><?php echo translate('name');?></th>
                     <th><?php echo translate('banner');?></th>
                     <th><?php echo translate('icon');?></th>
-                    <th><?php echo translate('fontawsome_icon');?></th>
 					<th class="text-right"><?php echo translate('options');?></th>
 				</tr>
 			</thead>
@@ -21,7 +20,6 @@
 			<tr>
 				<td><?php echo $i; ?></td>
                 <td><?php echo $row['category_name']; ?></td>
-                
 				<td>
                     <?php
 						if(file_exists('uploads/category_image/'.$row['banner'])){
@@ -50,7 +48,6 @@
 						}
 					?> 
                	</td>
-               	<td><i class="fa <?= $row['fa_icon'] ?>" style="    font-size: 50px;" aria-hidden="true"></i></td>
 				<td class="text-right">
 					<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" 
                     	onclick="ajax_modal('edit','<?php echo translate('edit_category_(_physical_product_)'); ?>','<?php echo translate('successfully_edited!'); ?>','category_edit','<?php echo $row['category_id']; ?>')" 

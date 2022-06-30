@@ -44,9 +44,7 @@ btn1 .fa{
         margin: 10px 0;
   perspective: 1000px;
 }
-.flip-card-front:active{
- border: 1px solid #000;
-}
+
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -167,44 +165,6 @@ btn1 .fa{
                                     <span id="previewImg" ></span>
                                 </div>
                             </div>
-
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-12">Busniuss logo</label>
-                                <div class="col-sm-6">
-                                    <span class="pull-left btn btn-default btn-file"> <?php echo translate('choose_file');?>
-                                        <input type="file" value="<?= ($row['sneakerimg'])?$row['sneakerimg']:""; ?>" name="sneakerimg" onchange="preview1(this);" id="demo-hor-inputpass" class="form-control">
-                                    </span>
-                                    <br><br>
-                                    <span id="previewImg1" >
-                                        
-                                        <?php
-                                            if($row['comp_logo'])
-                                            {
-                                                ?>
-                                                <img class="img-responsive" width="100" src="<?= base_url();?><?= $row['comp_logo']?>" data-id="_paris/uploads/product" alt="User_Image"><?php
-                                            }
-                                        ?>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-12">Cover Image</label>
-                                <div class="col-sm-6">
-                                    <span class="pull-left btn btn-default btn-file"> <?php echo translate('choose_file');?>
-                                        <input type="file" name="sideimg" onchange="preview2(this);" id="demo-hor-inputpass" class="form-control">
-                                    </span>
-                                    <br><br>
-                                    <span id="previewImg2" >
-                                        <?php
-                                            if($row['sideimg'])
-                                            {
-                                                ?>
-                                                <img class="img-responsive" width="100" src="<?= base_url();?><?= $row['sideimg']?>" data-id="_paris/uploads/product" alt="User_Image"><?php
-                                            }
-                                        ?>
-                                    </span>
-                                </div>
-                            </div>
                             
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-13"><?php echo translate('description'); ?></label>
@@ -251,10 +211,7 @@ btn1 .fa{
                                     <?php echo translate('add_more_fields');?></div>
                                 </div>
                             </div>
-                            <div style="float:right">
-                            <span><button class="btn_primary">add</button></span>
-                            <span><button class="btn_danger">edit</button></span>
-                            </div>
+                            
 
                         </div>
                         <div id="event_images" class="tab-pane fade ">
@@ -555,42 +512,6 @@ function selecttype(id)
     $('#brand').val(id);
     next_tab();
 }
-window.preview1 = function (input) {
-        if (input.files && input.files[0]) {
-            $("#previewImg1").html('');
-            $(input.files).each(function () {
-                var reader = new FileReader();
-                reader.readAsDataURL(this);
-                reader.onload = function (e) {
-                    $("#previewImg1").append("<div style='float:left;border:4px solid #303641;padding:5px;margin:5px;'><img height='80' src='" + e.target.result + "'></div>");
-                }
-            });
-        }
-    }
-    window.preview2 = function (input) {
-        if (input.files && input.files[0]) {
-            $("#previewImg2").html('');
-            $(input.files).each(function () {
-                var reader = new FileReader();
-                reader.readAsDataURL(this);
-                reader.onload = function (e) {
-                    $("#previewImg2").append("<div style='float:left;border:4px solid #303641;padding:5px;margin:5px;'><img height='80' src='" + e.target.result + "'></div>");
-                }
-            });
-        }
-    }
-    window.preview3 = function (input) {
-        if (input.files && input.files[0]) {
-            $("#previewImg3").html('');
-            $(input.files).each(function () {
-                var reader = new FileReader();
-                reader.readAsDataURL(this);
-                reader.onload = function (e) {
-                    $("#previewImg2").append("<div style='float:left;border:4px solid #303641;padding:5px;margin:5px;'><img height='80' src='" + e.target.result + "'></div>");
-                }
-            });
-        }
-    }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
 
