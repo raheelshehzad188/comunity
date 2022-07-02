@@ -15,64 +15,20 @@ $img = '';
 
                         }
                         ?>
-<div class="thumbnail box-style-1 no-padding" itemscope itemtype="http://schema.org/Product">
-    <div class="media">
-        <div class="cover"></div>
-        <div class="media-link image_delay" data-src="<?php echo $img; ?>" style="background-image:url('<?php echo img_loading(); ?>');background-size:cover;">
-            <?php 
-                $discount= $this->db->get_where('product',array('product_id'=>$product_id))->row()->discount ;           
-                if($discount > 0){ 
-            ?>
-            <div class="sticker green">
-                <?php echo translate('discount');?> 
-                <?php 
-                     $type = $this->db->get_where('product',array('product_id'=>$product_id))->row()->discount_type ; 
-                     if($type =='amount'){
-                          echo currency($discount); 
-                          } else if($type == 'percent'){
-                               echo $discount; 
-                ?> 
-                    % 
-                <?php 
-                    }
-                ?>
-            </div>
-            <?php } ?>
-        </div>
-    </div>
-    <div class="caption text-center">
-        <h4 itemprop="name" class="caption-title">
-            <a itemprop="url" href="<?php echo $this->crud_model->product_link($product_id); ?>">
-                <span itemprop="name"><?php echo $title; ?></span>
-            </a>
-        </h4>
-        <?php $rating = $this->crud_model->rating($product_id); ?>
-        <?php $rating_count = $this->crud_model->rating_count($product_id); ?>
-        <span style="display: none" itemprop="ratingValue"><?= $rating?></span>
-        <span style="display: none" itemprop="reviewCount"><?= $rating_count?></span>
-        <div class="rateit" data-rateit-value="<?= $rating ?>" data-rateit-ispreset="true" data-rateit-readonly="true" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating"></div>
-        <div class="price">
-            <?php if($this->crud_model->get_type_name_by_id('product',$product_id,'discount') > 0){ ?> 
-                <ins><?php echo currency($this->crud_model->get_product_price($product_id)); ?> </ins> 
-                <del itemprop="price"><?php echo currency($sale_price); ?></del>
-            <?php } else { ?>
-                <ins itemprop="price"><?php echo currency($sale_price); ?></ins>
-            <?php }?>
-        </div>
-        <?php if ($this->db->get_where('general_settings', array('general_settings_id' => '58'))->row()->value == 'ok' and $this->db->get_where('general_settings', array('general_settings_id' => '81'))->row()->value == 'ok'): ?>
-        <div class="vendor">
-            <?php echo $this->crud_model->product_by($product_id,'with_link'); ?>
-        </div>
-        <?php endif ?>
-        <div class="button">
-            <span class="icon-view left" onclick="do_compare(<?php echo $product_id; ?>,event)" data-toggle="tooltip" 
-                data-original-title="<?php if($this->crud_model->is_compared($product_id)=="yes"){ echo translate('compared'); } else { echo translate('compare'); } ?>">
-                <strong><i class="fa fa-exchange"></i></strong>
-            </span>
-            <span class="icon-view middle" onclick="to_wishlist(<?php echo $product_id; ?>,event)" data-toggle="tooltip" 
-                data-original-title="<?php if($this->crud_model->is_wished($product_id)=="yes"){ echo translate('added_to_wishlist'); } else { echo translate('add_to_wishlist'); } ?>">
-                <strong><i class="fa fa-heart"></i></strong>
-            </span>
-        </div>
-    </div>
-</div>
+                           <div class="item">
+                               <div class="strip">
+                                    <figure>
+                                        <span class="ribbon off">-40%</span>
+                                        <img src="<?= $img?>"  class="owl-lazy" alt="" style="opacity: 1;">
+                                        <a href="#" class="strip_info">
+                                            <small>Burghers</small>
+                                            <div class="item_title">
+                                                <h3><?php echo $title; ?></h3>
+                                                <small>27 Old Gloucester St</small>
+                                            </div>
+                                        </a>
+                                    </figure>
+                                    
+                                </div>
+                           </div>
+                        
