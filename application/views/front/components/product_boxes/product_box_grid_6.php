@@ -19,15 +19,6 @@ $img = '';
     <div class="media">
         <div class="cover"></div>
         <div class="media-link image_delay" data-src="<?php echo $img; ?>" style="background-image:url('<?php echo img_loading(); ?>');background-size:cover;">
-            <?php
-                if($this->crud_model->get_type_name_by_id('product',$product_id,'current_stock') <=0 && !$this->crud_model->is_digital($product_id)){ 
-            ?>
-                <div class="sticker red">
-                    <?php echo translate('out_of_stock'); ?>
-                </div>
-            <?php
-                }
-            ?>
             <?php 
                 $discount= $this->db->get_where('product',array('product_id'=>$product_id))->row()->discount ;           
                 if($discount > 0){ 
@@ -47,13 +38,6 @@ $img = '';
                 ?>
             </div>
             <?php } ?>
-            <div class="quick-view-sm hidden-xs hidden-sm">
-                <span onclick="quick_view('<?php echo $this->crud_model->product_link($product_id,'quick'); ?>')">
-                    <span class="icon-view" data-toggle="tooltip" data-original-title="<?php  echo translate('quick_view'); ?>">
-                        <strong><i class="fa fa-eye"></i></strong>
-                    </span>
-                </span>
-            </div>
         </div>
     </div>
     <div class="caption text-center">
@@ -88,10 +72,6 @@ $img = '';
             <span class="icon-view middle" onclick="to_wishlist(<?php echo $product_id; ?>,event)" data-toggle="tooltip" 
                 data-original-title="<?php if($this->crud_model->is_wished($product_id)=="yes"){ echo translate('added_to_wishlist'); } else { echo translate('add_to_wishlist'); } ?>">
                 <strong><i class="fa fa-heart"></i></strong>
-            </span>
-            <span class="icon-view right " onclick="to_cart(<?php echo $product_id; ?>,event)" data-toggle="tooltip" 
-                data-original-title="<?php if($this->crud_model->is_added_to_cart($product_id)){ echo translate('added_to_cart'); } else { echo translate('add_to_cart'); } ?>">
-                <strong><i class="fa fa-shopping-cart"></i></strong>
             </span>
         </div>
     </div>

@@ -15,7 +15,7 @@
         foreach ($all_products as $row) {
     ?>
     <div class="col-md-<?php echo $col_md; ?> col-sm-<?php echo $col_sm; ?> col-xs-<?php echo $col_xs; ?> mb-4">
-        <?php echo $this->html_model->product_box($row, $viewtype, '1'); ?>
+        <?php echo $this->html_model->product_box($row, $viewtype, '6'); ?>
     </div>
     <?php
         }

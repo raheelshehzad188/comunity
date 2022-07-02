@@ -1,6 +1,53 @@
+<section class="banner_listing">
+    <div class="menu_items" id="menuitems">
+            <ul>
+                <li>
+                    <a href="#" class="active">
+                        <i class="fa fa-map-marker"></i>
+                        Places
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-search"></i>
+                        Jobs
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa  fa-calendar"></i>
+                        Event
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home"></i>
+                        Real Estate
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-car"></i>
+                        Vehicle
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-sticky-note-o"></i>
+                        Publishing
+                    </a>
+                </li>
+            </ul>
+        </div>
+</section>
+<style type="text/css">
+.content-area{
+    background: #fff;
+}
+</style>
  <!-- PAGE WITH SIDEBAR -->
 <section class="page-section with-sidebar">
-    <div class="container">
+    <div class="container_side">
         <div class="row">
             <!-- SIDEBAR -->
             <?php 
@@ -8,7 +55,7 @@
             ?>
             <!-- /SIDEBAR -->
             <!-- CONTENT -->
-            <div class="col-md-9 col-sm-12 col-xs-12 content" id="content">
+            <div class="col-md-6 col-sm-12 col-xs-12 content" id="content">
                 <!-- shop-sorting -->
                 <div class="shop-sorting">
                     <div class="row">
@@ -27,20 +74,20 @@
                                 </div>
                                 <?php
                                 if ($this->crud_model->get_type_name_by_id('general_settings','68','value') == 'ok') {
-								?>
+                                ?>
                                 <div class="form-group selectpicker-wrapper set_brand" style="display:none;">
                                 </div>
                                 <?php
-								}
-								?>
+                                }
+                                ?>
                                 <?php
                                 if ($this->crud_model->get_type_name_by_id('general_settings','58','value') == 'ok') {
-								?>
+                                ?>
                                 <div class="form-group selectpicker-wrapper set_vendor" style="display:none;">
                                 </div>
                                 <?php
-								}
-								?>
+                                }
+                                ?>
                                 <div class="form-group widget hidden-xs">
                                     <div class="widget-search">
                                         <input class="form-control" type="text" id="texted" value="<?php echo make_proper($text); ?>" placeholder="<?php echo translate('search'); ?>">
@@ -52,8 +99,8 @@
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-xs-12 text-right view_select_btn">
-                        	<span class="btn btn-theme-transparent pull-left hidden-lg hidden-md" onClick="open_sidebar();">
-                            	<i class="fa fa-bars"></i>
+                            <span class="btn btn-theme-transparent pull-left hidden-lg hidden-md" onClick="open_sidebar();">
+                                <i class="fa fa-bars"></i>
                             </span>
                             <a class="btn btn-theme-transparent btn-theme-sm grid" onClick="set_view('grid')" href="#"><img src="<?php echo base_url(); ?>template/front/img/icon-grid.png" alt=""/></a>
                             <a class="btn btn-theme-transparent btn-theme-sm list" onClick="set_view('list')" href="#"><img src="<?php echo base_url(); ?>template/front/img/icon-list.png" alt=""/></a>
@@ -65,6 +112,9 @@
                 
                 </div>
             </div>
+            <div class="col-md-3 col-sm-12 col-xs-12 content" id="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4963.790223305652!2d-0.11564147180218141!3d51.53348361855762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1656262755680!5m2!1sen!2s" width="100%" height="750px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             <!-- /CONTENT -->
         </div>
     </div>
@@ -81,68 +131,68 @@
         color: #232323;
         cursor: pointer;
     }
-	.pagination-wrapper.bottom{
-		text-align-last:center;
-	}
-	.sort-item{
-		display:table;
-	}
-	.sort-item .form-inline{
-		display:table-row;
-	}
-	.sort-item .form-group{
-		display:table-cell;
-	}
-	.sort-item .widget-search .form-control{
-		height:35px;
-		line-height: 35px;
-	}
-	.sort-item .widget-search button{
-		line-height: 26px;
-	}
-	.sort-item .widget-search button:before{
-		height:30px;
-	}
-	.shop-sorting .btn-theme-sm {
-		padding: 5px 7px;
-	}
-	.sidebar.close_now{
-		position: relative;
-		left:0px;
-		opacity:1;
-	}
-	@media(max-width: 991px) {
-		.sidebar.open{
-			opacity:1;
-			position: fixed;
-			z-index: 9999;
-			top: -30px;
-			background: #f5f5f5;
-			height: 100vh;
-			overflow-y: auto;
-			padding-top: 50px;
-			left:0px;
-		}
-		.sidebar.close_now{
-			position: fixed;
-			left:-500px;
-			opacity:0;
-		}
-		.view_select_btn{
-			margin-top: 10px !important;
-		}
-	}
+    .pagination-wrapper.bottom{
+        text-align-last:center;
+    }
+    .sort-item{
+        display:table;
+    }
+    .sort-item .form-inline{
+        display:table-row;
+    }
+    .sort-item .form-group{
+        display:table-cell;
+    }
+    .sort-item .widget-search .form-control{
+        height:35px;
+        line-height: 35px;
+    }
+    .sort-item .widget-search button{
+        line-height: 26px;
+    }
+    .sort-item .widget-search button:before{
+        height:30px;
+    }
+    .shop-sorting .btn-theme-sm {
+        padding: 5px 7px;
+    }
+    .sidebar.close_now{
+        position: relative;
+        left:0px;
+        opacity:1;
+    }
+    @media(max-width: 991px) {
+        .sidebar.open{
+            opacity:1;
+            position: fixed;
+            z-index: 9999;
+            top: -30px;
+            background: #f5f5f5;
+            height: 100vh;
+            overflow-y: auto;
+            padding-top: 50px;
+            left:0px;
+        }
+        .sidebar.close_now{
+            position: fixed;
+            left:-500px;
+            opacity:0;
+        }
+        .view_select_btn{
+            margin-top: 10px !important;
+        }
+    }
 </style>
 <script>
-	$(document).ready(function(e) {
+    $(document).ready(function(e) {
         close_sidebar();
     });
-	function open_sidebar(){
-		$('.sidebar').removeClass('close_now');
-		$('.sidebar').addClass('open');
-	}
-	function close_sidebar(){
-		$('.sidebar').removeClass('open');
-		$('.sidebar').addClass('close_now');
-	}
+    function open_sidebar(){
+        $('.sidebar').removeClass('close_now');
+        $('.sidebar').addClass('open');
+    }
+    function close_sidebar(){
+        $('.sidebar').removeClass('open');
+        $('.sidebar').addClass('close_now');
+    }
 </script>

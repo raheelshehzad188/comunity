@@ -105,7 +105,7 @@ btn1 .fa{
                             <a data-toggle="tab" href="#general"><?php echo translate('general'); ?></a>
                         </li>
                         <li >
-                            <a data-toggle="tab" href="#event_images"><?php echo translate('event_images'); ?></a>
+                            <a data-toggle="tab" href="#event_images"><?php echo translate('gallry_images'); ?></a>
                         </li>
                         <li >
                             <a data-toggle="tab" href="#location"><?php echo translate('location'); ?></a>
@@ -137,13 +137,6 @@ btn1 .fa{
                                 </div>
                             </div>
                             
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('category');?></label>
-                                <div class="col-sm-6">
-                                    <?php echo $this->crud_model->select_html('category','category','category_name','add','demo-chosen-select required','','digital',NULL,'get_cat'); ?>
-                                </div>
-                            </div>
-                            
                             <div class="form-group btm_border" id="sub" style="display:none;">
                                 <label class="col-sm-4 control-label" for="demo-hor-3"><?php echo translate('sub-category');?></label>
                                 <div class="col-sm-6" id="sub_cat">
@@ -154,17 +147,6 @@ btn1 .fa{
                                 <label class="col-sm-4 control-label" for="demo-hor-11"><?php echo translate('tags');?></label>
                                 <div class="col-sm-6">
                                     <input type="text" name="tag" data-role="tagsinput" placeholder="<?php echo translate('tags');?>" class="form-control">
-                                </div>
-                            </div>
-                                            
-                            <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-12"><?php echo translate('images');?></label>
-                                <div class="col-sm-6">
-                                <span class="pull-left btn btn-default btn-file"> <?php echo translate('choose_file');?>
-                                    <input type="file" multiple name="images[]" onchange="preview(this);" id="demo-hor-12" class="form-control required">
-                                    </span>
-                                    <br><br>
-                                    <span id="previewImg" ></span>
                                 </div>
                             </div>
 
@@ -260,21 +242,16 @@ btn1 .fa{
                         <div id="event_images" class="tab-pane fade ">
         
                             <div class="form-group btm_border">
-                                <h4 class="text-thin text-center"><?php echo translate('event_images'); ?></h4>                            
-                            </div>
-                            <p><?php echo translate('cover_image'); ?></p>
-                              <div class="card">
-                                <div class="drop_box">
-                                  <input type="file" id="fileID" style="display:none;">
-                                  <button class="btn1"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+                                <label class="col-sm-4 control-label" for="demo-hor-12"><?php echo translate('images');?></label>
+                                <div class="col-sm-6">
+                                <span class="pull-left btn btn-default btn-file"> <?php echo translate('choose_file');?>
+                                    <input type="file" multiple name="images[]" onchange="preview(this);" id="demo-hor-12" class="form-control ">
+                                    </span>
+                                    <br><br>
+                                    <span id="previewImg" ></span>
                                 </div>
-                            <small>Maximum file size: 1GB</small>
-                              </div>
+                            </div>
                             
-
-                        </div>
-                        <div id="event_images" class="tab-pane fade ">
-        
 
                         </div>
                         <div id="location" class="tab-pane fade ">
@@ -302,21 +279,20 @@ btn1 .fa{
                         <div id="customer_choice_options" class="tab-pane fade active in">
                            
                             <div class="row">
-                                <input type="hidden" id="brand" name="brand"/>
+                                <input type="hidden" id="category" name="category"/>
                                  <?php
                             foreach($brands as $k=>$v){
                             ?>
-                                <div class="col-md-4 col-sm-12 col-xs-12" onclick="selecttype('<?= $v['brand_id'];?>')">
+                                <div class="col-md-4 col-sm-12 col-xs-12" onclick="selecttype('<?= $v['category_id'];?>')">
                                     <a href="#"><div class="flip-card">
                                   <div class="flip-card-inner">
                                     <div class="flip-card-front">
                                         <i class="fa <?= $v['fa_icon'];?>" aria-hidden="true"></i>
                                         <br>
-                                        <p><?= $v['name'];?></p>
+                                        <p><?= $v['category_name'];?></p>
                                     </div>
                                     <div class="flip-card-back">
-                                      <p><?= $v['name'];?></p>
-                                    </div>
+category_name                                    </div>
                                   </div>
                                 </div>
                                 </a>
@@ -552,7 +528,8 @@ var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 }
 function selecttype(id)
 {
-    $('#brand').val(id);
+    $('#category').val(id);
+    get_cat(id,this)
     next_tab();
 }
 window.preview1 = function (input) {

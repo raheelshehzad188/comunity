@@ -65,26 +65,26 @@ class Home extends CI_Controller
         $page = (int)$page;
 $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 29))->row()->value;
 
-					$limit =  8;
-					$st = ($page * $limit)- $limit;
+                    $limit =  8;
+                    $st = ($page * $limit)- $limit;
                                $this->db->limit($limit, $st);
                     $html = '';
                     $featured=$this->db->where('parent_id',0)->order_by("product_id", "desc")->get('product')->result();
                     foreach($featured as $row){
 
-                		$html = $html.$this->load->view('front/components/product_boxes/product_box_grid_5',$row,TRUE);
+                        $html = $html.$this->load->view('front/components/product_boxes/product_box_grid_5',$row,TRUE);
 
-					}
-					$next = $page+1;
-					$ret = array('html'=>$html,'next'=>$next);
-					echo json_encode($ret);
-					exit();
+                    }
+                    $next = $page+1;
+                    $ret = array('html'=>$html,'next'=>$next);
+                    echo json_encode($ret);
+                    exit();
     }
     public function index()
     {
         //$this->output->enable_profiler(TRUE);
         //$page_data['min'] = $this->get_range_lvl('product_id !=', '', "min");
-        $page_data['brands'] = $this->db->get('brand')->result_array();
+        $page_data['brands'] = $this->db->get('category')->result_array();
         $this->get_ranger_val();
         $home_style = $this->db->get_where('ui_settings', array('type' => 'home_page_style'))->row()->value;
 
@@ -2402,9 +2402,9 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
             $config['total_rows'] = $this->db->count_all_results('product');
             $config['base_url'] = base_url() . 'index.php?home/listed/';
             if ($featured !== 'ok') {
-                $config['per_page'] = 12;
+                $config['per_page'] = 6;
             } else if ($featured == 'ok') {
-                $config['per_page'] = 12;
+                $config['per_page'] = 6;
             }
             $config['uri_segment'] = 5;
             $config['cur_page_giv'] = $para2;
@@ -2643,11 +2643,7 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
             'last_viewed' => time()
         ));
 
-        if ($product_data->row()->download == 'ok') {
-            $type = 'digital';
-        } else {
-            $type = 'other';
-        }
+        $type = 'other';
         if($product_data->row()->is_bpage)
         {
             $type = 'bpage';
@@ -2937,7 +2933,7 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
     }
 
     /* FUNCTION: Concerning Login */
-    private function vendor_page($id)
+    public function vendor_page($id)
     {
         $user = $this->db->where('vendor_id',$id)->get('vendor')->row();
         
@@ -4669,19 +4665,15 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
                 $this->paypal->add_field('cmd', '_cart');
                 $this->paypal->add_field('upload', '1');
                 $i = 1;
-
-                /*echo "<pre>";
-                print_r($carted);
-                echo "</pre>";
-                exit;*/
+                $exchange = 1;
 
                 foreach ($carted as $val) {
                     $this->paypal->add_field('item_number_' . $i, $i);
                     $this->paypal->add_field('item_name_' . $i, $val['name']);
-                    //$this->paypal->add_field('amount_' . $i, $this->cart->format_number(($val['price'] / $exchange)));
+                    $this->paypal->add_field('amount_' . $i, $this->cart->format_number(($val['price'] / $exchange)));
                     $this->paypal->add_field('amount_' . $i, $val['price'] / $exchange);
                     if ($this->crud_model->get_type_name_by_id('business_settings', '3', 'value') == 'product_wise') {
-                        //$this->paypal->add_field('shipping_' . $i, $this->cart->format_number((($val['shipping'] / $exchange) * $val['qty'])));
+                        $this->paypal->add_field('shipping_' . $i, $this->cart->format_number((($val['shipping'] / $exchange) * $val['qty'])));
                         $this->paypal->add_field('shipping_' . $i, ($val['shipping'] / $exchange) * $val['qty']);
                     }
                     //$this->paypal->add_field('tax_' . $i, $this->cart->format_number(($val['tax'] / $exchange)));
@@ -4689,17 +4681,21 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
                     $this->paypal->add_field('quantity_' . $i, $val['qty']);
                     $i++;
                 }
+                // echo "<pre>";
+                // print_r($this->paypal);
+                // echo "</pre>";
+                // exit;
                 if ($this->crud_model->get_type_name_by_id('business_settings', '3', 'value') == 'fixed') {
                     $this->paypal->add_field('shipping_1', $this->cart->format_number(($this->crud_model->get_type_name_by_id('business_settings', '2', 'value') / $exchange)));
                 }
                 // $this->paypal->add_field('amount', $grand_total);
-                // $this->paypal->add_field('currency_code', 'currency_code()');
+                $this->paypal->add_field('currency_code', 'GBP');
                 $this->paypal->add_field('custom', $sale_id);
                 $this->paypal->add_field('business', $paypal_email);
                 $this->paypal->add_field('notify_url', base_url() . 'home/paypal_ipn');
                 $this->paypal->add_field('cancel_return', base_url() . 'home/paypal_cancel');
                 $this->paypal->add_field('return', base_url() . 'home/paypal_success');
-
+                // var_dump($this->paypal);die();
                 $this->paypal->submit_paypal_post();
                 exit();
                 // die("Here-end");
@@ -5398,6 +5394,8 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
     /* FUNCTION: Verify paypal payment by IPN*/
     function paypal_ipn()
     {
+        var_dump($_REQUEST);
+        die('paypal_ipn');
         if ($this->paypal->validate_ipn() == true) {
 
             $data['payment_details'] = json_encode($_POST);
@@ -5430,10 +5428,11 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
     }
 
     /* FUNCTION: Loads after successful paypal payment*/
-    function paypal_success()
+    function paypal_success($sale_id = 0)
     {
         $carted = $this->cart->contents();
-        $sale_id = $this->session->userdata('sale_id');
+        if(isset($_REQUEST['custom']))
+        $sale_id = $_REQUEST['custom'];
         $guest_id = $this->crud_model->get_type_name_by_id('sale', $sale_id, 'guest_id');
         $this->crud_model->process_affiliation($sale_id,false);
         foreach ($carted as $value) {
@@ -5453,8 +5452,6 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
             $data1['datetime'] = time();
             $this->db->insert('stock', $data1);
         }
-        $this->crud_model->digital_to_customer($sale_id);
-        $this->cart->destroy();
         $this->session->set_userdata('couponer', '');
         $this->email_model->email_invoice($sale_id);
         $this->session->set_userdata('sale_id', '');
@@ -6395,7 +6392,7 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
 
                     $this->paypal->add_field('notify_url', base_url() . 'home/cus_paypal_ipn');
                     $this->paypal->add_field('cancel_return', base_url() . 'home/cus_paypal_cancel');
-                    $this->paypal->add_field('return', base_url() . 'home/cus_paypal_success');
+                    $this->paypal->add_field('return', base_url() . 'home/cus_paypal_success/'.$payment_id);
 
                     // submit the fields to paypal
                     $this->paypal->submit_paypal_post();
@@ -6813,6 +6810,7 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
     /* FUNCTION: Loads after successful paypal payment*/
     function cus_paypal_success()
     {
+        
         $this->session->set_flashdata('alert', 'paypal_success');
         // redirect(base_url() . 'home/invoice/'.$this->session->userdata('payment_id'), 'refresh');
         $this->session->set_userdata('payment_id', '');
