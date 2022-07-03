@@ -4128,6 +4128,27 @@ class Admin extends CI_Controller
                 $this->db->update('ui_settings', array(
                     'value' => $this->input->post('deal_no')
                 ));
+                $this->load->library('cloudinarylib');
+                if($_FILES["par3"]['tmp_name']){
+                    if(!demo()){
+                        $path = 'uploads/others/parralax_search.jpg';
+                        move_uploaded_file($_FILES["par3"]['tmp_name'], $path);
+                        $data = \Cloudinary\Uploader::upload($path);
+                                            if(isset($data['public_id']))
+                                            {
+                                                $logo_id = $this->crud_model->add_img($path,$data);
+                                                if($logo_id)
+                                                {
+                                                    $this->db->where('type', "top_banner");
+                            $this->db->update('ui_settings', array(
+                                'value' => $logo_id
+                            ));
+
+                                               }
+                                            }
+                        //top_banner
+                    }
+                }
                 recache();
             }
             elseif ($para2 == 'home_brand') {
@@ -4150,15 +4171,28 @@ class Admin extends CI_Controller
                 recache();
             }
             elseif ($para2 == 'home_featured') {
-                $this->db->where('type', "no_of_featured_products");
-                $this->db->update('ui_settings', array(
-                    'value' => $this->input->post('featured_no')
-                ));
-
-                $this->db->where('type', "featured_product_box_style");
-                $this->db->update('ui_settings', array(
-                    'value' => $this->input->post('fea_pro_box')
-                ));
+                if($_REQUEST['section2_heading'])
+                {
+                    $this->db->where('type', "section2_heading");
+                    $this->db->update('ui_settings', array(
+                        'value' => $this->input->post('section2_heading')
+                    ));
+                }
+                if($_REQUEST['box'])
+                {
+                    
+                    $this->db->where('type', "section2_box");
+                    $this->db->update('ui_settings', array(
+                        'value' => serialize($_REQUEST['box'])
+                    ));
+                }
+                if($_REQUEST['section2_paragaph'])
+                {
+                    $this->db->where('type', "section2_paragaph");
+                    $this->db->update('ui_settings', array(
+                        'value' => $this->input->post('section2_paragaph')
+                    ));
+                }
                 recache();
             }
             elseif ($para2 == 'product_bundle') {

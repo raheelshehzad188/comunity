@@ -2402,9 +2402,9 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
             $config['total_rows'] = $this->db->count_all_results('product');
             $config['base_url'] = base_url() . 'index.php?home/listed/';
             if ($featured !== 'ok') {
-                $config['per_page'] = 6;
+                $config['per_page'] = 9;
             } else if ($featured == 'ok') {
-                $config['per_page'] = 6;
+                $config['per_page'] = 9;
             }
             $config['uri_segment'] = 5;
             $config['cur_page_giv'] = $para2;
@@ -2631,12 +2631,6 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
              $this->crud_model->_set_variation($para1);
         }
         $product_data = $this->db->get_where('product', array('product_id' => $para1, 'status' => 'ok'));
-        $vlists = $this->db->get_where('product', array('parent_id' => $para1, 'status' => 'ok'))->result();
-        foreach($vlists as $k=>$v)
-        {
-            $v->price = $v->sale_price;
-            $vendors[] = $v;
-        }
         $this->db->where('product_id', $para1);
         $this->db->update('product', array(
             'number_of_view' => $product_data->row()->number_of_view + 1,
@@ -2648,7 +2642,7 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
         {
             $type = 'bpage';
         }
-        $page_data['product_details'] = $this->db->get_where('product', array('product_id' => $para1, 'parent_id' => '0'))->result_array();
+        $page_data['product_details'] = $this->db->get_where('product', array('product_id' => $para1))->result_array();
         $page_data['vendors'] = $vendors;
         $page_data['page_name'] = "product_view/" . $type . "/page_view";
         $page_data['asset_page'] = "product_view_" . $type;

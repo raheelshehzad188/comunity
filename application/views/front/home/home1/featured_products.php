@@ -2,24 +2,23 @@
 <div id="small-categories" class="owl-carousel owl-carousel-icons owl-loaded owl-drag">
                   <div class="owl-stage-outer">
                      <div class="owl-stage" style="transform: translate3d(-3002px, 0px, 0px); transition: all 0.25s ease 0s; width: 4804px;">
-                     	<?php
+                      <?php
 
-					$box_style =  6;//$this->db->get_where('ui_settings',array('ui_settings_id' => 29))->row()->value;
+          $box_style =  6;//$this->db->get_where('ui_settings',array('ui_settings_id' => 29))->row()->value;
 
-					$limit =  20;
+          $limit =  20;
 
                     $featured = $featured = $this->db->where('featured','ok')->get('product')->result_array();
 
                     foreach($featured as $k => $row){
                         if($k < 20)
                         {
-                        	echo ' <div class="owl-item ">';
-                        	echo $k;
-                		echo $this->html_model->product_box($row, 'grid', $box_style);
-                		echo "</div>";
-                	}
+                          echo ' <div class="owl-item ">';
+                    echo $this->html_model->product_box($row, 'grid', $box_style);
+                    echo "</div>";
+                  }
 
-					}
+          }
 
                 ?>
                         

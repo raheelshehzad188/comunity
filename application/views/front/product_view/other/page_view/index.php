@@ -1,1051 +1,176 @@
-<div class="banner_rating">
+<style type="text/css">
+.header .header-wrapper {
+    padding: 15px 0 20px 0 !important;
+    background: #000 !important;
+}
+</style>
+
+
+
+<div class="slider_imgbox">
     <div class="container">
-        <div class="listing_inner">
-                <ul>
-                    <li><a href="#"><i class="fa fa-whatsapp"></i> Direct Message</a></li>
-                    <li><a href="#"><i class="fa fa-phone"></i> Call Now</a></li>
-                    <li><a href="#"><i class="fa fa-link"></i> Website</a></li>
-                    <li><a href="#"><i class="fa fa-envelope"></i> Send an Email</a></li>
-                    <li><a href="#"><i class="fa fa-heart"></i> Bookmark</a></li>
-                    <li><a href="#"><i class="fa fa-share"></i> Share</a></li>
-                    <li><a href="#"><i class="fa fa-map-marker"></i> Get Directions</a></li>
-                    <li><a href="#"><i class="fa fa-info"></i> Report</a></li>
-                </ul>
-            </div>
-        <div class="row">
-            <div class="col-sm-8 rating_box">
-                <div class="rating_info">
-                    <img src="https://ads.strokedev.net/uploads/slider_image/2625af16c063a7.png">
-                    <h3>Liman Restaurant <img src="https://ads.strokedev.net/uploads/slider_image/tick.svg"></h3>
-                    <p>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        Innovative cooking, paired with fine wines
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-4 price_range">
-                <ul>
-                    <li>
-                        <h4>Price range</h4>
-                        <b>$$</b>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-phone"></i> Call now</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="tabs_wrap">
-
-    <ul class="tabss">
-        <li class="tab-link current" data-tab="tab-1">Profile</li>
-        <li class="tab-link" data-tab="tab-2">Events</li>
-        <li class="tab-link" data-tab="tab-3">Blogs</li>
-        <li class="tab-link" data-tab="tab-4">Jobs</li>
-        <li class="tab-link" data-tab="tab-5">Store</li>
-        <li class="tab-link" data-tab="tab-6">Reviews</li>
-    </ul>
-
-    <div class=" tabs_content">
-        <div id="tab-1" class=" tab-content current">
-            
-            <div class="container">
-                <div class="row">
-                <div class="col-sm-6 cashon_delivery">
-                    <h4>COMMUNITY HUBLAND DIGITAL SERVICES</h4>
-                    <h3>Professional Business Solutions Designed For You</h3>
-                    <p>Hire our experienced team of programmers, digital designers, and marketing professionals, who know how to deliver results. With your requirements, we will help you identify your needs to reach solutions</p>
-                    <ul>
-                        <li><i class="fa fa-check"></i> WEB &amp; ENTERPRISE PORTALS - Incredible UX and compelling functionality under the hood</li>
-                        <li><i class="fa fa-check"></i> ECOMMERCE DEVELOPMENT - Fully customized eCommerce solution for your online store</li>
-                        <li><i class="fa fa-check"></i> GRAPHICS ANALYSIS - Solutions empowered with computer Graphic Designing</li>
-                    </ul>
-                    <a href="#">Our Projects</a>
-                </div>
-                <div class="col-sm-6 delivery_img">
-                    <img src="https://ads.strokedev.net/uploads/slider_image/Graphic-laps-Community-Hubland-min.png" alt="">
-                </div>
-            </div>
-            </div>
-
-
-            <div class="full_bg">
-                <div class="container">
-                    <div class="row">
-                        
-                        <div  class="col-sm-6 sidegapp_contact">
-                            <div class="locationbox smedesign" id="formbox_contact">
-                                <h4><i class="fa fa-envelope"></i> Contact business</h4>
-                                <form action="" method="">
-                                    <div class="formbox_inner">
-                                        <label>Your Name</label>
-                                        <input type="text" required="" name="">
-                                    </div>
-                                    <div class="formbox_inner">
-                                        <label>Your Email</label>
-                                        <input type="email" required="" name="">
-                                    </div>
-                                    <div class="formbox_inner">
-                                        <label>Subject</label>
-                                        <input type="text" required="" name="">
-                                    </div>
-                                    <div class="formbox_inner">
-                                        <label>Your message (optional)</label>
-                                        <textarea></textarea>
-                                    </div>
-                                    <div class="formbox_inner">
-                                        <button type="button">SUBMIT</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 cashon_delivery">
-                            <h4>COMMUNITY HUBLAND DIGITAL SERVICES</h4>
-                            <h3>Professional Business Solutions Designed For You</h3>
-                            <p>Hire our experienced team of programmers, digital designers, and marketing professionals, who know how to deliver results. With your requirements, we will help you identify your needs to reach solutions</p>
-                            <ul>
-                                <li><i class="fa fa-check"></i> WEB &amp; ENTERPRISE PORTALS - Incredible UX and compelling functionality under the hood</li>
-                                <li><i class="fa fa-check"></i> ECOMMERCE DEVELOPMENT - Fully customized eCommerce solution for your online store</li>
-                                <li><i class="fa fa-check"></i> GRAPHICS ANALYSIS - Solutions empowered with computer Graphic Designing</li>
-                            </ul>
-                            <a href="#">Our Projects</a>
-                        </div>
+        <section id="gallery">
+          <div id="image-gallery">
+            <h3 style="font-weight: 600 !important;margin: 0 0 2px -8px;">Photos</h3>
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 image">
+                  <div class="img-wrapper">
+                    <a href="https://ads.strokedev.net/uploads/slider_image/slider-1.jpg"><img src="https://ads.strokedev.net/uploads/slider_image/slider-1.jpg" class="img-responsive"></a>
+                    <div class="img-overlay">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     </div>
-                </div>
-            </div>
-
-
-            <div class="container">
-                <div class="description smedesign gallery_box">
-                        <h4><i class="fa fa-photo"></i> Gallery</h4>
-                        <ul>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/1fd48709ffaba7.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/dfae4cd5ce3c54.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/66d256832b1ace.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/f9f41271978a3d.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/1fd48709ffaba7.jpg">
-                            </li>
-                        </ul>
-                    </div>
-            </div>
-
-
-
-            <div class="container">
-                <div class="locationbox smedesign">
-                        <h4><i class="fa fa-map-marker"></i> Location</h4>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4963.790223305652!2d-0.11564147180218141!3d51.53348361855762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1656262755680!5m2!1sen!2s" width="100%" height="250px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        <p>60 Penton Street, Barnsbury, London, N1 9PX, United Kingdom <a href="#">Get Direction</a></p>
-                    </div>
-            </div>
-
-
-            <!-- <div class="row">
-                <div class="col-sm-6 left_box">
-                    <div class="description smedesign">
-                        <h4><i class="fa fa-bars"></i> Description</h4>
-                        <p>The Liman Restaurant means port in the Turkish language, however the restaurant opens its doors to all aspects of the Mediterranean kitchen. The kitchen will be mostly focused on Mediterranean food; the owners of the restaurant are young professional chefs who can bring new, exciting tastes to Angel, Islington which will show through in the quality of food they prepare</p>
-                    </div>
-                    <div class="locationbox smedesign">
-                        <h4><i class="fa fa-map-marker"></i> Location</h4>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4963.790223305652!2d-0.11564147180218141!3d51.53348361855762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1656262755680!5m2!1sen!2s" width="100%" height="250px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        <p>60 Penton Street, Barnsbury, London, N1 9PX, United Kingdom <a href="#">Get Direction</a></p>
-                    </div>
-                    <div class="locationbox smedesign">
-                        <h4><i class="fa fa-tags"></i> Tags</h4>
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-credit-card"></i> Accepts Credit Cards
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-credit-card"></i> Bike Parking
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-credit-card"></i> Coupons
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-credit-card"></i> Parking Street
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-credit-card"></i> Wireless Internet
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="locationbox smedesign">
-                        <h4><i class="fa fa-tags"></i> Follow us</h4>
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-facebook"></i> Facebook
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-twitter"></i> Twitter
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-instagram"></i> Instagram
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-youtube"></i> YouTube
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-reddit"></i> Reddit
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="locationbox smedesign">
-                        <h4><i class="fa fa-tags"></i> Region</h4>
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-map-marker"></i> Location
-                                </a>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 right_box">
-                    <div class="locationbox smedesign">
-                        <h4><i class="fa fa-clock-o"></i> Open <span>Open hours today: 12:00 am - 6:30 pm <i class="fa fa-angle-down"></i></span></h4>
-                        <div class="clock_time">
-                            <p>Monday <span>12:00 am - 11:00 pm</span></p>
-                            <p>Tuesday <span>12:00 am - 11:00 pm</span></p>
-                            <p>Wednesday <span>12:00 am - 11:00 pm</span></p>
-                            <p>Thursday <span>12:00 am - 11:00 pm</span></p>
-                            <p>Friday <span>12:00 am - 11:00 pm</span></p>
-                            <p>Saturday <span>12:00 am - 11:00 pm</span></p>
-                            <p>Sunday <span>12:00 am - 11:00 pm</span></p>
-                            <p style="border-bottom: none;">June 18, 2022 9:40 am local time</p>
-                        </div>
-                    </div>
-
-                    <div class="description smedesign gallery_box">
-                        <h4><i class="fa fa-photo"></i> Gallery</h4>
-                        <ul>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/1fd48709ffaba7.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/dfae4cd5ce3c54.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/66d256832b1ace.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/f9f41271978a3d.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/1fd48709ffaba7.jpg">
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="locationbox smedesign">
-                        <h4><i class="fa fa-tags"></i> Categories</h4>
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-cutlery"></i> Restaurants
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-glass"></i> Nightlife
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="locationbox smedesign">
-                        <h4><i class="fa fa-envelope"></i> Contact business</h4>
-                        <form action="" method="">
-                            <div class="formbox_inner">
-                                <label>Your Name</label>
-                                <input type="text" required=""  name="">
-                            </div>
-                            <div class="formbox_inner">
-                                <label>Your Email</label>
-                                <input type="email" required=""  name="">
-                            </div>
-                            <div class="formbox_inner">
-                                <label>Subject</label>
-                                <input type="text" required=""  name="">
-                            </div>
-                            <div class="formbox_inner">
-                                <label>Your message (optional)</label>
-                                <textarea></textarea>
-                            </div>
-                            <div class="formbox_inner">
-                                <button type="button">SUBMIT</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div> -->
-        </div>
-
-            <div id="tab-2" class="tab-content eventsbox">
-                
-                <div class="row">
-            <div class="col-sm-4 sidegapp_pro">
-                <div class="item">
-                   <div class="lf-item-container listing-preview type-place lf-type-2 post-157 job_listing type-job_listing status-publish hentry job_listing_category-nightlife job_listing_category-restaurants region-london case27_job_listing_tags-accepts-credit-cards case27_job_listing_tags-bike-parking case27_job_listing_tags-coupons case27_job_listing_tags-parking-street case27_job_listing_tags-wireless-internet job_position_featured c27-verified has-logo has-tagline has-info-fields level-promoted priority-2">
-                      <div class="lf-item lf-item-alternate" data-template="alternate">
-                         <a href="#">
-                            <div class="overlay" style="
-                               background-color: #242429;
-                               opacity: 0.4;
-                               "></div>
-                            <div class="lf-background" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b-768x512.jpg');"></div>
-                            <div class="lf-item-info-2">
-                               <div class="lf-avatar" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/2625af16c063a7-150x150.png')"></div>
-                               <h4 class="case27-primary-text listing-preview-title">
-                                  Liman Restaurant  <img class="verified-listing" src="https://ads.strokedev.net/uploads/slider_image/tick.svg">
-                               </h4>
-                               <h6>Innovative cooking, paired with fine wines</h6>
-                               <ul class="lf-contact">
-                                  <li>
-                                     <i class="icon-phone-outgoing sm-icon"></i>
-                                     +44 20 1324 21            
-                                  </li>
-                                  <li>
-                                     <i class="icon-location-pin-add-2 sm-icon"></i>
-                                     60 Penton Street            
-                                  </li>
-                               </ul>
-                            </div>
-                            <div class="lf-head level-promoted">
-                               <div class="lf-head-btn ad-badge" data-toggle="tooltip" data-placement="bottom" data-original-title="Promoted">
-                                  <span><i class="icon-flash"></i></span>
-                               </div>
-                               <div class="lf-head-btn ">
-                                  $$                
-                               </div>
-                               <div class="lf-head-btn  listing-rating rating-preview-card">
-                                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>                
-                               </div>
-                               <div class="lf-head-btn  open-status listing-status-open">
-                                  OPEN                
-                               </div>
-                            </div>
-                         </a>
-                      </div>
-                      <div class="listing-details c27-footer-section">
-                         <ul class="c27-listing-preview-category-list">
-                            <li>
-                               <a href="#">
-                               <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="fa fa-cutlery" style="color: #fff; "></i>
-                               </span>
-                               <span class="category-name">Restaurants</span>
-                               </a>
-                            </li>
-                            
-                         </ul>
-                         <div class="ld-info">
-                            <ul>
-                               <li class="item-preview" data-toggle="tooltip" data-placement="top" data-original-title="Quick view">
-                                  <a href="#" type="button" class="c27-toggle-quick-view-modal" data-id="157">
-                                  <i class="fa fa-search-plus"></i>
-                                  </a>
-                               </li>
-                               <li data-toggle="tooltip" data-placement="top" title="" data-original-title="Bookmark">
-                                  <a class="c27-bookmark-button " data-listing-id="157" onclick="MyListing.Handlers.Bookmark_Button(event, this)">
-                                  <i class="fa fa-heart"></i>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-            </div>
-            <div class="col-sm-4 sidegapp_pro">
-                <div class="item">
-                   <div class="lf-item-container listing-preview type-place lf-type-2 post-157 job_listing type-job_listing status-publish hentry job_listing_category-nightlife job_listing_category-restaurants region-london case27_job_listing_tags-accepts-credit-cards case27_job_listing_tags-bike-parking case27_job_listing_tags-coupons case27_job_listing_tags-parking-street case27_job_listing_tags-wireless-internet job_position_featured c27-verified has-logo has-tagline has-info-fields level-promoted priority-2">
-                      <div class="lf-item lf-item-alternate" data-template="alternate">
-                         <a href="#">
-                            <div class="overlay" style="
-                               background-color: #242429;
-                               opacity: 0.4;
-                               "></div>
-                            <div class="lf-background" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b-768x512.jpg');"></div>
-                            <div class="lf-item-info-2">
-                               <div class="lf-avatar" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/2625af16c063a7-150x150.png')"></div>
-                               <h4 class="case27-primary-text listing-preview-title">
-                                  Liman Restaurant  <img class="verified-listing" src="https://ads.strokedev.net/uploads/slider_image/tick.svg">
-                               </h4>
-                               <h6>Innovative cooking, paired with fine wines</h6>
-                               <ul class="lf-contact">
-                                  <li>
-                                     <i class="icon-phone-outgoing sm-icon"></i>
-                                     +44 20 1324 21            
-                                  </li>
-                                  <li>
-                                     <i class="icon-location-pin-add-2 sm-icon"></i>
-                                     60 Penton Street            
-                                  </li>
-                               </ul>
-                            </div>
-                            <div class="lf-head level-promoted">
-                               <div class="lf-head-btn ad-badge" data-toggle="tooltip" data-placement="bottom" data-original-title="Promoted">
-                                  <span><i class="icon-flash"></i></span>
-                               </div>
-                               <div class="lf-head-btn ">
-                                  $$                
-                               </div>
-                               <div class="lf-head-btn  listing-rating rating-preview-card">
-                                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>                
-                               </div>
-                               <div class="lf-head-btn  open-status listing-status-open">
-                                  OPEN                
-                               </div>
-                            </div>
-                         </a>
-                      </div>
-                      <div class="listing-details c27-footer-section">
-                         <ul class="c27-listing-preview-category-list">
-                            <li>
-                               <a href="#">
-                               <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="fa fa-cutlery" style="color: #fff; "></i>
-                               </span>
-                               <span class="category-name">Restaurants</span>
-                               </a>
-                            </li>
-                            
-                         </ul>
-                         <div class="ld-info">
-                            <ul>
-                               <li class="item-preview" data-toggle="tooltip" data-placement="top" data-original-title="Quick view">
-                                  <a href="#" type="button" class="c27-toggle-quick-view-modal" data-id="157">
-                                  <i class="fa fa-search-plus"></i>
-                                  </a>
-                               </li>
-                               <li data-toggle="tooltip" data-placement="top" title="" data-original-title="Bookmark">
-                                  <a class="c27-bookmark-button " data-listing-id="157" onclick="MyListing.Handlers.Bookmark_Button(event, this)">
-                                  <i class="fa fa-heart"></i>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-            </div>
-            
-            </div>  
-            </div>
-
-
-            <div id="tab-3" class="tab-content eventsbox">
-                
-                <div class="row">
-            <div class="col-sm-4 sidegapp_pro">
-                <div class="item">
-                   <div class="lf-item-container listing-preview type-place lf-type-2 post-157 job_listing type-job_listing status-publish hentry job_listing_category-nightlife job_listing_category-restaurants region-london case27_job_listing_tags-accepts-credit-cards case27_job_listing_tags-bike-parking case27_job_listing_tags-coupons case27_job_listing_tags-parking-street case27_job_listing_tags-wireless-internet job_position_featured c27-verified has-logo has-tagline has-info-fields level-promoted priority-2">
-                      <div class="lf-item lf-item-alternate" data-template="alternate">
-                         <a href="#">
-                            <div class="overlay" style="
-                               background-color: #242429;
-                               opacity: 0.4;
-                               "></div>
-                            <div class="lf-background" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b-768x512.jpg');"></div>
-                            <div class="lf-item-info-2">
-                               <div class="lf-avatar" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/2625af16c063a7-150x150.png')"></div>
-                               <h4 class="case27-primary-text listing-preview-title">
-                                  Liman Restaurant  <img class="verified-listing" src="https://ads.strokedev.net/uploads/slider_image/tick.svg">
-                               </h4>
-                               <h6>Innovative cooking, paired with fine wines</h6>
-                               <ul class="lf-contact">
-                                  <li>
-                                     <i class="icon-phone-outgoing sm-icon"></i>
-                                     +44 20 1324 21            
-                                  </li>
-                                  <li>
-                                     <i class="icon-location-pin-add-2 sm-icon"></i>
-                                     60 Penton Street            
-                                  </li>
-                               </ul>
-                            </div>
-                            <div class="lf-head level-promoted">
-                               <div class="lf-head-btn ad-badge" data-toggle="tooltip" data-placement="bottom" data-original-title="Promoted">
-                                  <span><i class="icon-flash"></i></span>
-                               </div>
-                               <div class="lf-head-btn ">
-                                  $$                
-                               </div>
-                               <div class="lf-head-btn  listing-rating rating-preview-card">
-                                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>                
-                               </div>
-                               <div class="lf-head-btn  open-status listing-status-open">
-                                  OPEN                
-                               </div>
-                            </div>
-                         </a>
-                      </div>
-                      
-                   </div>
-                </div>
-            </div>
-            <div class="col-sm-4 sidegapp_pro">
-                <div class="item">
-                   <div class="lf-item-container listing-preview type-place lf-type-2 post-157 job_listing type-job_listing status-publish hentry job_listing_category-nightlife job_listing_category-restaurants region-london case27_job_listing_tags-accepts-credit-cards case27_job_listing_tags-bike-parking case27_job_listing_tags-coupons case27_job_listing_tags-parking-street case27_job_listing_tags-wireless-internet job_position_featured c27-verified has-logo has-tagline has-info-fields level-promoted priority-2">
-                      <div class="lf-item lf-item-alternate" data-template="alternate">
-                         <a href="#">
-                            <div class="overlay" style="
-                               background-color: #242429;
-                               opacity: 0.4;
-                               "></div>
-                            <div class="lf-background" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b-768x512.jpg');"></div>
-                            <div class="lf-item-info-2">
-                               <div class="lf-avatar" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/2625af16c063a7-150x150.png')"></div>
-                               <h4 class="case27-primary-text listing-preview-title">
-                                  Liman Restaurant  <img class="verified-listing" src="https://ads.strokedev.net/uploads/slider_image/tick.svg">
-                               </h4>
-                               <h6>Innovative cooking, paired with fine wines</h6>
-                               <ul class="lf-contact">
-                                  <li>
-                                     <i class="icon-phone-outgoing sm-icon"></i>
-                                     +44 20 1324 21            
-                                  </li>
-                                  <li>
-                                     <i class="icon-location-pin-add-2 sm-icon"></i>
-                                     60 Penton Street            
-                                  </li>
-                               </ul>
-                            </div>
-                            <div class="lf-head level-promoted">
-                               <div class="lf-head-btn ad-badge" data-toggle="tooltip" data-placement="bottom" data-original-title="Promoted">
-                                  <span><i class="icon-flash"></i></span>
-                               </div>
-                               <div class="lf-head-btn ">
-                                  $$                
-                               </div>
-                               <div class="lf-head-btn  listing-rating rating-preview-card">
-                                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>                
-                               </div>
-                               <div class="lf-head-btn  open-status listing-status-open">
-                                  OPEN                
-                               </div>
-                            </div>
-                         </a>
-                      </div>
-                      
-                   </div>
-                </div>
-            </div>
-            
-            </div>  
-            </div>
-
-
-
-
-            <div id="tab-4" class="tab-content eventsbox">
-                
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="item">
-                   <div class="lf-item-container listing-preview type-place lf-type-2 post-157 job_listing type-job_listing status-publish hentry job_listing_category-nightlife job_listing_category-restaurants region-london case27_job_listing_tags-accepts-credit-cards case27_job_listing_tags-bike-parking case27_job_listing_tags-coupons case27_job_listing_tags-parking-street case27_job_listing_tags-wireless-internet job_position_featured c27-verified has-logo has-tagline has-info-fields level-promoted priority-2">
-                      <div class="lf-item lf-item-alternate" data-template="alternate" style="
-    height: 154px !important;
-">
-                         <a href="#">
-                            
-                            
-                            <div class="lf-item-info-2">
-                               <div class="lf-avatar" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/2625af16c063a7-150x150.png')"></div>
-                               <h4 class="case27-primary-text listing-preview-title">
-                                  Liman Restaurant  <img class="verified-listing" src="https://ads.strokedev.net/uploads/slider_image/tick.svg">
-                               </h4>
-                               <h6>Innovative cooking, paired with fine wines</h6>
-                               <ul class="lf-contact">
-                                  <li>
-                                     <i class="icon-phone-outgoing sm-icon"></i>
-                                     +44 20 1324 21            
-                                  </li>
-                                  <li>
-                                     <i class="icon-location-pin-add-2 sm-icon"></i>
-                                     60 Penton Street            
-                                  </li>
-                               </ul>
-                            </div>
-                            
-                         </a>
-                      </div>
-                      <div class="listing-details c27-footer-section">
-                         <ul class="c27-listing-preview-category-list">
-                            <li>
-                               <a href="#">
-                               <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="fa fa-cutlery" style="color: #fff; "></i>
-                               </span>
-                               <span class="category-name">Restaurants</span>
-                               </a>
-                            </li>
-                            
-                         </ul>
-                         <div class="ld-info">
-                            <ul>
-                               <li class="item-preview" data-toggle="tooltip" data-placement="top" data-original-title="Quick view">
-                                  <a href="#" type="button" class="c27-toggle-quick-view-modal" data-id="157">
-                                  <i class="fa fa-search-plus"></i>
-                                  </a>
-                               </li>
-                               <li data-toggle="tooltip" data-placement="top" title="" data-original-title="Bookmark">
-                                  <a class="c27-bookmark-button " data-listing-id="157" onclick="MyListing.Handlers.Bookmark_Button(event, this)">
-                                  <i class="fa fa-heart"></i>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="item">
-                   <div class="lf-item-container listing-preview type-place lf-type-2 post-157 job_listing type-job_listing status-publish hentry job_listing_category-nightlife job_listing_category-restaurants region-london case27_job_listing_tags-accepts-credit-cards case27_job_listing_tags-bike-parking case27_job_listing_tags-coupons case27_job_listing_tags-parking-street case27_job_listing_tags-wireless-internet job_position_featured c27-verified has-logo has-tagline has-info-fields level-promoted priority-2">
-                      <div class="lf-item lf-item-alternate" data-template="alternate" style="
-    height: 154px !important;
-">
-                         <a href="#">
-                            
-                            
-                            <div class="lf-item-info-2">
-                               <div class="lf-avatar" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/2625af16c063a7-150x150.png')"></div>
-                               <h4 class="case27-primary-text listing-preview-title">
-                                  Liman Restaurant  <img class="verified-listing" src="https://ads.strokedev.net/uploads/slider_image/tick.svg">
-                               </h4>
-                               <h6>Innovative cooking, paired with fine wines</h6>
-                               <ul class="lf-contact">
-                                  <li>
-                                     <i class="icon-phone-outgoing sm-icon"></i>
-                                     +44 20 1324 21            
-                                  </li>
-                                  <li>
-                                     <i class="icon-location-pin-add-2 sm-icon"></i>
-                                     60 Penton Street            
-                                  </li>
-                               </ul>
-                            </div>
-                            
-                         </a>
-                      </div>
-                      <div class="listing-details c27-footer-section">
-                         <ul class="c27-listing-preview-category-list">
-                            <li>
-                               <a href="#">
-                               <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="fa fa-cutlery" style="color: #fff; "></i>
-                               </span>
-                               <span class="category-name">Restaurants</span>
-                               </a>
-                            </li>
-                            
-                         </ul>
-                         <div class="ld-info">
-                            <ul>
-                               <li class="item-preview" data-toggle="tooltip" data-placement="top" data-original-title="Quick view">
-                                  <a href="#" type="button" class="c27-toggle-quick-view-modal" data-id="157">
-                                  <i class="fa fa-search-plus"></i>
-                                  </a>
-                               </li>
-                               <li data-toggle="tooltip" data-placement="top" title="" data-original-title="Bookmark">
-                                  <a class="c27-bookmark-button " data-listing-id="157" onclick="MyListing.Handlers.Bookmark_Button(event, this)">
-                                  <i class="fa fa-heart"></i>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="item">
-                   <div class="lf-item-container listing-preview type-place lf-type-2 post-157 job_listing type-job_listing status-publish hentry job_listing_category-nightlife job_listing_category-restaurants region-london case27_job_listing_tags-accepts-credit-cards case27_job_listing_tags-bike-parking case27_job_listing_tags-coupons case27_job_listing_tags-parking-street case27_job_listing_tags-wireless-internet job_position_featured c27-verified has-logo has-tagline has-info-fields level-promoted priority-2">
-                      <div class="lf-item lf-item-alternate" data-template="alternate" style="
-    height: 154px !important;
-">
-                         <a href="#">
-                            
-                            
-                            <div class="lf-item-info-2">
-                               <div class="lf-avatar" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/2625af16c063a7-150x150.png')"></div>
-                               <h4 class="case27-primary-text listing-preview-title">
-                                  Liman Restaurant  <img class="verified-listing" src="https://ads.strokedev.net/uploads/slider_image/tick.svg">
-                               </h4>
-                               <h6>Innovative cooking, paired with fine wines</h6>
-                               <ul class="lf-contact">
-                                  <li>
-                                     <i class="icon-phone-outgoing sm-icon"></i>
-                                     +44 20 1324 21            
-                                  </li>
-                                  <li>
-                                     <i class="icon-location-pin-add-2 sm-icon"></i>
-                                     60 Penton Street            
-                                  </li>
-                               </ul>
-                            </div>
-                            
-                         </a>
-                      </div>
-                      <div class="listing-details c27-footer-section">
-                         <ul class="c27-listing-preview-category-list">
-                            <li>
-                               <a href="#">
-                               <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="fa fa-cutlery" style="color: #fff; "></i>
-                               </span>
-                               <span class="category-name">Restaurants</span>
-                               </a>
-                            </li>
-                            
-                         </ul>
-                         <div class="ld-info">
-                            <ul>
-                               <li class="item-preview" data-toggle="tooltip" data-placement="top" data-original-title="Quick view">
-                                  <a href="#" type="button" class="c27-toggle-quick-view-modal" data-id="157">
-                                  <i class="fa fa-search-plus"></i>
-                                  </a>
-                               </li>
-                               <li data-toggle="tooltip" data-placement="top" title="" data-original-title="Bookmark">
-                                  <a class="c27-bookmark-button " data-listing-id="157" onclick="MyListing.Handlers.Bookmark_Button(event, this)">
-                                  <i class="fa fa-heart"></i>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                    </div>
-            
-            
-            </div>  
-            </div>
-
-
-              <div id="tab-5" class="tab-content eventsbox">
-                <div class="listing_inner">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-whatsapp"></i> Direct Message</a></li>
-                            <li><a href="#"><i class="fa fa-phone"></i> Call Now</a></li>
-                            <li><a href="#"><i class="fa fa-link"></i> Website</a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> Send an Email</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Bookmark</a></li>
-                            <li><a href="#"><i class="fa fa-share"></i> Share</a></li>
-                            <li><a href="#"><i class="fa fa-map-marker"></i> Get Directions</a></li>
-                            <li><a href="#"><i class="fa fa-info"></i> Report</a></li>
-                        </ul>
-                    </div>
-                  <div class="listing_info nostore">
-                    <h4>There are no listings matching your search.</h4>
-                </div>
-              </div>
-
-
-              
-              <div id="tab-6" class="tab-content eventsbox">
-                
-                  <div class="row">
-                    <div class="col-sm-6">
-                          <div class="description smedesign reviewbox">
-                                <div class="reviesbox">
-                                    <img src="https://ads.strokedev.net/uploads/slider_image/2625af16c063a7.png">
-                                    <h4>CommunityHL@_Admin0M87612</h4>
-                                    <p>April 1, 2022 at 1:14 am</p>
-                                    <h6>Great service. Highly recommended!</h6>
-                                    <h5>Overall Rating</h5>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                      </div>
-                      <div class="col-sm-6">
-                          <div class="description smedesign">
-                                <h4><i class="fa fa-envelope"></i> Add a review</h4>
-                                <p>You must be <a href="#">logged in</a> to post a comment.</p>
-                            </div>
-                      </div>
                   </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 image">
+                  <div class="img-wrapper">
+                    <a href="https://ads.strokedev.net/uploads/slider_image/slider2.jpg"><img src="https://ads.strokedev.net/uploads/slider_image/slider2.jpg" class="img-responsive"></a>
+                    <div class="img-overlay">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 image">
+                  <div class="img-wrapper">
+                    <a href="https://ads.strokedev.net/uploads/slider_image/slider3.jpg"><img src="https://ads.strokedev.net/uploads/slider_image/slider3.jpg" class="img-responsive"></a>
+                    <div class="img-overlay">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 image">
+                  <div class="img-wrapper">
+                    <a href="https://ads.strokedev.net/uploads/slider_image/slider4.jp"><img src="https://ads.strokedev.net/uploads/slider_image/slider4.jpg" class="img-responsive"></a>
+                    <div class="img-overlay">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+                
               </div>
+            </div>
+        </section>
+        
     </div>
 </div>
 
-
-<div class="related_box">
+<div class="hotel_london">
     <div class="container">
-        <div class="listing_info">
-            <h4>You May Also Be Interested In</h4>
-            <p>Explore and contact businesses directly with no obligation</p>
+        <div class="row white__box">
+            <div class="col-sm-2 building_bx">
+                <img src="https://ads.strokedev.net/uploads/slider_image/hotel_88.png" alt="">
+            </div>
+            <div class="col-sm-8 london_info">
+                <h3>The W14 Hotel Kensington London</h3>
+                <p>Hotel</p>
+                <p>West Kensington, London</p>
+            </div>
+            <div class="col-sm-2 save_share">
+                <a href="#">Save</a>
+                <a href="#">Share</a>
+            </div>
         </div>
+    </div>
+</div>
+
+
+<div id="tabs__box">
+    <div class="container">
         <div class="row">
-            <div class="col-sm-4 sidegapp_pro">
-                <div class="item">
-                   <div class="lf-item-container listing-preview type-place lf-type-2 post-157 job_listing type-job_listing status-publish hentry job_listing_category-nightlife job_listing_category-restaurants region-london case27_job_listing_tags-accepts-credit-cards case27_job_listing_tags-bike-parking case27_job_listing_tags-coupons case27_job_listing_tags-parking-street case27_job_listing_tags-wireless-internet job_position_featured c27-verified has-logo has-tagline has-info-fields level-promoted priority-2">
-                      <div class="lf-item lf-item-alternate" data-template="alternate">
-                         <a href="#">
-                            <div class="overlay" style="
-                               background-color: #242429;
-                               opacity: 0.4;
-                               "></div>
-                            <div class="lf-background" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b-768x512.jpg');"></div>
-                            <div class="lf-item-info-2">
-                               <div class="lf-avatar" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/2625af16c063a7-150x150.png')"></div>
-                               <h4 class="case27-primary-text listing-preview-title">
-                                  Liman Restaurant  <img class="verified-listing" src="https://ads.strokedev.net/uploads/slider_image/tick.svg">
-                               </h4>
-                               <h6>Innovative cooking, paired with fine wines</h6>
-                               <ul class="lf-contact">
-                                  <li>
-                                     <i class="icon-phone-outgoing sm-icon"></i>
-                                     +44 20 1324 21            
-                                  </li>
-                                  <li>
-                                     <i class="icon-location-pin-add-2 sm-icon"></i>
-                                     60 Penton Street            
-                                  </li>
-                               </ul>
-                            </div>
-                            <div class="lf-head level-promoted">
-                               <div class="lf-head-btn ad-badge" data-toggle="tooltip" data-placement="bottom" data-original-title="Promoted">
-                                  <span><i class="icon-flash"></i></span>
-                               </div>
-                               <div class="lf-head-btn ">
-                                  $$                
-                               </div>
-                               <div class="lf-head-btn  listing-rating rating-preview-card">
-                                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>                
-                               </div>
-                               <div class="lf-head-btn  open-status listing-status-open">
-                                  OPEN                
-                               </div>
-                            </div>
-                         </a>
-                      </div>
-                      <div class="listing-details c27-footer-section">
-                         <ul class="c27-listing-preview-category-list">
-                            <li>
-                               <a href="#">
-                               <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="fa fa-cutlery" style="color: #fff; "></i>
-                               </span>
-                               <span class="category-name">Restaurants</span>
-                               </a>
-                            </li>
-                            
-                         </ul>
-                         <div class="ld-info">
-                            <ul>
-                               <li class="item-preview" data-toggle="tooltip" data-placement="top" data-original-title="Quick view">
-                                  <a href="#" type="button" class="c27-toggle-quick-view-modal" data-id="157">
-                                  <i class="fa fa-search-plus"></i>
-                                  </a>
-                               </li>
-                               <li data-toggle="tooltip" data-placement="top" title="" data-original-title="Bookmark">
-                                  <a class="c27-bookmark-button " data-listing-id="157" onclick="MyListing.Handlers.Bookmark_Button(event, this)">
-                                  <i class="fa fa-heart"></i>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
+            <div class="col-sm-8 sideleft">
+                <div class="radius_bg">
+                    <div class="row">
+                        <div class="col-sm-6 avatar_box">
+                            <img src="https://ads.strokedev.net/uploads/slider_image/FRGWTSSP34JQSWRN.jpg">
+                            <p>"yoghurt and cereals as breakfast"(3 Tips)</p>
+                        </div>
+                        <div class="col-sm-6 avatar_box">
+                            <img src="https://ads.strokedev.net/uploads/slider_image/16921948-2RHYFT4TNVB4EM2I.jpg">
+                            <p>"It's cheap, so don't expect luxury!"(2 Tips)</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 avatar_box">
+                            <img src="https://ads.strokedev.net/uploads/slider_image/7202359-QVF4QGBODVBQP2EY.jpg">
+                            <p>"The room is quite small but the bed and the shower are comfortable."(2 Tips)</p>
+                        </div>
+                        <div class="col-sm-6 avatar_box">
+                            <img src="https://ads.strokedev.net/uploads/slider_image/2476994-YASJMWKMQF3PO1MC.jpg">
+                            <p>"yoghurt and cereals as breakfast"(3 Tips)</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="account_box">
+                    <img src="https://ads.strokedev.net/uploads/slider_image/upsell_bgcircle_f-b8512198dd547659d7a12a2344a22b0c.png">
+                    <h4>See what your friends are saying about The W14 Hotel Kensington London.</h4>
+                    <p>By creating an account you are able to follow friends and experts you trust and see the places they’ve recommended.</p>
+                    <a href="#" class="facebookbtn"><i class="fa fa-facebook"></i> Sign up with Facebook</a>
+                    <span>Or</span>
+                    <a href="#" class="signupbtn"> Sign up with email</a>
+                </div>
+
+                <div class="tips_review">
+                    <h4>19 Tips and reviews</h4>
                 </div>
             </div>
-            <div class="col-sm-4 sidegapp_pro">
-                <div class="item">
-                   <div class="lf-item-container listing-preview type-place lf-type-2 post-157 job_listing type-job_listing status-publish hentry job_listing_category-nightlife job_listing_category-restaurants region-london case27_job_listing_tags-accepts-credit-cards case27_job_listing_tags-bike-parking case27_job_listing_tags-coupons case27_job_listing_tags-parking-street case27_job_listing_tags-wireless-internet job_position_featured c27-verified has-logo has-tagline has-info-fields level-promoted priority-2">
-                      <div class="lf-item lf-item-alternate" data-template="alternate">
-                         <a href="#">
-                            <div class="overlay" style="
-                               background-color: #242429;
-                               opacity: 0.4;
-                               "></div>
-                            <div class="lf-background" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b-768x512.jpg');"></div>
-                            <div class="lf-item-info-2">
-                               <div class="lf-avatar" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/2625af16c063a7-150x150.png')"></div>
-                               <h4 class="case27-primary-text listing-preview-title">
-                                  Liman Restaurant  <img class="verified-listing" src="https://ads.strokedev.net/uploads/slider_image/tick.svg">
-                               </h4>
-                               <h6>Innovative cooking, paired with fine wines</h6>
-                               <ul class="lf-contact">
-                                  <li>
-                                     <i class="icon-phone-outgoing sm-icon"></i>
-                                     +44 20 1324 21            
-                                  </li>
-                                  <li>
-                                     <i class="icon-location-pin-add-2 sm-icon"></i>
-                                     60 Penton Street            
-                                  </li>
-                               </ul>
-                            </div>
-                            <div class="lf-head level-promoted">
-                               <div class="lf-head-btn ad-badge" data-toggle="tooltip" data-placement="bottom" data-original-title="Promoted">
-                                  <span><i class="icon-flash"></i></span>
-                               </div>
-                               <div class="lf-head-btn ">
-                                  $$                
-                               </div>
-                               <div class="lf-head-btn  listing-rating rating-preview-card">
-                                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>                
-                               </div>
-                               <div class="lf-head-btn  open-status listing-status-open">
-                                  OPEN                
-                               </div>
-                            </div>
-                         </a>
-                      </div>
-                      <div class="listing-details c27-footer-section">
-                         <ul class="c27-listing-preview-category-list">
-                            <li>
-                               <a href="#">
-                               <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="fa fa-cutlery" style="color: #fff; "></i>
-                               </span>
-                               <span class="category-name">Restaurants</span>
-                               </a>
-                            </li>
-                            
-                         </ul>
-                         <div class="ld-info">
-                            <ul>
-                               <li class="item-preview" data-toggle="tooltip" data-placement="top" data-original-title="Quick view">
-                                  <a href="#" type="button" class="c27-toggle-quick-view-modal" data-id="157">
-                                  <i class="fa fa-search-plus"></i>
-                                  </a>
-                               </li>
-                               <li data-toggle="tooltip" data-placement="top" title="" data-original-title="Bookmark">
-                                  <a class="c27-bookmark-button " data-listing-id="157" onclick="MyListing.Handlers.Bookmark_Button(event, this)">
-                                  <i class="fa fa-heart"></i>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
+            <div class="col-sm-4 sideright">
+                <div class="mapinfobox">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4963.790223305652!2d-0.11564147180218141!3d51.53348361855762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1656262755680!5m2!1sen!2s" width="100%" height="250px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <h4>The W14 Hotel Kensington London</h4>
+                    <p>16-22 Gunterstone Road (Kensington) London Greater London W14 9BU United Kingdom</p>
                 </div>
-            </div>
-            <div class="col-sm-4 sidegapp_pro">
-                <div class="item">
-                   <div class="lf-item-container listing-preview type-place lf-type-2 post-157 job_listing type-job_listing status-publish hentry job_listing_category-nightlife job_listing_category-restaurants region-london case27_job_listing_tags-accepts-credit-cards case27_job_listing_tags-bike-parking case27_job_listing_tags-coupons case27_job_listing_tags-parking-street case27_job_listing_tags-wireless-internet job_position_featured c27-verified has-logo has-tagline has-info-fields level-promoted priority-2">
-                      <div class="lf-item lf-item-alternate" data-template="alternate">
-                         <a href="#">
-                            <div class="overlay" style="
-                               background-color: #242429;
-                               opacity: 0.4;
-                               "></div>
-                            <div class="lf-background" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b-768x512.jpg');"></div>
-                            <div class="lf-item-info-2">
-                               <div class="lf-avatar" style="background-image: url('https://ads.strokedev.net/uploads/slider_image/2625af16c063a7-150x150.png')"></div>
-                               <h4 class="case27-primary-text listing-preview-title">
-                                  Liman Restaurant  <img class="verified-listing" src="https://ads.strokedev.net/uploads/slider_image/tick.svg">
-                               </h4>
-                               <h6>Innovative cooking, paired with fine wines</h6>
-                               <ul class="lf-contact">
-                                  <li>
-                                     <i class="icon-phone-outgoing sm-icon"></i>
-                                     +44 20 1324 21            
-                                  </li>
-                                  <li>
-                                     <i class="icon-location-pin-add-2 sm-icon"></i>
-                                     60 Penton Street            
-                                  </li>
-                               </ul>
-                            </div>
-                            <div class="lf-head level-promoted">
-                               <div class="lf-head-btn ad-badge" data-toggle="tooltip" data-placement="bottom" data-original-title="Promoted">
-                                  <span><i class="icon-flash"></i></span>
-                               </div>
-                               <div class="lf-head-btn ">
-                                  $$                
-                               </div>
-                               <div class="lf-head-btn  listing-rating rating-preview-card">
-                                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>                
-                               </div>
-                               <div class="lf-head-btn  open-status listing-status-open">
-                                  OPEN                
-                               </div>
-                            </div>
-                         </a>
-                      </div>
-                      <div class="listing-details c27-footer-section">
-                         <ul class="c27-listing-preview-category-list">
-                            <li>
-                               <a href="#">
-                               <span class="cat-icon" style="background-color: #ff6600;">
-                               <i class="fa fa-cutlery" style="color: #fff; "></i>
-                               </span>
-                               <span class="category-name">Restaurants</span>
-                               </a>
-                            </li>
-                            
-                         </ul>
-                         <div class="ld-info">
-                            <ul>
-                               <li class="item-preview" data-toggle="tooltip" data-placement="top" data-original-title="Quick view">
-                                  <a href="#" type="button" class="c27-toggle-quick-view-modal" data-id="157">
-                                  <i class="fa fa-search-plus"></i>
-                                  </a>
-                               </li>
-                               <li data-toggle="tooltip" data-placement="top" title="" data-original-title="Bookmark">
-                                  <a class="c27-bookmark-button " data-listing-id="157" onclick="MyListing.Handlers.Bookmark_Button(event, this)">
-                                  <i class="fa fa-heart"></i>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
+
+                <div class="might_box">
+                    <b>You might also like</b>
+                    <div class="might_innerbox">
+                        <div class="resturant">
+                            <a href="#">
+                                <img src="https://ads.strokedev.net/uploads/slider_image/slider3.jpg" alt="">
+                                <span>8.2</span>
+                                <h5>St Paul's Hotel</h5>
+                                <p>Hotel</p>
+                                <p>253 Hammersmith Rd</p>
+                            </a>
+                        </div>
+                        <div class="bottominfo">
+                            <p>"Nice bar for a quiet drink. Lovely building."</p>
+                            <h6><img src="https://ads.strokedev.net/uploads/slider_image/7202359-QVF4QGBODVBQP2EY.jpg" alt=""> Johanna English</h6>
+                        </div>
+                    </div>
+
+                    <div class="might_innerbox">
+                        <div class="resturant">
+                            <a href="#">
+                                <img src="https://ads.strokedev.net/uploads/slider_image/slider4.jpg" alt="">
+                                <span>8.2</span>
+                                <h5>The Ampersand Hotel</h5>
+                                <p>Hotel</p>
+                                <p>253 Hammersmith Rd</p>
+                            </a>
+                        </div>
+                        <div class="bottominfo">
+                            <p>"Nice bar for a quiet drink. Lovely building."</p>
+                            <h6><img src="https://ads.strokedev.net/uploads/slider_image/7202359-QVF4QGBODVBQP2EY.jpg" alt=""> Johanna English</h6>
+                        </div>
+                    </div>
+
+                    <div class="might_innerbox">
+                        <div class="resturant">
+                            <a href="#">
+                                <img src="https://ads.strokedev.net/uploads/slider_image/slider3.jpg" alt="">
+                                <span>8.2</span>
+                                <h5>Premier Inn</h5>
+                                <p>Hotel</p>
+                                <p>253 Hammersmith Rd</p>
+                            </a>
+                        </div>
+                        <div class="bottominfo">
+                            <p>"Nice bar for a quiet drink. Lovely building."</p>
+                            <h6><img src="https://ads.strokedev.net/uploads/slider_image/7202359-QVF4QGBODVBQP2EY.jpg" alt=""> Johanna English</h6>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1053,24 +178,6 @@
 </div>
 
 
+<script src="https://ads.strokedev.net/template/front/js/custom.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-    
-    $('ul.tabss li').click(function(){
-        var tab_id = $(this).attr('data-tab');
 
-        $('ul.tabss li').removeClass('current');
-        $('.tab-content').removeClass('current');
-
-        $(this).addClass('current');
-        $("#"+tab_id).addClass('current');
-    })
-
-})
-
-$(".right_box .locationbox h4").click(function(){
-    $(".clock_time").toggle();
-});
-
-</script>

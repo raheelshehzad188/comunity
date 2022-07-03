@@ -4,13 +4,14 @@
         <div class="tab-base horizontal-tab">
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a data-toggle="tab" href="#tabb-1"><?php echo translate('top_slider'); ?></a>
+                    <a data-toggle="tab" href="#tabb-1"><?php echo translate('top_banner'); ?></a>
+                </li>
+
+                <li>
+                    <a data-toggle="tab" href="#tabb-4"><?php echo translate('section2_boxes'); ?></a>
                 </li>
                 <li>
-                    <a data-toggle="tab" href="#tabb-2"><?php echo translate('home_banners'); ?></a>
-                </li>
-                <li>
-                    <a data-toggle="tab" href="#tabb-3"><?php echo translate('search_section'); ?></a>
+                    <a data-toggle="tab" href="#tabb-3"><?php echo translate('digital__services'); ?></a>
                 </li>
                 <li>
                     <a data-toggle="tab" href="#tabb-4"><?php echo translate('featured_products'); ?></a>
@@ -54,13 +55,7 @@
                 <div id="tabb-1" class="tab-pane fade active in">
                     <div class="row">
                         <div class="col-md-12 form-horizontal">
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label"><?php echo translate('layer_slider');?></label>
-                                <div class="col-sm-6">
-                                    <input id="set_slider" class='sw' data-set='set_slider' type="checkbox" <?php if($this->crud_model->get_type_name_by_id('general_settings','53','value') == 'ok'){ ?>checked<?php } ?> />
-                                </div>
-                            </div>
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label class="col-sm-3 control-label"><?php echo translate('top_carousel_slider');?></label>
                                 <div class="col-sm-6">
                                     <input id="set_slides" class='sw' data-set='set_slides' type="checkbox" <?php if($this->crud_model->get_type_name_by_id('general_settings','62','value') == 'ok'){ ?>checked<?php } ?> />
@@ -106,10 +101,30 @@
                                         ?>
                                     </div>
                                 </div>
-                                <div class="form-group deal">
-                                    <label class="col-sm-3 control-label" ><?php echo translate('number_of_todays_deal_(_to_show_)');?></label>
-                                    <div class="col-sm-6">
-                                        <input type="number" name="deal_no" value="<?php echo $this->crud_model->get_type_name_by_id('ui_settings','30','value'); ?>"  class="form-control">
+                                <div class="form-group margin-top-10">
+                                    <label class="col-sm-3 control-label margin-top-10" for="demo-hor-inputemail"><?php echo translate('parallax_image_for_search_section');?></label>
+                                    <div class="col-sm-9">
+                                        <?php
+                                            $top_banner     =  $this->db->get_where('ui_settings',array('ui_settings_id' => '62'))->row();
+                                            if($top_banner)
+                                            {
+                                             $img = $this->crud_model->get_img($top_banner->value)->secure_url;
+                                         }
+
+                                        ?>
+                                        <div class="col-sm-5" style="margin:2px;padding:2px;">
+                                            <img class="img-responsive img-md img-border img_show2" style="width:100%;height:150px" src="<?php echo $img; ?>">
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <div class="col-sm-2">
+                                            <span class="pull-left btn btn-default btn-file margin-top-10">
+                                                <?php echo translate('select_image');?>
+                                                <input type="file" name="par3" class="form-control imgInp2">
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-2"></div>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 top_cat_update"  style="margin-bottom:300px">
@@ -245,43 +260,42 @@
                                 ));
                             ?>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label"><?php echo translate('featured_products_(_show_/_hide_)');?></label>
+                                <label class="col-sm-3 control-label" ><?php echo translate('section2_heading');?></label>
                                 <div class="col-sm-6">
-                                    <input id="feature_24" 
-                                        data-id="24" class='sw2' 
-                                            type="checkbox" name="value" 
-                                                <?php if($this->crud_model->get_type_name_by_id('ui_settings','24','value') == 'ok'){
-                                                     ?>checked<?php } ?>
-                                                        value="ok" />
+                                    <input type="texxt" name="section2_heading" value="<?php echo $this->crud_model->get_type_name_by_id('ui_settings','63','value'); ?>"  class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" ><?php echo translate('number_of_products_(_to_show_)');?></label>
+                                <label class="col-sm-3 control-label" ><?php echo translate('section2_paragaph');?></label>
                                 <div class="col-sm-6">
-                                    <input type="number" name="featured_no" value="<?php echo $this->crud_model->get_type_name_by_id('ui_settings','20','value'); ?>"  class="form-control">
+                                    <textarea name="section2_paragaph" value="<?php echo $this->crud_model->get_type_name_by_id('ui_settings','63','value'); ?>"  class="form-control"><?php echo $this->crud_model->get_type_name_by_id('ui_settings','64','value'); ?></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" style="margin-top:15px;" ><?php echo translate('choose_product_box_style');?></label>
+                                <label class="col-sm-3 control-label" style="margin-top:15px;" ><?php echo translate('section_boxes');?></label>
                                 <div class="col-sm-6">
-                                    <div class="row">
-                                    <?php 
-                                        $box_style =  $this->db->get_where('ui_settings',array('ui_settings_id' => 29))->row()->value;
-                                        $style = array(1,2,3);
-                                        foreach($style as $value){
+                                <?php
+                                        $cboxes = unserialize($this->crud_model->get_type_name_by_id('ui_settings','65','value'));
+                                    $boxes = 3;
+                                    if($cboxes)
+                                    {
+                                        // $cboxes = unserialize($cboxes);
+
+                                        // var_dump($cboxes);
+                                        $boxes = count($cboxes);
+                                    }
+
+                                    for ($i=0; $i < $boxes; $i++) { 
                                     ?>
-                                        <div class="cc-selector col-sm-4">
-                                            <input type="radio" id="fea_box_<?php echo $value; ?>" value="<?php echo $value; ?>" name="fea_pro_box" <?php if($box_style == $value){ echo 'checked'; } ?> >
-                                            <label class="drinkcard-cc" style="margin-bottom:0px; width:100%;" for="fea_box_<?php echo $value; ?>">
-                                                    <img src="<?php echo base_url() ?>uploads/product_boxes/<?php echo 'product_grid_'.$value.'.jpg' ?>" width="100%" height="100%" alt="<?php echo 'product_box_style_'.$value; ?>" />
-                                                   
-                                            </label>
-                                        </div>
-                                    <?php
-                                        }
-                                    ?>
-                                    </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4"><input type="text" placeholder="Box <?= $i+1 ?> icon" class="form-control" value="<?= (isset($cboxes[$i]['icon'])?$cboxes[$i]['icon']:''); ?>" name="box[<?= $i ?>][icon]"></div>
+                                    <div class="col-sm-4"><input value="<?= (isset($cboxes[$i]['heading'])?$cboxes[$i]['heading']:''); ?>" placeholder="Box <?= $i+1 ?> Heading" type="text" class="form-control" name="box[<?= $i;?>][heading]"></div>
+                                    <div class="col-sm-4"><textarea  placeholder="Box <?= $i+1 ?> detail"class="form-control"  name="box[<?=$i;?>][detail]"><?= (isset($cboxes[$i]['detail'])?$cboxes[$i]['detail']:''); ?></textarea></div>
                                 </div>
+                                <?php
+                                }
+                                ?>
+                            </div>
                             </div>
                             <div class="form-group col-sm-12">
                                 <span class="btn btn-success btn-labeled fa fa-check submitter pull-right enterer" type= data-ing='<?php echo translate('updating'); ?>' data-msg='<?php echo translate('featured_section_updated!'); ?>'>

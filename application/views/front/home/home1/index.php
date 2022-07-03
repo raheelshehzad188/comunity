@@ -3,8 +3,15 @@
 </head>
 
 
+<?php
+                                            $top_banner     =  $this->db->get_where('ui_settings',array('ui_settings_id' => '62'))->row();
+                                            if($top_banner)
+                                            {
+                                             $img = $this->crud_model->get_img($top_banner->value)->secure_url;
+                                         }
 
-<div class="main_wrap">
+                                        ?>
+<div class="main_wrap" style="background: url(<?= $img;ss ?>);">
     <div class="container">
         <div class="arrowbox">
             <img class="textbox" src="https://ads.strokedev.net/uploads/logo_image/h1-slider-img-1.png" alt="">
@@ -16,7 +23,7 @@
                     foreach ($brands as $key => $value) {
                         ?>
                         <li>
-                    <a href="#">
+                    <a href="<?= base_url('home/category/'.$value['category_id']); ?>">
                         <i class="fa <?= ($value['fa_icon'])?$value['fa_icon']:'fa-file-image-o'; ?>"></i>
                         <?= $value['category_name'] ?>
                     </a>

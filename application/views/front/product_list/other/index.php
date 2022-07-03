@@ -1,42 +1,22 @@
 <section class="banner_listing">
     <div class="menu_items" id="menuitems">
             <ul>
-                <li>
-                    <a href="#" class="active">
-                        <i class="fa fa-map-marker"></i>
-                        Places
+                <?php
+                $brands = $this->db->get('category')->result_array();
+                ?>
+                <?php
+                    foreach ($brands as $key => $value) {
+                        ?>
+                        <li>
+                    <a href="<?= base_url('home/category/'.$value['category_id']); ?>">
+                        <i class="fa <?= ($value['fa_icon'])?$value['fa_icon']:'fa-file-image-o'; ?>"></i>
+                        <?= $value['category_name'] ?>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-search"></i>
-                        Jobs
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa  fa-calendar"></i>
-                        Event
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-home"></i>
-                        Real Estate
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-car"></i>
-                        Vehicle
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-sticky-note-o"></i>
-                        Publishing
-                    </a>
-                </li>
+
+                        <?php
+                    }
+                ?>
             </ul>
         </div>
 </section>
