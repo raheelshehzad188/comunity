@@ -11,10 +11,14 @@
                     <a data-toggle="tab" href="#tabb-4"><?php echo translate('section2_boxes'); ?></a>
                 </li>
                 <li>
-                    <a data-toggle="tab" href="#tabb-3"><?php echo translate('digital__services'); ?></a>
+                    <a data-toggle="tab" href="#tabb-3"><?php echo translate('digital_services'); ?></a>
                 </li>
                 <li>
-                    <a data-toggle="tab" href="#tabb-4"><?php echo translate('featured_products'); ?></a>
+                    <a data-toggle="tab" href="#tabb-31"><?php echo translate('wave_section'); ?></a>
+                </li>
+
+                <li>
+                    <a data-toggle="tab" href="#tabb-32"><?php echo translate('advertise_section'); ?></a>
                 </li>
                  <li>
                     <a data-toggle="tab" href="#tabb-10"><?php echo translate('product_bundle'); ?></a>
@@ -208,24 +212,134 @@
                     <div class="row">
                         <div class="col-md-12 form-horizontal">
                             <?php
-                                echo form_open(base_url() . 'admin/ui_settings/ui_home/home_search/', array(
+                                echo form_open(base_url() . 'admin/ui_settings/ui_home/digital_services/', array(
                                     'class' => 'form-horizontal',
                                     'method' => 'post',
                                     'id' => '',
                                     'enctype' => 'multipart/form-data'
                                 ));
                             ?>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" ><?php echo translate('parallax_title_for_search');?></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="ps_title" value="<?php echo $this->crud_model->get_type_name_by_id('ui_settings','27','value'); ?>"  class="form-control">
-                                    </div>
-                                </div>
                                 <div class="form-group margin-top-10">
-                                    <label class="col-sm-3 control-label margin-top-10" for="demo-hor-inputemail"><?php echo translate('parallax_image_for_search_section');?></label>
+                                    <label class="col-sm-3 control-label margin-top-10" for="demo-hor-inputemail"><?php echo translate('section_image');?></label>
+                                    <?php
+                                    $img = '';
+                                            $top_banner     =  $this->db->get_where('ui_settings',array('ui_settings_id' => '66'))->row();
+                                            if($top_banner)
+                                            {
+                                             $img = $this->crud_model->get_img($top_banner->value)->secure_url;
+                                         }
+
+                                        ?>
                                     <div class="col-sm-9">
                                         <div class="col-sm-5" style="margin:2px;padding:2px;">
-                                            <img class="img-responsive img-md img-border img_show2" style="width:100%;height:150px" src="<?php echo base_url(); ?>uploads/others/parralax_search.jpg">
+                                            <img class="img-responsive img-md img-border img_show2" style="width:150px;height:150px" src="<?php echo $img; ?>">
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <div class="col-sm-2">
+                                            <span class="pull-left btn btn-default btn-file margin-top-10">
+                                                <?php echo translate('select_image');?>
+                                                <input type="file" name="par3" class="form-control imgInp2">
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <span class="btn btn-success btn-labeled fa fa-check submitter pull-right enterer" type= data-ing='<?php echo translate('updating'); ?>' data-msg='<?php echo translate('search_section_updated!'); ?>'>
+                                        <?php echo translate('update');?>
+                                    </span>
+                                </div>
+                            </form>
+                            </div>
+                    </div>
+                </div>
+                <div id="tabb-32" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-md-12 form-horizontal">
+                            <?php
+                                echo form_open(base_url() . 'admin/ui_settings/ui_home/advertise_section/', array(
+                                    'class' => 'form-horizontal',
+                                    'method' => 'post',
+                                    'id' => '',
+                                    'enctype' => 'multipart/form-data'
+                                ));
+                            ?>
+                                <div class="form-group margin-top-10">
+                                    <label class="col-sm-3 control-label margin-top-10" for="demo-hor-inputemail"><?php echo translate('section_image');?></label>
+                                    <?php
+                                    $img = '';
+                                            $top_banner     =  $this->db->get_where('ui_settings',array('ui_settings_id' => '70'))->row();
+                                            if($top_banner)
+                                            {
+                                             $img = $this->crud_model->get_img($top_banner->value)->secure_url;
+                                         }
+
+                                        ?>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-5" style="margin:2px;padding:2px;">
+                                            <img class="img-responsive img-md img-border img_show2" style="width:150px;height:150px" src="<?php echo $img; ?>">
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <div class="col-sm-2">
+                                            <span class="pull-left btn btn-default btn-file margin-top-10">
+                                                <?php echo translate('select_image');?>
+                                                <input type="file" name="par3" class="form-control imgInp2">
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <span class="btn btn-success btn-labeled fa fa-check submitter pull-right enterer" type= data-ing='<?php echo translate('updating'); ?>' data-msg='<?php echo translate('search_section_updated!'); ?>'>
+                                        <?php echo translate('update');?>
+                                    </span>
+                                </div>
+                            </form>
+                            </div>
+                    </div>
+                </div>
+                <div id="tabb-31" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-md-12 form-horizontal">
+                            <?php
+                                echo form_open(base_url() . 'admin/ui_settings/ui_home/wave_section/', array(
+                                    'class' => 'form-horizontal',
+                                    'method' => 'post',
+                                    'id' => '',
+                                    'enctype' => 'multipart/form-data'
+                                ));
+                            ?>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" ><?php echo translate('wave_heading');?></label>
+                                <div class="col-sm-6">
+                                    <input type="texxt" name="wave_heading" value="<?php echo $this->crud_model->get_type_name_by_id('ui_settings','69','value'); ?>"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" ><?php echo translate('wave_paragaph');?></label>
+                                <div class="col-sm-6">
+                                    <textarea name="wave_paragaph"  class="form-control"><?php echo $this->crud_model->get_type_name_by_id('ui_settings','68','value'); ?></textarea>
+                                </div>
+                            </div>
+                                <div class="form-group margin-top-10">
+                                    <label class="col-sm-3 control-label margin-top-10" for="demo-hor-inputemail"><?php echo translate('background_image');?></label>
+                                    <?php
+                                    $img = '';
+                                            $top_banner     =  $this->db->get_where('ui_settings',array('ui_settings_id' => '67'))->row();
+                                            if($top_banner)
+                                            {
+                                             $img = $this->crud_model->get_img($top_banner->value)->secure_url;
+                                         }
+
+                                        ?>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-5" style="margin:2px;padding:2px;">
+                                            <img class="img-responsive img-md img-border img_show2" style="width:150px;height:150px" src="<?php echo $img; ?>">
                                         </div>
                                         <br />
                                         <br />

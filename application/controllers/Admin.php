@@ -4104,6 +4104,94 @@ class Admin extends CI_Controller
                 }
                 recache();
             }
+            elseif ($para2 == 'digital_services') {
+                
+                $this->load->library('cloudinarylib');
+                if($_FILES["par3"]['tmp_name']){
+                    if(!demo()){
+                        $path = 'uploads/others/digital_services_img.jpg';
+                        move_uploaded_file($_FILES["par3"]['tmp_name'], $path);
+                        $data = \Cloudinary\Uploader::upload($path);
+                                            if(isset($data['public_id']))
+                                            {
+                                                $logo_id = $this->crud_model->add_img($path,$data);
+                                                if($logo_id)
+                                                {
+                                                    $this->db->where('type', "digital_services_img");
+                            $this->db->update('ui_settings', array(
+                                'value' => $logo_id
+                            ));
+
+                                               }
+                                            }
+                        //top_banner
+                    }
+                }
+                recache();
+            }
+            elseif ($para2 == 'advertise_section') {
+                
+                $this->load->library('cloudinarylib');
+                if($_FILES["par3"]['tmp_name']){
+                    if(!demo()){
+                        $path = 'uploads/others/advertise_section_img.jpg';
+                        move_uploaded_file($_FILES["par3"]['tmp_name'], $path);
+                        $data = \Cloudinary\Uploader::upload($path);
+                                            if(isset($data['public_id']))
+                                            {
+                                                $logo_id = $this->crud_model->add_img($path,$data);
+                                                if($logo_id)
+                                                {
+                                                    $this->db->where('type', "advertise_section_img");
+                            $this->db->update('ui_settings', array(
+                                'value' => $logo_id
+                            ));
+
+                                               }
+                                            }
+                        //top_banner
+                    }
+                }
+                recache();
+            }
+            elseif ($para2 == 'wave_section') {
+                if($_REQUEST['wave_heading'])
+                {
+                    $this->db->where('type', "wave_heading");
+                    $this->db->update('ui_settings', array(
+                        'value' => $this->input->post('wave_heading')
+                    ));
+                }
+                if($_REQUEST['wave_paragaph'])
+                {
+                    $this->db->where('type', "wave_paragaph");
+                    $this->db->update('ui_settings', array(
+                        'value' => $this->input->post('wave_paragaph')
+                    ));
+                }
+                $this->load->library('cloudinarylib');
+                if($_FILES["par3"]['tmp_name']){
+                    if(!demo()){
+                        $path = 'uploads/others/wave_section_img.jpg';
+                        move_uploaded_file($_FILES["par3"]['tmp_name'], $path);
+                        $data = \Cloudinary\Uploader::upload($path);
+                                            if(isset($data['public_id']))
+                                            {
+                                                $logo_id = $this->crud_model->add_img($path,$data);
+                                                if($logo_id)
+                                                {
+                                                    $this->db->where('type', "wave_section_img");
+                            $this->db->update('ui_settings', array(
+                                'value' => $logo_id
+                            ));
+
+                                               }
+                                            }
+                        //top_banner
+                    }
+                }
+                recache();
+            }
             elseif ($para2 == 'home_blog') {
                 $this->db->where('type', "parallax_blog_title");
                 $this->db->update('ui_settings', array(
