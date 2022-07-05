@@ -260,6 +260,10 @@ btn1 .fa{
 
                         </div>
                         <div id="location" class="tab-pane fade ">
+                            <input id="searchTextField" type="text" size="50" placeholder="Enter a location" autocomplete="on" runat="server" />  
+    <input type="hidden" id="city2" name="city2" />
+    <input type="hidden" id="cityLat" name="cityLat" />
+    <input type="hidden" id="cityLng" name="cityLng" />
                             <div id="googleMap" style="width:100%;height:400px;"></div>
 
                         </div>
@@ -268,6 +272,7 @@ btn1 .fa{
                                 <h4 class="text-thin text-center"><?php echo translate('business_details'); ?></h4>                            
                             </div>
                             <div class="form-group btm_border">
+
                                 <label class="col-sm-4 control-label" for="demo-hor-6"><?php echo translate('phone_number');?></label>
                                 <div class="col-sm-4">
                                     <input type="number" name="phone_number" id="demo-hor-6" min='0' step='.01' placeholder="<?php echo translate('phone_number');?>" class="form-control required">
@@ -574,7 +579,6 @@ window.preview1 = function (input) {
         }
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6qgjUyMSzlu08MSAITqcc26OympU03vQ&callback=myMap"></script>
 
 <style>
     .btm_border{
@@ -582,7 +586,47 @@ window.preview1 = function (input) {
         padding-bottom: 15px;   
     }
 </style>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6qgjUyMSzlu08MSAITqcc26OympU03vQ&libraries=places"></script>
+    <script>
+        
+       function initialize() {
+        var lat = '51.508742';
+        var lng = '-0.120850';
+            var mapProp= {
+  center:new google.maps.LatLng(51.508742,-0.120850),
+  zoom:12,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+          var input = document.getElementById('searchTextField');
+          var autocomplete = new google.maps.places.Autocomplete(input);
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                document.getElementById('city2').value = place.name;
+                // document.getElementById('cityLat').value = place.geometry.location.lat();
+                // document.getElementById('cityLng').value = place.geometry.location.lng();
+                    var latlng = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
+                    map.setCenter({lat:place.geometry.location.lat(), lng:place.geometry.location.lng()});
 
+
+                marker.setPosition(latlng);
+            });
+               var myLatlng = new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Your position',
+            draggable:true,
+        });
+  google.maps.event.addListener(marker, 'dragend', function() {
+    var lat = marker.getPosition().lat(); 
+          var lng = marker.getPosition().lng();
+            jQuery('#sg_billing_lat').val(lat);
+        jQuery('#sg_billing_long').val(lng);
+            // get_address(lat, lng);
+  });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 
 <!--Bootstrap Tags Input [ OPTIONAL ]-->
 
