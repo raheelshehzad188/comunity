@@ -1,5 +1,10 @@
 <div class="row">
-    <div class="col-md-12">
+       <div class="col-md-12" style="border-bottom: 1px solid #ebebeb;padding: 5px;     margin-top:64px;">
+                            <button class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right" onclick="ajax_set_full('add','Add Product','Successfully Added!','product_add',''); proceed('to_list');" style="display: none;">Create Product                            </button>
+                            <a href="<?= base_url('/vendor/product'); ?>" class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn" style="" onclick="ajax_set_list();  proceed('to_add');">Back To Product List                            </a>
+                        </div>
+    <div class="col-md-10"  style="margin-top: 52px;    margin-left: 283px;
+">
 		<?php
             echo form_open(base_url() . 'vendor/digital/do_add/', array(
                 'class' => 'form-horizontal',

@@ -676,15 +676,15 @@ class Vendor extends CI_Controller
         } else if ($para1 == 'edit') {
             
             $sing = $this->db->where('product_id' , $para2)->get('product')->row();
-            $parenrt = $sing->parent_id;
-            $ret = $this->crud_model->_set_variation($parenrt);
             $attrs = $this->db->where('product_id' , $para2)->get('attribute_to_values')->result_array();
             $page_data['product_data'] = $this->db->get_where('product', array(
                 'product_id' => $para2
             ))->row();
             $page_data['row'] =(array) $sing;
             $page_data['brands'] =  $this->db->get('category')->result_array();
-            echo $this->load->view('back/vendor/product_edit', $page_data,true);
+            // echo $this->load->view('back/vendor/', $page_data,true);
+            $page_data['page_name']   = "product_edit";
+            $this->load->view('back/index', $page_data);
         } else if ($para1 == 'view') {
             $page_data['product_data'] = $this->db->get_where('product', array(
                 'product_id' => $para2
@@ -824,8 +824,8 @@ class Vendor extends CI_Controller
                                 class=\"btn btn-info btn-xs btn-labeled fa fa-eye\" data-toggle=\"tooltip\" data-original-title=\"Delete\" data-container=\"body\"> 
                                     ".translate('view')."
                             </a>
-                            <a class=\"btn btn-success btn-xs btn-labeled fa fa-wrench\" data-toggle=\"tooltip\"
-                                onclick=\"ajax_set_full('edit','".translate('edit_product')."','".translate('successfully_edited!')."','product_edit','".$row['product_id']."');proceed('to_list');\" data-original-title=\"Edit\" data-container=\"body\">
+                            <a href='".base_url('vendor/product/edit/').$row['product_id']."' class=\"btn btn-success btn-xs btn-labeled fa fa-wrench\" data-toggle=\"tooltip\"
+                                data-original-title=\"Edit\" data-container=\"body\">
                                     ".translate('edit')."
                             </a>
 
@@ -865,7 +865,9 @@ class Vendor extends CI_Controller
                     //echo "Here";
                     $page_data['brands'] =  $this->db->get('category')->result_array();
 
-                    $this->load->view('back/vendor/product_add', $page_data);
+                    // $this->load->view('back/vendor/product_add', $page_data);
+                    $page_data['page_name']   = "product_add";
+            $this->load->view('back/index', $page_data);
                 } else {
                     $this->load->view('back/vendor/product_limit');
                 }

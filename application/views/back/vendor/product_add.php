@@ -85,7 +85,12 @@ btn1 .fa{
 }
 </style>
 <div class="row">
-    <div class="col-md-12">
+       <div class="col-md-12" style="border-bottom: 1px solid #ebebeb;padding: 5px;     margin-top:64px;">
+                            <button class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right" onclick="ajax_set_full('add','Add Product','Successfully Added!','product_add',''); proceed('to_list');" style="display: none;">Create Product                            </button>
+                            <a href="<?= base_url('/vendor/product'); ?>" class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn" style="" onclick="ajax_set_list();  proceed('to_add');">Back To Product List                            </a>
+                        </div>
+    <div class="col-md-10"  style="margin-top: 52px;    margin-left: 283px;
+">
         <?php
             echo form_open(base_url() . 'vendor/product/do_add/', array(
                 'class' => 'form-horizontal',
@@ -522,7 +527,7 @@ input.addEventListener("change", function (e) {
 function myMap() {
 var mapProp= {
   center:new google.maps.LatLng(51.508742,-0.120850),
-  zoom:5,
+  zoom:12,
 };
 var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 }
@@ -569,7 +574,7 @@ window.preview1 = function (input) {
         }
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6qgjUyMSzlu08MSAITqcc26OympU03vQ&callback=myMap"></script>
 
 <style>
     .btm_border{

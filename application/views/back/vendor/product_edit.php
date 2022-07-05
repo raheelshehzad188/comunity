@@ -83,7 +83,12 @@ btn1 .fa{
 }
 </style>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" style="border-bottom: 1px solid #ebebeb;padding: 5px;     margin-top:64px;">
+                            <button class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right" onclick="ajax_set_full('add','Add Product','Successfully Added!','product_add',''); proceed('to_list');" style="display: none;">Create Product                            </button>
+                            <a href="<?= base_url('/vendor/product'); ?>" class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn" style="" onclick="ajax_set_list();  proceed('to_add');">Back To Product List                            </a>
+                        </div>
+    <div class="col-md-10"  style="margin-top: 52px;    margin-left: 283px;
+">
         <?php
             echo form_open(base_url() . 'vendor/product/update/'.$row['product_id'], array(
                 'class' => 'form-horizontal',
@@ -224,13 +229,8 @@ btn1 .fa{
                             <div id="more_additional_fields"></div>
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-inputpass"></label>
-                                <div class="col-sm-6">
-                                    <h4 class="pull-left">
-                                        <i><?php echo translate('if_you_need_more_field_for_your_product_,_please_click_here_for_more...');?></i>
-                                    </h4>
-                                    <div id="more_btn" class="btn btn-mint btn-labeled fa fa-plus pull-right">
-                                    <?php echo translate('add_more_fields');?></div>
-                                </div>
+                                            <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
+                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
                             </div>
                             
 
@@ -277,11 +277,16 @@ btn1 .fa{
                                     ?>
                                 </div>
                             </div>
+                                        <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
+                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
                             
 
                         </div>
                         <div id="location" class="tab-pane fade ">
+                            <button onclick="load_map();"></button>
                             <div id="googleMap" style="width:100%;height:400px;"></div>
+                                        <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
+                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
 
                         </div>
                         <div id="business_details" class="tab-pane fade">
@@ -301,6 +306,8 @@ btn1 .fa{
                                     <input type="email" name="email" id="demo-hor-7" min='0' step='.01' placeholder="<?php echo translate('email');?>" class="form-control ">
                                 </div>
                                 </div>
+                                            <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
+                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
                                 </div>
                         <div id="customer_choice_options" class="tab-pane fade active in">
                            <div class="row">
@@ -316,8 +323,7 @@ btn1 .fa{
                                         <br>
                                         <p><?= $v['category_name'];?></p>
                                     </div>
-                                    <div class="flip-card-back">
-category_name                                    </div>
+                                    <div class="flip-card-back"><p>category_name </p></div>
                                   </div>
                                 </div>
                                 </a>
@@ -512,9 +518,15 @@ category_name                                    </div>
     $('body').on('click', '.rmc', function(){
         $(this).parent().parent().remove();
     });
+    function load_map()
+    {
+            $('#googleMap').on('click',myMap);
+    }
 
 
     $(document).ready(function() {
+        
+
         $("form").submit(function(e){
             event.preventDefault();
         });
@@ -543,13 +555,10 @@ input.addEventListener("change", function (e) {
     </form>`;
   dropArea.innerHTML = filedata;
 });
-
-
-
 function myMap() {
 var mapProp= {
   center:new google.maps.LatLng(51.508742,-0.120850),
-  zoom:5,
+  zoom:12,
 };
 var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 }
@@ -596,7 +605,7 @@ window.preview1 = function (input) {
         }
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6qgjUyMSzlu08MSAITqcc26OympU03vQ&callback=myMap"></script>
 
 <style>
     .btm_border{
