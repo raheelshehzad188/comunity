@@ -3,6 +3,10 @@
 </div>
 <div class="row products <?php echo $viewtype; ?> flex-gutters-10">
     <?php
+    if(!$viewtype)
+    {
+    	$viewtype = 'grid';
+    }
 		if($viewtype == 'list'){
 			$col_md = 12;
 			$col_sm = 12;

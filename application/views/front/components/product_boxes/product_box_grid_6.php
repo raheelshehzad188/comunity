@@ -1,4 +1,5 @@
 <?php
+$cat = $this->db->where('category_id',$category)->get('category')->row();
 $img = '';
                         if($comp_cover)
                         {
@@ -16,12 +17,20 @@ $img = '';
                         }
                         ?>
                            <div class="item">
+                                <a href="<?php echo $this->crud_model->product_link($product_id); ?>">  
                                <div class="strip">
                                     <figure>
-                                        <span class="ribbon off">-40%</span>
+                                        <!-- <span class="ribbon off">-40%</span> -->
                                         <img src="<?= $img?>"  class="owl-lazy" alt="" style="opacity: 1;">
-                                        <a href="#" class="strip_info">
-                                            <small>Burghers</small>
+                                        <a class="strip_info">
+                                            <?php
+                                            if($cat->category_name)
+                                            {
+                                                ?>
+                                            <small><?= $cat->category_name ?></small>
+                                            <?php
+                                            }
+                                            ?>
                                             <div class="item_title">
                                                 <h3><?php echo $title; ?></h3>
                                                 <small>27 Old Gloucester St</small>
@@ -30,5 +39,6 @@ $img = '';
                                     </figure>
                                     
                                 </div>
+                                </a>
                            </div>
                         

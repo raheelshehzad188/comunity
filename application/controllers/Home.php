@@ -2647,7 +2647,7 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
         $page_data['page_name'] = "product_view/" . $type . "/page_view";
         $page_data['asset_page'] = "product_view_" . $type;
         $page_data['product_data'] = $product_data->result_array();
-        $page_data['page_title'] = !empty($product_data->row()->seo_title)? $product_data->row()->seo_title :$product_data->row()->title;;
+        $page_data['page_title'] = !empty($product_data->row()->seo_title)? $product_data->row()->seo_title :$product_data->row()->title;
         $page_data['page_description'] = !empty($product_data->row()->seo_description)? $product_data->row()->seo_description :'';
         $page_data['product_tags'] = $product_data->row()->tag;
 

@@ -3,9 +3,19 @@
             <ul>
                 <?php
                 $brands = $this->db->get('category')->result_array();
-                ?>
-                <?php
+                ?><?php
+                $categories =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 35))->row()->value,true);
+                                            $result=array();
+                                            foreach($categories as $row){
+                                                if($this->crud_model->if_publishable_category($row)){
+                                                    $result[]=$row;
+                                                }
+                                            }
+
                     foreach ($brands as $key => $value) {
+                        if(in_array($value['category_id'], $result))
+                        {
+                        ?>
                         ?>
                         <li>
                     <a href="<?= base_url('home/category/'.$value['category_id']); ?>">
@@ -15,6 +25,7 @@
                 </li>
 
                         <?php
+                    }
                     }
                 ?>
             </ul>

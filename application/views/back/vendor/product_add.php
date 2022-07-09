@@ -239,8 +239,9 @@ btn1 .fa{
                                 </div>
                             </div>
                             <div style="float:right">
-                            <span><button class="btn_primary">add</button></span>
-                            <span><button class="btn_danger">edit</button></span>
+
+                                            <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
+                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
                             </div>
 
                         </div>
@@ -256,15 +257,31 @@ btn1 .fa{
                                     <span id="previewImg" ></span>
                                 </div>
                             </div>
+
+                                            <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
+                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
                             
 
                         </div>
                         <div id="location" class="tab-pane fade ">
                             <input id="searchTextField" type="text" size="50" placeholder="Enter a location" autocomplete="on" runat="server" />  
-    <input type="hidden" id="city2" name="city2" />
-    <input type="hidden" id="cityLat" name="cityLat" />
-    <input type="hidden" id="cityLng" name="cityLng" />
+    
+
                             <div id="googleMap" style="width:100%;height:400px;"></div>
+                            <div>
+                                Or Enter Cordinates
+                                        <div>
+                                    <label>Latitude</label>
+                                    <input type="text" id="cityLat" name="lat" />
+                             </div>
+                            <div>
+                                <label>Longitude</label>
+                                <input type="text" id="cityLng" name="lng" />
+                            </div>
+                            </div>
+
+                                            <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
+                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
 
                         </div>
                         <div id="business_details" class="tab-pane fade">
@@ -285,7 +302,15 @@ btn1 .fa{
                                     <input type="email" name="email" id="demo-hor-7" min='0' step='.01' placeholder="<?php echo translate('email');?>" class="form-control required">
                                 </div>
                                 </div>
+
+                                            <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
+                <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>s
                                 </div>
+                        <div id="extra_field" class="tab-pane fade">
+                            <div class="form-group btm_border">
+                                <h4 class="text-thin text-center"><?php echo translate('extra_fields'); ?></h4>                            
+                            </div>
+                                                           </div>
                         <div id="customer_choice_options" class="tab-pane fade active in">
                            
                             <div class="row">
@@ -302,7 +327,7 @@ btn1 .fa{
                                         <p><?= $v['category_name'];?></p>
                                     </div>
                                     <div class="flip-card-back">
-category_name                                    </div>
+                                    </div>
                                   </div>
                                 </div>
                                 </a>
@@ -542,19 +567,8 @@ function selecttype(id)
     get_cat(id,this)
     next_tab();
 }
-window.preview1 = function (input) {
-        if (input.files && input.files[0]) {
-            $("#previewImg1").html('');
-            $(input.files).each(function () {
-                var reader = new FileReader();
-                reader.readAsDataURL(this);
-                reader.onload = function (e) {
-                    $("#previewImg1").append("<div style='float:left;border:4px solid #303641;padding:5px;margin:5px;'><img height='80' src='" + e.target.result + "'></div>");
-                }
-            });
-        }
-    }
-    window.preview2 = function (input) {
+function preview2(input) {
+        // alert('preview2');
         if (input.files && input.files[0]) {
             $("#previewImg2").html('');
             $(input.files).each(function () {
@@ -566,7 +580,21 @@ window.preview1 = function (input) {
             });
         }
     }
-    window.preview3 = function (input) {
+
+    function preview1(input) {
+        // alert('preview2');
+        if (input.files && input.files[0]) {
+            $("#previewImg1").html('');
+            $(input.files).each(function () {
+                var reader = new FileReader();
+                reader.readAsDataURL(this);
+                reader.onload = function (e) {
+                    $("#previewImg1").append("<div style='float:left;border:4px solid #303641;padding:5px;margin:5px;'><img height='80' src='" + e.target.result + "'></div>");
+                }
+            });
+        }
+    }
+    function preview3(input) {
         if (input.files && input.files[0]) {
             $("#previewImg3").html('');
             $(input.files).each(function () {
@@ -588,22 +616,25 @@ window.preview1 = function (input) {
 </style>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6qgjUyMSzlu08MSAITqcc26OympU03vQ&libraries=places"></script>
     <script>
-        
+        var mylat = '';
+        var marker;
+        var map;
        function initialize() {
+        getLocation();
         var lat = '51.508742';
         var lng = '-0.120850';
             var mapProp= {
   center:new google.maps.LatLng(51.508742,-0.120850),
   zoom:12,
 };
-var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
           var input = document.getElementById('searchTextField');
           var autocomplete = new google.maps.places.Autocomplete(input);
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
-                document.getElementById('city2').value = place.name;
-                // document.getElementById('cityLat').value = place.geometry.location.lat();
-                // document.getElementById('cityLng').value = place.geometry.location.lng();
+                alert(place.name);
+                document.getElementById('cityLat').value = place.geometry.location.lat();
+                document.getElementById('cityLng').value = place.geometry.location.lng();
                     var latlng = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
                     map.setCenter({lat:place.geometry.location.lat(), lng:place.geometry.location.lng()});
 
@@ -611,7 +642,7 @@ var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
                 marker.setPosition(latlng);
             });
                var myLatlng = new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
-        var marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
             position: myLatlng,
             map: map,
             title: 'Your position',
@@ -620,12 +651,32 @@ var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
   google.maps.event.addListener(marker, 'dragend', function() {
     var lat = marker.getPosition().lat(); 
           var lng = marker.getPosition().lng();
-            jQuery('#sg_billing_lat').val(lat);
-        jQuery('#sg_billing_long').val(lng);
+            jQuery('#cityLat').val(lat);
+        jQuery('#cityLng').val(lng);
             // get_address(lat, lng);
   });
         }
+        function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    alert("No location");
+  }
+}
+
+function showPosition(position) {
+    var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    map.setCenter({lat: position.coords.latitude, lng:position.coords.longitude});
+    $('#cityLat').val(position.coords.latitude);
+    $('#cityLng').val(position.coords.longitude);
+
+                marker.setPosition(latlng);
+}
         google.maps.event.addDomListener(window, 'load', initialize);
+        var user_type = 'vendor';
+    var module = 'product';
+    var list_cont_func = 'list';
+    var dlt_cont_func = 'delete';
     </script>
 
 <!--Bootstrap Tags Input [ OPTIONAL ]-->

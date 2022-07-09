@@ -1,3 +1,51 @@
+<?php
+
+$pro = array();
+if(isset($product_data[0]))
+{
+    $pro = $product_data[0];
+}
+//galary
+$imgs = $this->db->where('pid',$pro['product_id'])->get('product_to_images')->result_array();
+$logo = '';
+$cat = '';
+if($pro['category'])
+{
+    $c = $this->db->where('category_id',$pro['category'])->get('category')->row();
+    if(isset($c->category_name))
+    {
+        $cat = $c->category_name;
+    }
+    $address = '';
+    if($pro['lat'] && $pro['lng'])
+    {
+        $lat = $pro['lat'];
+        $long = $pro['lng'];
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&sensor=false&key=AIzaSyB6qgjUyMSzlu08MSAITqcc26OympU03vQ";
+$curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_HEADER, false);
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_ENCODING, "");
+$curlData = curl_exec($curl);
+curl_close($curl);
+
+$data = json_decode($curlData);
+if(isset($data->results[0]->formatted_address))
+{
+    $address = $data->results[0]->formatted_address;
+}
+
+
+    }
+
+}
+if(true)
+                                            {
+                                                $logo = $this->crud_model->size_img($pro['comp_logo'],100,100);
+                                            }
+?>
 <style type="text/css">
 .header .header-wrapper {
     padding: 15px 0 20px 0 !important;
@@ -14,38 +62,22 @@
           <div id="image-gallery">
             <h3 style="font-weight: 600 !important;margin: 0 0 2px -8px;">Photos</h3>
               <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 image">
+                <?php
+                foreach ($imgs as $key => $value) {
+                    $img = $this->crud_model->size_img($value['img'],500,500);
+                    ?>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 image">
                   <div class="img-wrapper">
-                    <a href="https://ads.strokedev.net/uploads/slider_image/slider-1.jpg"><img src="https://ads.strokedev.net/uploads/slider_image/slider-1.jpg" class="img-responsive"></a>
+                    <a href="<?= $img; ?>"><img src="<?= $img; ?>" class="img-responsive"></a>
                     <div class="img-overlay">
                       <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 image">
-                  <div class="img-wrapper">
-                    <a href="https://ads.strokedev.net/uploads/slider_image/slider2.jpg"><img src="https://ads.strokedev.net/uploads/slider_image/slider2.jpg" class="img-responsive"></a>
-                    <div class="img-overlay">
-                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 image">
-                  <div class="img-wrapper">
-                    <a href="https://ads.strokedev.net/uploads/slider_image/slider3.jpg"><img src="https://ads.strokedev.net/uploads/slider_image/slider3.jpg" class="img-responsive"></a>
-                    <div class="img-overlay">
-                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 image">
-                  <div class="img-wrapper">
-                    <a href="https://ads.strokedev.net/uploads/slider_image/slider4.jp"><img src="https://ads.strokedev.net/uploads/slider_image/slider4.jpg" class="img-responsive"></a>
-                    <div class="img-overlay">
-                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                </div>
+
+                    <?php
+                }
+                ?>
                 
               </div>
             </div>
@@ -58,12 +90,12 @@
     <div class="container">
         <div class="row white__box">
             <div class="col-sm-2 building_bx">
-                <img src="https://ads.strokedev.net/uploads/slider_image/hotel_88.png" alt="">
+                <img src="<?= $logo ?>" alt="">
             </div>
             <div class="col-sm-8 london_info">
-                <h3>The W14 Hotel Kensington London</h3>
-                <p>Hotel</p>
-                <p>West Kensington, London</p>
+                <h3><?= $pro['title'] ?></h3>
+                <p><?= $cat; ?></p>
+                <p><?= $address; ?></p>
             </div>
             <div class="col-sm-2 save_share">
                 <a href="#">Save</a>

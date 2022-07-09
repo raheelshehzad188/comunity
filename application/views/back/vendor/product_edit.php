@@ -1,4 +1,23 @@
+
 <style>
+    .gallary_images{}
+    .gallary_images ul{
+        list-style: none;
+        display: inline-block;
+    }
+    .gallary_images ul li{
+        display: inline-block;
+    }
+    .del_icon
+    {
+    position: absolute;
+    font-size: large;
+    color: red
+    }
+    .del_icon i{
+        float: right;
+    }
+    .gallary_images ul li img{}
 .btn1{
     
     outline: 0!important;
@@ -143,7 +162,7 @@ btn1 .fa{
                             <div class="form-group btm_border" id="sub" style="display:none;">
                                 <label class="col-sm-4 control-label" for="demo-hor-3"><?php echo translate('sub-category');?></label>
                                 <div class="col-sm-6" id="sub_cat">
-                                    <?php echo $this->crud_model->select_html('sub_category','sub_category','sub_category_name','edit','demo-chosen-select required',$row['sub_category'],'category',$row['category'],'get_brnd'); ?>
+                                    <?php echo $this->crud_model->select_html('sub_category','sub_category','sub_category_name','edit','demo-chosen-select',$row['sub_category'],'category',$row['category'],'get_brnd'); ?>
                                 </div>
                             </div>
                                         
@@ -155,7 +174,7 @@ btn1 .fa{
                             </div>
 
                             <div class="form-group btm_border">
-                                <label class="col-sm-4 control-label" for="demo-hor-12">Busniuss logo</label>
+                                <label class="col-sm-4 control-label" for="demo-hor-12">Feature image</label>
                                 <div class="col-sm-6">
                                     <span class="pull-left btn btn-default btn-file"> <?php echo translate('choose_file');?>
                                         <input type="file" value="<?= ($row['sneakerimg'])?$row['sneakerimg']:""; ?>" name="sneakerimg" onchange="preview1(this);" id="demo-hor-inputpass" class="form-control">
@@ -166,8 +185,9 @@ btn1 .fa{
                                         <?php
                                             if($row['comp_logo'])
                                             {
+                                                $img = $this->crud_model->size_img($row['comp_logo'],100,100);
                                                 ?>
-                                                <img class="img-responsive" width="100" src="<?= base_url();?><?= $row['comp_logo']?>" data-id="_paris/uploads/product" alt="User_Image"><?php
+                                                <img class="img-responsive" width="100" src="<?= $img;?>" data-id="_paris/uploads/product" alt="Feature Image"><?php
                                             }
                                         ?>
                                     </span>
@@ -182,10 +202,11 @@ btn1 .fa{
                                     <br><br>
                                     <span id="previewImg2" >
                                         <?php
-                                            if($row['sideimg'])
+                                            if($row['comp_cover'])
                                             {
+                                                $img = $this->crud_model->size_img($row['comp_cover'],100,100);
                                                 ?>
-                                                <img class="img-responsive" width="100" src="<?= base_url();?><?= $row['sideimg']?>" data-id="_paris/uploads/product" alt="User_Image"><?php
+                                                <img class="img-responsive" width="100" src="<?= $img?>" data-id="_paris/uploads/product" alt="User_Image"><?php
                                             }
                                         ?>
                                     </span>
@@ -195,7 +216,7 @@ btn1 .fa{
                             <div class="form-group btm_border">
                                 <label class="col-sm-4 control-label" for="demo-hor-13"><?php echo translate('description'); ?></label>
                                 <div class="col-sm-6">
-                                    <textarea rows="9"  class="summernotes" data-height="200" data-name="   "><?php echo $row['description']; ?></textarea>
+                                    <textarea rows="9" name="description"  class="summernotes" data-height="200" data-name="description"><?php echo $row['description']; ?></textarea>
                                 </div>
                             </div>
 
@@ -248,6 +269,25 @@ btn1 .fa{
                                     </span>
                                     <br><br>
                                     <span id="previewImg" ></span>
+                                    <br><br>
+                                    <div class="gallary_images">
+                                        <ul>
+                                        <?php
+                                        $imgs = $this->db->where('pid',$row['product_id'])->get('product_to_images')->result_array();
+                                        foreach ($imgs as $key => $value) {
+                                            $img = $this->crud_model->size_img($value['img'],100,100);
+                                            ?>
+                                            <li id="gimg_<?= $value['id']; ?>">
+                                                <div onclick="delimg('<?= $value['id']; ?>')" class="del_icon"><i class="fa fa-trash-o" aria-hidden="true"></i>
+</div>
+
+                                                <img src="<?= $img ?>"/></li>
+
+                                            <?php
+                                        }
+                                        ?>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 
@@ -442,8 +482,40 @@ btn1 .fa{
         $('#sub').hide('slow');
         ajax_load(base_url+'vendor/product/sub_by_cat/'+id,'sub_cat','other');
     }
-    function get_brnd(id){
-        
+    function delimg(id){
+        var mid = '#gimg_'+id;
+        var url = base_url+'vendor/product/delimg/'+id+'?pid=<?= $row['product_id'] ?>';
+        $.ajax({
+        url: url,
+        type: "get",
+        async: true,
+        data: { },
+        success: function (data) {
+            $('.gallary_images').html(data);
+           
+        },
+        error: function (xhr, exception) {
+            var msg = "";
+            if (xhr.status === 0) {
+                msg = "Not connect.\n Verify Network." + xhr.responseText;
+            } else if (xhr.status == 404) {
+                msg = "Requested page not found. [404]" + xhr.responseText;
+            } else if (xhr.status == 500) {
+                msg = "Internal Server Error [500]." +  xhr.responseText;
+            } else if (exception === "parsererror") {
+                msg = "Requested JSON parse failed.";
+            } else if (exception === "timeout") {
+                msg = "Time out error." + xhr.responseText;
+            } else if (exception === "abort") {
+                msg = "Ajax request aborted.";
+            } else {
+                msg = "Error:" + xhr.status + " " + xhr.responseText;
+            }
+           
+        }
+    }); 
+
+        $(mid).remove();
     }
     function get_sub_res(id){}
 
@@ -528,7 +600,6 @@ btn1 .fa{
 
 
     $(document).ready(function() {
-        
 
         $("form").submit(function(e){
             event.preventDefault();
@@ -536,10 +607,7 @@ btn1 .fa{
     });
     
     
-    const dropArea = document.querySelector(".drop_box"),
-  button = dropArea.querySelector("button"),
-  dragText = dropArea.querySelector("header"),
-  input = dropArea.querySelector("input");
+  
 let file;
 var filename;
 
@@ -557,26 +625,17 @@ input.addEventListener("change", function (e) {
     </div>
     </form>`;
   dropArea.innerHTML = filedata;
-});s
+});
 function selecttype(id)
 {
     $('#category').val(id);
     get_cat(id,this)
     next_tab();
 }
-window.preview1 = function (input) {
-        if (input.files && input.files[0]) {
-            $("#previewImg1").html('');
-            $(input.files).each(function () {
-                var reader = new FileReader();
-                reader.readAsDataURL(this);
-                reader.onload = function (e) {
-                    $("#previewImg1").append("<div style='float:left;border:4px solid #303641;padding:5px;margin:5px;'><img height='80' src='" + e.target.result + "'></div>");
-                }
-            });
-        }
-    }
-    window.preview2 = function (input) {
+
+
+    function preview2(input) {
+        // alert('preview2');
         if (input.files && input.files[0]) {
             $("#previewImg2").html('');
             $(input.files).each(function () {
@@ -588,7 +647,21 @@ window.preview1 = function (input) {
             });
         }
     }
-    window.preview3 = function (input) {
+
+    function preview1(input) {
+        // alert('preview2');
+        if (input.files && input.files[0]) {
+            $("#previewImg1").html('');
+            $(input.files).each(function () {
+                var reader = new FileReader();
+                reader.readAsDataURL(this);
+                reader.onload = function (e) {
+                    $("#previewImg1").append("<div style='float:left;border:4px solid #303641;padding:5px;margin:5px;'><img height='80' src='" + e.target.result + "'></div>");
+                }
+            });
+        }
+    }
+    function preview3(input) {
         if (input.files && input.files[0]) {
             $("#previewImg3").html('');
             $(input.files).each(function () {
@@ -603,22 +676,25 @@ window.preview1 = function (input) {
 </script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6qgjUyMSzlu08MSAITqcc26OympU03vQ&libraries=places"></script>
     <script>
-        
+        var mylat = '';
+        var marker;
+        var map;
        function initialize() {
+        // getLocation();
         var lat = '51.508742';
         var lng = '-0.120850';
             var mapProp= {
   center:new google.maps.LatLng(51.508742,-0.120850),
   zoom:12,
 };
-var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
           var input = document.getElementById('searchTextField');
           var autocomplete = new google.maps.places.Autocomplete(input);
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
-                document.getElementById('city2').value = place.name;
-                // document.getElementById('cityLat').value = place.geometry.location.lat();
-                // document.getElementById('cityLng').value = place.geometry.location.lng();
+                // alert(place.name);
+                document.getElementById('cityLat').value = place.geometry.location.lat();
+                document.getElementById('cityLng').value = place.geometry.location.lng();
                     var latlng = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
                     map.setCenter({lat:place.geometry.location.lat(), lng:place.geometry.location.lng()});
 
@@ -626,7 +702,7 @@ var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
                 marker.setPosition(latlng);
             });
                var myLatlng = new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
-        var marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
             position: myLatlng,
             map: map,
             title: 'Your position',
@@ -635,14 +711,33 @@ var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
   google.maps.event.addListener(marker, 'dragend', function() {
     var lat = marker.getPosition().lat(); 
           var lng = marker.getPosition().lng();
-            jQuery('#sg_billing_lat').val(lat);
-        jQuery('#sg_billing_long').val(lng);
+            jQuery('#cityLat').val(lat);
+        jQuery('#cityLng').val(lng);
             // get_address(lat, lng);
   });
         }
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+        function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    alert("No location");
+  }
+}
 
+function showPosition(position) {
+    var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    map.setCenter({lat: position.coords.latitude, lng:position.coords.longitude});
+    $('#cityLat').val(position.coords.latitude);
+    $('#cityLng').val(position.coords.longitude);
+
+                marker.setPosition(latlng);
+}
+        google.maps.event.addDomListener(window, 'load', initialize);
+        var user_type = 'vendor';
+    var module = 'product';
+    var list_cont_func = 'list';
+    var dlt_cont_func = 'delete';
+    </script>
 
 
 <style>

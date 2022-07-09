@@ -429,6 +429,8 @@ class Vendor extends CI_Controller
             $data['description']        = $this->input->post('description');
             $data['sub_category']       = $this->input->post('sub_category');
             $data['sale_price']         = $this->input->post('sale_price');
+            $data['lat']         = $this->input->post('lat');
+            $data['lng']         = $this->input->post('lng');
             $data['add_timestamp']      = time();
             $data['download']           = NULL;
             $data['featured']           = 'no';
@@ -643,24 +645,33 @@ class Vendor extends CI_Controller
 
             $this->db->where('product_id', $para2);
             $this->db->update('product', $data);
-
+$this->load->library('cloudinarylib');
             $id = $para2;
             if($id && isset($_FILES['sneakerimg']['name']) && !empty($_FILES['sneakerimg']['name'])){
-                    
-                        $sneakerimg = $this->crud_model->file_up("sneakerimg", "product", 'sneakerimg_'.time());
-                        $this->db->where('product_id',$id)->update('product',array('sneakerimg'=>$sneakerimg));
-                        unset($sneakerimg);
+                    $path = 'uploads/product_image/product_' . time() . '.png';
+                         move_uploaded_file($_FILES["sneakerimg"]['tmp_name'], $path);
+                        $data = \Cloudinary\Uploader::upload($path);
+                    if(isset($data['public_id']))
+                    {
+                        $logo_id = $this->crud_model->add_img($path,$data);
+                        $this->db->where('product_id',$id)->update('product',array('comp_logo'=>$logo_id));
                         
                         
                     }
+                }//if iumg set thensss
                     
                     if($id && isset($_FILES['sideimg']['name']) && !empty($_FILES['sideimg']['name'])){
                     
-                        $sneakerimg = $this->crud_model->file_up("sideimg", "product", 'sideimg_'.time());
-                        $this->db->where('product_id',$id)->update('product',array('comp_cover'=>$sneakerimg));
-
-                        var_dump($sneakerimg);
-                        die();
+                     $path = 'uploads/product_image/product1cover_' . time() . '.png';
+                         move_uploaded_file($_FILES["sideimg"]['tmp_name'], $path);
+                        $data = \Cloudinary\Uploader::upload($path);
+                    if(isset($data['public_id']))
+                    {
+                        $logo_id = $this->crud_model->add_img($path,$data);
+                        $this->db->where('product_id',$id)->update('product',array('comp_cover'=>$logo_id));
+                        
+                        
+                    }
                         
                     }
                     
@@ -699,6 +710,34 @@ class Vendor extends CI_Controller
             }
 
             recache();
+        }
+         elseif ($para1 == 'delimg') {
+            $this->db->where('id',$para2)->delete('product_to_images');
+            $pid = 0;
+            if(isset($_GET['pid']))
+            {
+
+                $pid = $_GET['pid'];
+            }
+            ?>
+            <ul>
+                                        <?php
+                                        $imgs = $this->db->where('pid',$pid)->get('product_to_images')->result_array();
+                                        foreach ($imgs as $key => $value) {
+                                            $img = $this->crud_model->size_img($value['img'],100,100);
+                                            ?>
+                                            <li id="gimg_<?= $value['id']; ?>">
+                                                <div onclick="delimg('<?= $value['id']; ?>')" class="del_icon"><i class="fa fa-trash-o" aria-hidden="true"></i>
+</div>
+
+                                                <img src="<?= $img ?>"/></li>
+
+                                            <?php
+                                        }
+                                        ?>
+                                        </ul>
+            <?php
+            die();
         } elseif ($para1 == 'list') {
             $this->db->order_by('product_id', 'desc');
             $this->db->where('added_by',json_encode(array('type'=>'vendor','id'=>$this->session->userdata('vendor_id'))));
@@ -743,7 +782,7 @@ class Vendor extends CI_Controller
                 }
                 else
                 {
-                   $img = $this->crud_model->file_view('product',$row['parent_id'],'','','thumb','src','multi','one'); 
+                   $img = $this->crud_model->file_view('product',$row['product_id'],'','','thumb','src','multi','one'); 
                 }
                 $res    = array(
                              'item'        => '',
