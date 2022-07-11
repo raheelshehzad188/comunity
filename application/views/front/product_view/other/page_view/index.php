@@ -1,5 +1,4 @@
 <?php
-
 $pro = array();
 if(isset($product_data[0]))
 {
@@ -16,12 +15,14 @@ if($pro['category'])
     {
         $cat = $c->category_name;
     }
+}
     $address = '';
     if($pro['lat'] && $pro['lng'])
     {
         $lat = $pro['lat'];
         $long = $pro['lng'];
-        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&sensor=false&key=AIzaSyB6qgjUyMSzlu08MSAITqcc26OympU03vQ";
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&sensor=false&key=".$this->config->item('map_key');
+;
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_URL, $url);
 curl_setopt($curl, CURLOPT_HEADER, false);
@@ -39,8 +40,6 @@ if(isset($data->results[0]->formatted_address))
 
 
     }
-
-}
 if(true)
                                             {
                                                 $logo = $this->crud_model->size_img($pro['comp_logo'],100,100);
@@ -111,26 +110,7 @@ if(true)
         <div class="row">
             <div class="col-sm-8 sideleft">
                 <div class="radius_bg">
-                    <div class="row">
-                        <div class="col-sm-6 avatar_box">
-                            <img src="https://ads.strokedev.net/uploads/slider_image/FRGWTSSP34JQSWRN.jpg">
-                            <p>"yoghurt and cereals as breakfast"(3 Tips)</p>
-                        </div>
-                        <div class="col-sm-6 avatar_box">
-                            <img src="https://ads.strokedev.net/uploads/slider_image/16921948-2RHYFT4TNVB4EM2I.jpg">
-                            <p>"It's cheap, so don't expect luxury!"(2 Tips)</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 avatar_box">
-                            <img src="https://ads.strokedev.net/uploads/slider_image/7202359-QVF4QGBODVBQP2EY.jpg">
-                            <p>"The room is quite small but the bed and the shower are comfortable."(2 Tips)</p>
-                        </div>
-                        <div class="col-sm-6 avatar_box">
-                            <img src="https://ads.strokedev.net/uploads/slider_image/2476994-YASJMWKMQF3PO1MC.jpg">
-                            <p>"yoghurt and cereals as breakfast"(3 Tips)</p>
-                        </div>
-                    </div>
+                    <?= $pro['description']; ?>
                 </div>
 
 
@@ -149,8 +129,9 @@ if(true)
             </div>
             <div class="col-sm-4 sideright">
                 <div class="mapinfobox">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4963.790223305652!2d-0.11564147180218141!3d51.53348361855762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1656262755680!5m2!1sen!2s" width="100%" height="250px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <h4>The W14 Hotel Kensington London</h4>
+                    <div id="googleMap" style="width:100%;height:400px;"></div>
+
+                    <h4><?= $address; ?></h4>
                     <p>16-22 Gunterstone Road (Kensington) London Greater London W14 9BU United Kingdom</p>
                 </div>
 
@@ -211,5 +192,22 @@ if(true)
 
 
 <script src="https://ads.strokedev.net/template/front/js/custom.js"></script>
+<script>
+function myMap() {
+var mapProp= {
+  center:new google.maps.LatLng(<?= $pro['lat'] ?>,<?= $pro['lng'] ?>),
+  zoom:12,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        var myLatLng = {lat: <?= $pro['lat'] ?>, lng: <?= $pro['lng'] ?>};
 
+var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<?= $this->config->item('map_key'); ?>&callback=myMap"></script>
 

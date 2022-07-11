@@ -571,6 +571,8 @@ class Vendor extends CI_Controller
             $data['seo_title']          = $this->input->post('seo_title');
             $data['seo_description']    = $this->input->post('seo_description');
             $data['title']              = $this->input->post('title');
+            $data['lat']              = $this->input->post('lat');
+            $data['lng']              = $this->input->post('lng');
             $data['category']           = $this->input->post('category');
             $data['description']        = $this->input->post('description');
             $data['sub_category']       = $this->input->post('sub_category');
@@ -900,7 +902,7 @@ $this->load->library('cloudinarylib');
             if ($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'no') {
                 $page_data = array();
                // $page_data['brand'] =  $this->db->get('brand')->result_array();
-                if($this->crud_model->can_add_product($this->session->userdata('vendor_id'))|| true){
+                if($this->crud_model->can_add_product($this->session->userdata('vendor_id'))){
                     //echo "Here";
                     $page_data['brands'] =  $this->db->get('category')->result_array();
 
@@ -908,7 +910,9 @@ $this->load->library('cloudinarylib');
                     $page_data['page_name']   = "product_add";
             $this->load->view('back/index', $page_data);
                 } else {
-                    $this->load->view('back/vendor/product_limit');
+                            $page_data['page_name']   = "product_limit";
+            $this->load->view('back/index', $page_data);
+                    // $this->load->view('back/vendor/product_limit');
                 }
             }
             elseif($this->db->get_where('business_settings',array('type' => 'commission_set'))->row()->value == 'yes'){

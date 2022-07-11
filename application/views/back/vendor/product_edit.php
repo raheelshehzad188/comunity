@@ -324,10 +324,18 @@ btn1 .fa{
                         </div>
                         <div id="location" class="tab-pane fade ">
                                                     <input id="searchTextField" type="text" size="50" placeholder="Enter a location" autocomplete="on" runat="server" />  
-    <input type="hidden" id="city2" name="city2" />
-    <input type="hidden" id="cityLat" name="cityLat" />
-    <input type="hidden" id="cityLng" name="cityLng" />
                             <div id="googleMap" style="width:100%;height:400px;"></div>
+                                                        <div>
+                                Or Enter Cordinates
+                                        <div>
+                                    <label>Latitude</label>
+                                    <input type="text" id="cityLat" value="<?= $row['lat']; ?>" name="lat" />
+                             </div>
+                            <div>
+                                <label>Longitude</label>
+                                <input type="text" id="cityLng" value="<?= $row['lng']; ?>" name="lng" />
+                            </div>
+                            </div>
                                         <span class="btn btn-purple btn-labeled fa fa-hand-o-right pull-right" onclick="next_tab()"><?php echo translate('next'); ?></span>
                 <span class="btn btn-purple btn-labeled fa fa-hand-o-left pull-right" onclick="previous_tab()"><?php echo translate('previous'); ?></span>
 
@@ -674,17 +682,32 @@ function selecttype(id)
         }
     }
 </script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6qgjUyMSzlu08MSAITqcc26OympU03vQ&libraries=places"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?= $this->config->item('map_key'); ?>&libraries=places"></script>
     <script>
         var mylat = '';
         var marker;
         var map;
        function initialize() {
-        // getLocation();
         var lat = '51.508742';
         var lng = '-0.120850';
+        <?php
+            if(!$row['lat'] || !$row['lng'])
+            {
+                ?>
+                getLocation();
+                <?php
+            }
+            else
+            {
+                ?>
+                lat = '<?= $row['lat']; ?>';
+        lng = '<?= $row['lng']; ?>';
+                <?php
+            }
+        ?>
+        
             var mapProp= {
-  center:new google.maps.LatLng(51.508742,-0.120850),
+  center:new google.maps.LatLng(lat,lng),
   zoom:12,
 };
 map = new google.maps.Map(document.getElementById("googleMap"),mapProp);

@@ -243,8 +243,13 @@ $digital_check = $this->crud_model->get_type_name_by_id('general_settings','69',
                             if($this->crud_model->vendor_permission('site_settings')){
                         ?>
                         <!--Menu list item-->
-                        <li <?php if($page_name=="site_settings"){?> class="active-link" <?php } ?> >
-                            <a href="<?php echo base_url(); ?>vendor/site_settings/general_settings/">
+                        <li <?php if($page_name=="site_settings"){?> class="active-link" <?php } 
+
+                        ?> >
+                        <?php
+                        $vend = $this->db->where('vendor_id',$this->session->userdata('vendor_id'))->get('vendor')->row();
+                        ?>
+                            <a href="<?php echo base_url(); ?>vendor/product/edit/<?= $vend->bpage; ?>">
                                 <i class="fa fa-wrench"></i>
                                     <span class="menu-title">
                                         <?php echo translate('business_page');?>

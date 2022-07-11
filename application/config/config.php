@@ -37,6 +37,8 @@ $config['demo'] = false;
 |
 */
 $config['index_page'] = 'index.php';
+$key = 'QUl6YVN5QjZxZ2pVeU1Temx1MDhNU0FJVHFjYzI2T3ltcFUwM3ZR';
+$config['map_key'] = base64_decode($key);
 
 /*
 |--------------------------------------------------------------------------

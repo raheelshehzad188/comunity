@@ -614,7 +614,7 @@ function preview2(input) {
         padding-bottom: 15px;   
     }
 </style>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6qgjUyMSzlu08MSAITqcc26OympU03vQ&libraries=places"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?= $this->config->item('map_key') ?>&libraries=places"></script>
     <script>
         var mylat = '';
         var marker;

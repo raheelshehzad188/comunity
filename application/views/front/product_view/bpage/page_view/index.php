@@ -1,4 +1,57 @@
-<div class="banner_rating">
+
+<?php
+$pro = array();
+if(isset($product_data[0]))
+{
+    $pro = $product_data[0];
+}
+//galary
+$imgs = $this->db->where('pid',$pro['product_id'])->get('product_to_images')->result_array();
+$logo = '';
+$cat = '';
+if($pro['category'])
+{
+    $c = $this->db->where('category_id',$pro['category'])->get('category')->row();
+    if(isset($c->category_name))
+    {
+        $cat = $c->category_name;
+    }
+}
+    $address = '';
+    if($pro['lat'] && $pro['lng'])
+    {
+        $lat = $pro['lat'];
+        $long = $pro['lng'];
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&sensor=false&key=".$this->config->item('map_key');
+;
+$curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_HEADER, false);
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_ENCODING, "");
+$curlData = curl_exec($curl);
+curl_close($curl);
+
+$data = json_decode($curlData);
+if(isset($data->results[0]->formatted_address))
+{
+    $address = $data->results[0]->formatted_address;
+}
+
+
+    }
+if(true)
+                                            {
+                                                $logo = $this->crud_model->size_img($pro['comp_logo'],100,100);
+                                            }
+                                            $cover = '';
+if(true)
+                                            {
+                                                $cover = $this->crud_model->size_img($pro['comp_cover'],820,312);
+                                            }
+?>
+<div class="banner_rating" style="background: url('<?= $cover ?>');">
     <div class="container">
         <div class="listing_inner">
                 <ul>
@@ -15,8 +68,8 @@
         <div class="row">
             <div class="col-sm-8 rating_box">
                 <div class="rating_info">
-                    <img src="https://ads.strokedev.net/uploads/slider_image/2625af16c063a7.png">
-                    <h3>Liman Restaurant <img src="https://ads.strokedev.net/uploads/slider_image/tick.svg"></h3>
+                    <img src="<?= $logo; ?>">
+                    <h3><?= $pro['title'] ?> <img src="https://ads.strokedev.net/uploads/slider_image/tick.svg"></h3>
                     <p>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -59,7 +112,7 @@
             <div class="container">
                 <div class="row">
                 <div class="col-sm-6 cashon_delivery">
-                    <h4>COMMUNITY HUBLAND DIGITAL SERVICES</h4>
+                    <!--<h4>COMMUNITY HUBLAND DIGITAL SERVICES</h4>
                     <h3>Professional Business Solutions Designed For You</h3>
                     <p>Hire our experienced team of programmers, digital designers, and marketing professionals, who know how to deliver results. With your requirements, we will help you identify your needs to reach solutions</p>
                     <ul>
@@ -67,7 +120,8 @@
                         <li><i class="fa fa-check"></i> ECOMMERCE DEVELOPMENT - Fully customized eCommerce solution for your online store</li>
                         <li><i class="fa fa-check"></i> GRAPHICS ANALYSIS - Solutions empowered with computer Graphic Designing</li>
                     </ul>
-                    <a href="#">Our Projects</a>
+                    <a href="#">Our Projects</a>-->
+                    <?= $pro['description']; ?>
                 </div>
                 <div class="col-sm-6 delivery_img">
                     <img src="https://ads.strokedev.net/uploads/slider_image/Graphic-laps-Community-Hubland-min.png" alt="">
@@ -125,25 +179,18 @@
             <div class="container">
                 <div class="description smedesign gallery_box">
                         <h4><i class="fa fa-photo"></i> Gallery</h4>
-                        <ul>
+                        <ul><?php
+                foreach ($imgs as $key => $value) {
+                    $img = $this->crud_model->size_img($value['img'],500,500);
+                    ?>
+
                             <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/1fd48709ffaba7.jpg">
+                                <img src="<?= $img ?>">
                             </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/dfae4cd5ce3c54.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/da15b63c3a0f6b.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/66d256832b1ace.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/f9f41271978a3d.jpg">
-                            </li>
-                            <li>
-                                <img src="https://ads.strokedev.net/uploads/slider_image/1fd48709ffaba7.jpg">
-                            </li>
+                            <?php
+                                }
+                            ?>
+                            
                         </ul>
                     </div>
             </div>
@@ -153,8 +200,8 @@
             <div class="container">
                 <div class="locationbox smedesign">
                         <h4><i class="fa fa-map-marker"></i> Location</h4>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4963.790223305652!2d-0.11564147180218141!3d51.53348361855762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1656262755680!5m2!1sen!2s" width="100%" height="250px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        <p>60 Penton Street, Barnsbury, London, N1 9PX, United Kingdom <a href="#">Get Direction</a></p>
+                        <div id="googleMap" style="width:100%;height:400px;"></div>
+                        <p><?= $address; ?> <a href="#">Get Direction</a></p>
                     </div>
             </div>
 
@@ -1074,3 +1121,21 @@ $(".right_box .locationbox h4").click(function(){
 });
 
 </script>
+<script>
+function myMap() {
+var mapProp= {
+  center:new google.maps.LatLng(<?= $pro['lat'] ?>,<?= $pro['lng'] ?>),
+  zoom:12,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        var myLatLng = {lat: <?= $pro['lat'] ?>, lng: <?= $pro['lng'] ?>};
+
+var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<?= $this->config->item('map_key'); ?>&callback=myMap"></script>

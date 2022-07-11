@@ -40,8 +40,9 @@
                                 </a>
                             <?php
                                 } elseif ($this->session->userdata('title') == 'vendor') {
+                                    $vend = $this->db->where('vendor_id',$this->session->userdata('vendor_id'))->get('vendor')->row();
                             ?>
-                                <a href="<?php echo $this->crud_model->vendor_link($this->session->userdata('vendor_id')); ?>" target="_blank" class="btn btn-default">
+                                <a href="<?php echo $this->crud_model->product_link($vend->bpage); ?>" target="_blank" class="btn btn-default">
                                     <i class="fa fa-desktop"></i>  <?php echo translate('visit_my_homepage');?>
                                 </a>
                             <?php

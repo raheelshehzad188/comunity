@@ -2950,11 +2950,13 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
             $option = array(
                 'ads' => $pack->ads,
             );
+            $this->cart->destroy();
             $data = array(
                 'id' => $user->pack,
                 'qty' => 1,
+                'signup_pkg' => 1,
                 'option' => json_encode($option),
-                'vendor' => $vendor,
+                'vendor' => $id,
                 'vendor_name' => $user->name,
                 'price' => $pack->price,
                 'name' =>$pack->name,
@@ -2966,7 +2968,43 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
             exit();
 
         }
+        else
+        {
+            $pack = $this->db->where('def',1)->get('bpkg')->row();
+            $this->process_pack($id,$pack->id);
+        }
         //bpage
+    }
+    function process_order($id)
+    {
+        $order = $this->db->where('sale_id',$id)->get('sale')->row();
+        $cart = json_decode($order->product_details);
+        $sing = array();
+        $i = 0;
+        foreach ($cart as $key => $value) {
+            if($i == 0)
+            {
+                $sing = $value;
+            }
+            $i++;
+        }
+        if(isset($sing->signup_pkg))
+        {
+            $this->process_pack($sing->vendor,$sing->id);
+        }
+    }
+    function process_pack($vid, $pid)
+    {
+        $pack = $this->db->where('id',$pid)->get('bpkg')->row();
+        // var_dump($pack);
+        $date = date('Y-m-d H:i:s');
+        $exp = date('Y-m-d H:i:s', strtotime($date. ' + '.$pack->days.' days')); 
+        $up = array(
+            'exp_date' => $exp,
+            'listings' => $pack->ads,
+        );
+        $this->db->where('vendor_id',$vid)->update('vendor', $up);
+
     }
     function vendor_logup($para1 = "", $para2 = "")
     {
@@ -4948,6 +4986,7 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
                 $data['payment_status'] = json_encode($payment_status);
                 $this->db->where('sale_id', $sale_id);
                 $this->db->update('sale', $data);
+                $this->process_order($sale_id);
                 $this->crud_model->process_affiliation($sale_id,false);
 
                 foreach ($carted as $value) {
@@ -5093,7 +5132,7 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
                             $randomString = '';
                             for ($i = 0; $i < 10; $i++) {
                                 $randomString .= $characters[rand(0, $charactersLength - 1)];
-                            }
+                           }
                             $data['guest_id'] = $sale_id . '-' . $randomString;
                         }
                         $vendors = $this->crud_model->vendors_in_sale($sale_id);
@@ -5112,6 +5151,7 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
                         $data['payment_status'] = json_encode($payment_status);
                         $this->db->where('sale_id', $sale_id);
                         $this->db->update('sale', $data);
+                        $this->process_order($sale_id);
                         $this->crud_model->process_affiliation($sale_id,true);
 
                         foreach ($carted as $value) {
@@ -5388,14 +5428,13 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
     /* FUNCTION: Verify paypal payment by IPN*/
     function paypal_ipn()
     {
-        var_dump($_REQUEST);
-        die('paypal_ipn');
         if ($this->paypal->validate_ipn() == true) {
 
             $data['payment_details'] = json_encode($_POST);
             $data['payment_timestamp'] = strtotime(date("m/d/Y"));
             $data['payment_type'] = 'paypal';
             $sale_id = $_POST['custom'];
+            // $sale_id = 256;
             $vendors = $this->crud_model->vendors_in_sale($sale_id);
             $payment_status = array();
             foreach ($vendors as $p) {
@@ -5407,8 +5446,10 @@ return (isset($response['USD_EUR'])?$response['USD_EUR']:0);
             $data['payment_status'] = json_encode($payment_status);
             $this->db->where('sale_id', $sale_id);
             $this->db->update('sale', $data);
+            $this->process_order($sale_id);
         }
     }
+
 
     /* FUNCTION: Loads after cancelling paypal*/
     function paypal_cancel()

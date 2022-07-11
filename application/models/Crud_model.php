@@ -1887,21 +1887,11 @@ foreach($vendors as $kk=> $vv)
 
     function can_add_product($vendor)
     {
-        $membership = $this->db->get_where('vendor', array('vendor_id' => $vendor))->row()->membership;
-        $expire = $this->db->get_where('vendor', array('vendor_id' => $vendor))->row()->member_expire_timestamp;
-        $already = $this->db->get_where('product', array('added_by' => '{"type":"vendor","id":"' . $vendor . '"}'))->num_rows();
-        if ($membership == '0') {
-            $max = $this->db->get_where('general_settings', array('type' => 'default_member_product_limit'))->row()->value;
-        } else {
-            $max = $this->db->get_where('membership', array('membership_id' => $membership))->row()->product_limit;
-        }
+        $membership = $this->db->get_where('vendor', array('vendor_id' => $vendor))->row()->listings;
+        $expire = $this->db->get_where('vendor', array('vendor_id' => $vendor))->row()->exp_date;
 
-        if ($expire > time() || $membership == '0') {
-            if ($max <= $already) {
-                return false;
-            } else if ($max > $already) {
-                return true;
-            }
+        if ($expire > time() && $membership) {
+            return true;
         } else {
             return false;
         }
