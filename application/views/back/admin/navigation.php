@@ -133,6 +133,15 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                                                         </a>
                                                     </li>
                                                 <?php
+                                                    } if(true){
+                                                ?>
+                                                    <li <?php if($page_name=="sub3_category"){?> class="active-link" <?php } ?> >
+                                                        <a href="<?php echo base_url(); ?>admin/sub3_category">
+                                                            <i class="fa fa-circle fs_i"></i>
+                                                                <?php echo translate('3rd-level-category');?>
+                                                        </a>
+                                                    </li>
+                                                <?php
                                                 } if($this->crud_model->admin_permission('product')){
                                                     ?>
                                                     <li <?php if($page_name=="product"){?> class="active-link" <?php } ?> >
@@ -249,6 +258,7 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                 						if($physical_check == 'ok' && $digital_check !== 'ok'){
                 							if($this->crud_model->admin_permission('category') ||
                 								$this->crud_model->admin_permission('sub_category') ||
+                                                $page_name == 'sub3_category' ||
                 									$this->crud_model->admin_permission('brand') ||
                 									$this->crud_model->admin_permission('product') ||
                 										$this->crud_model->admin_permission('product_bundle') ||
@@ -257,6 +267,7 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                 						<!--Menu list item-->
                 							<li <?php if($page_name=="category" ||
                 											$page_name=="sub_category" ||
+                                                            $page_name=="sub3_category" ||
                 												$page_name=="brand" ||
                                             $page_name=="product" ||
                                               $page_name=="product_bulk_upload" ||
@@ -274,7 +285,7 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
 
                 								<!--PRODUCT------------------>
           								        <ul class="collapse <?php if($page_name=="category" ||
-                																$page_name=="sub_category" ||
+                																$page_name=="sub_category" || $page_name=="sub3_category" ||
                 																	$page_name=="product" ||
                 																	    $page_name=="product_bulk_upload" ||
                 																		    $page_name=="brand" ||
@@ -311,6 +322,15 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                         										</li>
                       									<?php
                       										}
+                                          if($this->crud_model->admin_permission('sub_category')){ ?>
+                                                                <li <?php if($page_name=="sub3_category"){?> class="active-link" <?php } ?> >
+                                                                    <a href="<?php echo base_url(); ?>admin/sub3_category">
+                                                                        <i class="fa fa-circle fs_i"></i>
+                                                                            <?php echo translate('3rd-level-category');?>
+                                                                    </a>
+                                                                </li>
+                                                        <?php
+                                                            }
                                           if($this->crud_model->admin_permission('product')){ ?>
                           										<li <?php if($page_name=="product"){?> class="active-link" <?php } ?> >
                           											<a href="<?php echo base_url(); ?>admin/product">

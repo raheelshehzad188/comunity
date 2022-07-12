@@ -662,8 +662,6 @@ foreach($vendors as $kk=> $vv)
                     $all = $this->db->get($from)->result_array();
                 }
             }
-            // var_dump($all);
-            // die();
             if ($from == 'countries'|| $from == 'states'|| $from == 'cities') {
                 $return .= '<option value="">'.$phrase.'</option>';
             }

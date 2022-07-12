@@ -529,6 +529,77 @@ class Admin extends CI_Controller
             $page_data['all_sub_category'] = $this->db->get('sub_category')->result_array();
             $this->load->view('back/index', $page_data);
         }
+    }/*Product #rd level categories */
+    function sub3_category($para1 = '', $para2 = '')
+    {
+        if (!$this->crud_model->admin_permission('sub_category')) {
+            redirect(base_url() . 'admin');
+        }
+        if ($this->crud_model->get_type_name_by_id('general_settings','68','value') !== 'ok') {
+            redirect(base_url() . 'admin');
+        }
+        if ($para1 == 'do_add') {
+            $data['sub_category_name'] = $this->input->post('category_name');
+            $data['category']          = $this->input->post('category');
+            $data['affiliation']       = $this->input->post('affiliation') ? 1 :0 ;
+            $data['affiliation_points']  = is_numeric($this->input->post('affiliation_points')) && $this->input->post('affiliation_points') >= 0
+                ? $this->input->post('affiliation_points') : 0.00;
+            if($this->input->post('brand')==NULL)
+            {
+                $data['brand']             = '[]';
+            }
+            else{
+                $data['brand']             = json_encode($this->input->post('brand'));
+            }
+            $this->db->insert('sub3_category', $data);
+            $id = $this->db->insert_id();
+
+            $path = $_FILES['img']['name'];
+            $ext = pathinfo($path, PATHINFO_EXTENSION);
+            $data_banner['banner']       = 'sub_category_'.$id.'.'.$ext;
+            if(!demo()){
+                $this->crud_model->file_up("img", "sub_category", $id, '', 'no', '.'.$ext);
+            }
+            $this->db->where('sub_category_id', $id);
+            $this->db->update('sub_category', $data_banner);
+            $this->crud_model->set_category_data(0);
+
+            recache();
+        } else if ($para1 == 'edit') {
+            $page_data['sub_category_data'] = $this->db->get_where('sub3_category', array(
+                'sub_category_id' => $para2
+            ))->result_array();
+            $this->load->view('back/admin/sub3_category_edit', $page_data);
+        } elseif ($para1 == "update") {
+            $data['sub_category_name'] = $this->input->post('category_name');
+            $data['category']          = $this->input->post('category');
+            
+            $this->db->where('sub_category_id', $para2);
+            $this->db->update('sub3_category', $data);
+
+            
+            recache();
+        } elseif ($para1 == 'delete') {
+            if(!demo()){
+                unlink("uploads/sub_category_image/" .$this->crud_model->get_type_name_by_id('sub_category',$para2,'banner'));
+                $this->db->where('sub_category_id', $para2);
+                $this->db->delete('sub3_category');
+                $this->crud_model->set_category_data(0);
+            }
+            recache();
+        } elseif ($para1 == 'list') {
+            $this->db->order_by('sub_category_id', 'desc');
+            $this->db->where('digital=',NULL);
+            $page_data['all_sub_category'] = $this->db->get('sub3_category')->result_array();
+            $this->load->view('back/admin/sub3_category_list', $page_data);
+        } elseif ($para1 == 'add') {
+            $this->load->view('back/admin/sub3_category_add');
+        } else {
+            $page_data['page_name']        = "sub3_category";
+            $page_data['type']        = "s3";
+            $page_data['all_sub_category'] = $this->db->get('sub_category')->result_array();
+            $this->load->view('back/index', $page_data);
+        }
     }
 
     /*Digital Sub-category add, edit, view, delete */
