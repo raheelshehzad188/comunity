@@ -278,7 +278,7 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                   								<a href="#">
                   									<i class="fa fa-list"></i>
                   										<span class="menu-title">
-                  											<?php echo translate('products');?>
+                  											<?php echo translate('listings');?>
                   										</span>
                   										<i class="fa arrow"></i>
                   								</a>
@@ -335,7 +335,7 @@ $customer_product_check = $this->crud_model->get_type_name_by_id('general_settin
                           										<li <?php if($page_name=="product"){?> class="active-link" <?php } ?> >
                           											<a href="<?php echo base_url(); ?>admin/product">
                           												<i class="fa fa-circle fs_i"></i>
-                          													<?php echo translate('all_products');?>
+                          													<?php echo translate('all_listings');?>
                           											</a>
                           										</li>
                         									<?php
