@@ -1,3 +1,12 @@
+<style type="text/css">
+    #countdown{}
+    #countdown ul{
+        list-style: none;
+    }
+    #countdown ul li{
+        display: inline-block;
+    }
+</style>
 <header id="navbar">
     <?php if(demo()) { ?>
         <div class="nav text-center">
@@ -28,6 +37,20 @@
                 </li>
                 <!--End Navigation toogle button-->
             </ul>
+            <?php
+            if ($this->session->userdata('title') == 'vendor') {
+            ?>
+            <div id="countdown">
+    <ul>
+      <li><span id="days"></span><br>days</li>
+      <li><span id="hours"></span><br>Hours</li>
+      <li><span id="minutes"></span><br>Minutes</li>
+      <li><span id="seconds"></span><br>Seconds</li>
+    </ul>
+  </div>
+  <?php
+}
+  ?>
 
             <ul class="nav navbar-top-links pull-right">
                 <li>
