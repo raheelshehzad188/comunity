@@ -6,8 +6,10 @@
 
 <div id="content-container">	
     <div id="page-title">
+        <!--here---->
         <h1 class="page-header text-overflow"><?php echo translate('dashboard');?></h1>
     </div>
+    
     <div id="page-content">
         <div class="row">
             <div class="col-md-12 col-lg-12">

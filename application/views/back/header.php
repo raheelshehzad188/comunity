@@ -1,10 +1,27 @@
 <style type="text/css">
-    #countdown{}
+    .navbar-content{
+        display:flex;
+    }
+    #days, #hours, #minutes, #seconds{
+        font-size:16px;
+    }
+    #countdown{
+        margin:auto 100px;
+        text-transform: uppercase;
+        border-radius: 9px;
+        background-color: #FECB00;
+        color: white;
+    }
+     #countdown span:after{
+         
+     }
     #countdown ul{
         list-style: none;
     }
     #countdown ul li{
         display: inline-block;
+        text-align: center;
+        width:100px;
     }
 </style>
 <header id="navbar">
@@ -42,7 +59,7 @@
             ?>
             <div id="countdown">
     <ul>
-      <li><span id="days"></span><br>days</li>
+      <li><span id="days"><b></b></span><br>Days</li>
       <li><span id="hours"></span><br>Hours</li>
       <li><span id="minutes"></span><br>Minutes</li>
       <li><span id="seconds"></span><br>Seconds</li>

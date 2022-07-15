@@ -12,7 +12,7 @@
 			$col_sm = 12;
 			$col_xs = 12;
 		} elseif($viewtype == 'grid'){
-			$col_md = 3;
+			$col_md = 4;
 			$col_sm = 6;
 			$col_xs = 6;
 		}

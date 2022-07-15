@@ -603,7 +603,7 @@
 
 	if(typeof set_switchery != 'function'){
 		window.set_switchery = function(){
-			if($('#prod').length){
+			if(true){
 				$(".sw1").each(function(){
 					new Switchery(document.getElementById('pub_'+$(this).data('id')), {color:'rgb(100, 189, 99)', secondaryColor: '#cc2424', jackSecondaryColor: '#c8ff77'});
 					var changeCheckbox = document.querySelector('#pub_'+$(this).data('id'));

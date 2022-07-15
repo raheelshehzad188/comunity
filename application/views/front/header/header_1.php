@@ -57,21 +57,27 @@
                                   ?>
                                   <ul class="nav navbar-nav-items">
 
-                                    <li ><a href="<?= base_url('sneaker/') ?>">Sneaker</a></li>
-                                    <li><a href="https://hypeplug.paris/">Blog</a></li>
+                                    <li ><a href="<?= base_url('directory/') ?>">Directory </a></li>
+                                    <li><a href="#">CHL</a></li>
                                     <li class="dropdown currency ">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                         Account<i class="fa fa-angle-down"></i>
                                         </a>
                                         <ul role="menu" class="dropdown-menu">
-                                            <li class="">
-                                                <a href="<?= base_url('profile'); ?>">My Account 
-                                                </a>
-                                            </li>
+                                            <li><a href="#">Dashboard</a></li>
+                                            <li><a href="#">My Business </a></li>
                                             <li class="">
                                                 <a href="<?= base_url('profile'); ?>">My Orders 
                                                 </a>
                                             </li>
+                                            <li><a href="#">My Blog </a></li>
+                                            <li><a href="#">My Affiliate </a></li>
+                                            <li><a href="#">My Favourites</a></li>
+                                            <li class="">
+                                                <a href="<?= base_url('profile'); ?>">My Account 
+                                                </a>
+                                            </li>
+                                            
                                             <li class="">
                                                 <a href="#">Support 
                                                 </a>
@@ -81,12 +87,13 @@
                                                 </a>
                                             </li>
                                             <li class="">
-                                                <a href="<?= base_url('/login_set/login'); ?>">Login 
+                                                <a href="<?= base_url('/login_set/login'); ?>">Sign-in 
                                                 </a>
                                             </li>
                                         </ul>
                                         
                                     </li>
+                                    <li><a href="https://hypeplug.paris/">FAQ</a></li>
                                     
                                         <!--<div class="drop1down">
 
@@ -148,23 +155,29 @@
                               {
                                   ?>
                                   <ul class="nav navbar-nav-items">
-                                    <li ><a href="<?= base_url('sneaker/') ?>">Sneaker</a></li>
-                                    <li><a href="https://hypeplug.paris/">Blog</a></li>
+                                    <li ><a href="<?= base_url('sneaker/') ?>">Directory </a></li>
+                                    <li><a href="https://hypeplug.paris/">CHL</a></li>
                                     <li class="dropdown currency ">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                         Account<i class="fa fa-angle-down"></i>
                                         </a>
                                         <ul role="menu" class="dropdown-menu">
+                                            <li><a href="#">Dashboard</a></li>
+                                            <li><a href="#">My Business </a></li>
                                             <li class="">
-                                                <a href="<?= base_url('/login'); ?>">My Account 
+                                                <a href="<?= base_url('profile'); ?>">My Orders 
                                                 </a>
                                             </li>
+                                            <li><a href="#">My Blog </a></li>
+                                            <li><a href="#">My Affiliate </a></li>
+                                            <li><a href="#">My Favourites</a></li>
                                             <li class="">
-                                                <a href="<?= base_url('/login'); ?>">My Orders 
+                                                <a href="<?= base_url('profile'); ?>">My Account 
                                                 </a>
                                             </li>
+                                            
                                             <li class="">
-                                                <a href="<?= base_url('page/support'); ?>">Support 
+                                                <a href="#">Support 
                                                 </a>
                                             </li>
                                             <li class="">
@@ -172,12 +185,13 @@
                                                 </a>
                                             </li>
                                             <li class="">
-                                                <a href="<?= base_url('/login_set/login'); ?>">Login 
+                                                <a href="<?= base_url('/login_set/login'); ?>">Sign-in 
                                                 </a>
                                             </li>
                                         </ul>
                                         
                                     </li>
+                                    <li><a href="https://hypeplug.paris/">FAQ</a></li>
                                     
                                         <!--<div class="drop1down">
 

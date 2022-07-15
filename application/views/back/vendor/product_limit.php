@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style="margin-top:60px;">
     <div class="col-md-12">
         <center>
             <h1><?php echo translate('already_uploaded_maximum_products!'); ?></h1>

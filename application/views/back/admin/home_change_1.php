@@ -105,6 +105,39 @@
                                         ?>
                                     </div>
                                 </div>
+
+                                <div class="form-group top_cat">
+                                    <label class="col-sm-3 control-label" for="demo-hor-3"><?php echo translate('choose_signup_categories');?></label>                
+                                    <div class="col-sm-6">
+                                        <?php 
+                                            $categories =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 71))->row()->value,true);
+                                            $result=array();
+                                            foreach($categories as $row){
+                                                if($this->crud_model->if_publishable_category($row)){
+                                                    $result[]=$row;
+                                                }
+                                            }
+                                        
+                                            $physical_system     =  $this->crud_model->get_type_name_by_id('general_settings','68','value');
+                                            $digital_system      =  $this->crud_model->get_type_name_by_id('general_settings','69','value');
+                                            $status= '';
+                                            $value= '';
+                                            if($physical_system !== 'ok' && $digital_system == 'ok'){
+                                                $status= 'digital';
+                                                $value= 'ok';
+                                            }
+                                            if($physical_system == 'ok' && $digital_system !== 'ok'){
+                                                $status= 'digital';
+                                                $value= NULL;
+                                            }
+                                            if($physical_system !== 'ok' && $digital_system !== 'ok'){
+                                                $status= 'digital';
+                                                $value= '0';
+                                            }
+                                            echo $this->crud_model->select_html('category','signup_category','category_name','edit','demo-cs-multiselect',json_encode($result),$status,$value,'check_cat_length'); 
+                                        ?>
+                                    </div>
+                                </div>
                                 <div class="form-group margin-top-10">
                                     <label class="col-sm-3 control-label margin-top-10" for="demo-hor-inputemail"><?php echo translate('parallax_image_for_search_section');?></label>
                                     <div class="col-sm-9">

@@ -8,6 +8,7 @@
     .gallary_images ul li{
         display: inline-block;
     }
+  
     .del_icon
     {
     position: absolute;
@@ -46,6 +47,12 @@ btn1 .fa{
   border: 2px dashed #cecece;
   border-radius: 5px;
   width:150px;
+}
+.flip-card > .active, .flip-card-front:hover,.flip-card-front:focus{
+    background-color:#fecb00;
+}
+.flip-card-inner .active{
+        background-color:#fecb00;
 }
 .form input {
   margin: 10px 0;
@@ -101,12 +108,12 @@ btn1 .fa{
   transform: rotateX(180deg);
 }
 </style>
-<div class="row">
+<div class="row" style="margin-right:20px;">
     <div class="col-md-12" style="border-bottom: 1px solid #ebebeb;padding: 5px;     margin-top:64px;">
                             <button class="btn btn-primary btn-labeled fa fa-plus-circle add_pro_btn pull-right" onclick="ajax_set_full('add','Add Product','Successfully Added!','product_add',''); proceed('to_list');" style="display: none;">Create Product                            </button>
                             <a href="<?= base_url('/vendor/product'); ?>" class="btn btn-info btn-labeled fa fa-step-backward pull-right pro_list_btn" style="" onclick="ajax_set_list();  proceed('to_add');">Back To Product List                            </a>
                         </div>
-    <div class="col-md-10"  style="margin-top: 52px;    margin-left: 283px;
+    <div class="col-md-10"  style="margin-top: 52px;    margin-left: 244px;
 ">
         <?php
             echo form_open(base_url() . 'vendor/product/update/'.$row['product_id'], array(
@@ -367,9 +374,9 @@ btn1 .fa{
                             foreach($brands as $k=>$v){
                             ?>
                                 <div class="col-md-4 col-sm-12 col-xs-12 <?= ($product_data->category == $v['category_id'])?"active":"" ?>" onclick="selecttype('<?= $v['category_id'];?>')" >
-                                    <a href="#"><div class="flip-card">
+                                    <a href="#"><div class="flip-card ">
                                   <div class="flip-card-inner">
-                                    <div class="flip-card-front">
+                                    <div class="flip-card-front <?= ($product_data->category == $v['category_id'])?"active":"" ?>">
                                         <i class="fa <?= $v['fa_icon'];?>" aria-hidden="true"></i>
                                         <br>
                                         <p><?= $v['category_name'];?></p>

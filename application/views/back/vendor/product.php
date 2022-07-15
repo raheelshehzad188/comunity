@@ -1,6 +1,6 @@
 <div id="content-container">
 	<div id="page-title">
-		<h1 class="page-header text-overflow"><?php echo translate('manage_lisdting');?></h1>
+		<h1 class="page-header text-overflow"><?php echo translate('manage_listing');?></h1>
 	</div>
         <div class="tab-base">
             <div class="panel">

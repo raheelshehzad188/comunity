@@ -16,7 +16,6 @@
                         if(in_array($value['category_id'], $result))
                         {
                         ?>
-                        ?>
                         <li>
                     <a href="<?= base_url('home/category/'.$value['category_id']); ?>">
                         <i class="fa <?= ($value['fa_icon'])?$value['fa_icon']:'fa-file-image-o'; ?>"></i>

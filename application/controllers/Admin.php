@@ -1135,7 +1135,7 @@ class Admin extends CI_Controller
             if($search){
                 $this->db->like('title', $search, 'both');
             }
-            $products   = $this->db->where('parent_id','0')->get('product', $limit, $offset)->result_array();
+            $products   = $this->db->get('product', $limit, $offset)->result_array();
             $data       = array();
             foreach ($products as $row) {
                 $category = $row['category'];
@@ -1153,15 +1153,10 @@ class Admin extends CI_Controller
                           );
                           //get min
                           $child = array();
-                          $vendors = $this->db->where('parent_id',$row['product_id'])->get('product')->result_array();
-                          foreach($vendors as $k=> $v)
-                          {
-                              $child[] = $v['product_id'];
-                          }
                           $min = '';
                           $max = '';
                           if($child)
-                          {
+                          { 
                           $all_rates = $this->db->where('rate >',0)->where_in('product', $child)->get('stock')->result_array();
                           $gmin = 0;
                           $gmax = 0;
@@ -4281,6 +4276,11 @@ class Admin extends CI_Controller
                 $this->db->where('type', "top_slide_categories");
                 $this->db->update('ui_settings', array(
                     'value' => json_encode($this->input->post('top_category'))
+                ));
+                //signup_category
+                $this->db->where('type', "signup_category");
+                $this->db->update('ui_settings', array(
+                    'value' => json_encode($this->input->post('signup_category'))
                 ));
 
                 $this->db->where('type', "no_of_todays_deal");

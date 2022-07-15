@@ -2631,6 +2631,7 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
              $this->crud_model->_set_variation($para1);
         }
         $product_data = $this->db->get_where('product', array('product_id' => $para1, 'status' => 'ok'));
+        $product_data = $this->db->get_where('product', array('product_id' => $para1));
         $this->db->where('product_id', $para1);
         $this->db->update('product', array(
             'number_of_view' => $product_data->row()->number_of_view + 1,

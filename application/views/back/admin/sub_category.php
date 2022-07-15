@@ -39,7 +39,7 @@
 <script>
 	var base_url = '<?php echo base_url(); ?>'
 	var user_type = 'admin';
-	var module = 'sub3_category';
+	var module = 'sub_category';
 	var list_cont_func = 'list';
 	var dlt_cont_func = 'delete';
 </script>

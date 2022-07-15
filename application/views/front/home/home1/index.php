@@ -195,7 +195,7 @@
 </div>
 
 
-<div class="listing_wrap">
+<div class="listing_wrap" id="Verified_listing">
     <div class="container">
         <div class="listing_info">
             <h4>Verified Listings</h4>

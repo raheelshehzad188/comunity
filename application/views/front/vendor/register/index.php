@@ -87,7 +87,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Business Type</label>
-                                <?php echo $this->crud_model->select_html('brand','buss_type','name','edit','form-control demo-chosen-select required select_country',$country,'',NULL,'select_country'); ?>
+                                <?php echo $this->crud_model->select_html('category','buss_type','category_name','signup_cat','form-control demo-chosen-select required select_country','','',NULL,'select_country'); ?>
                             </div>
                         </div>
                         <div class="col-md-6">

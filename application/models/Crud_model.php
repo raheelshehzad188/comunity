@@ -671,9 +671,22 @@ foreach($vendors as $kk=> $vv)
             } else {
                 $return .= '<option value="">Choose one</option>';
             }
+            $categories =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 71))->row()->value,true);
+                                            $result=array();
+                                            foreach($categories as $row){
+                                                if($this->crud_model->if_publishable_category($row)){
+                                                    $result[]=$row;
+                                                }
+                                            }
 
             foreach ($all as $row):
-                if ($type == 'add') {
+                if ($type == 'signup_cat') {
+                    if(in_array($row[$from . '_id'], $result))
+                    {
+                        $return .= '<option value="' . $row[$from . '_id'] . '">' . $row[$field] . '</option>';
+                    }
+                }
+                elseif ($type == 'add') {
                     $return .= '<option value="' . $row[$from . '_id'] . '">' . $row[$field] . '</option>';
                 } else if ($type == 'edit') {
                     $return .= '<option value="' . $row[$from . '_id'] . '" ';

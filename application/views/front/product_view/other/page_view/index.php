@@ -50,16 +50,88 @@ if(true)
     padding: 15px 0 20px 0 !important;
     background: #000 !important;
 }
+.item a {
+    padding: 0 !important;
+}
+
 </style>
 
-
+<head>
+   <link rel="stylesheet" type="text/css" href="https://ads.strokedev.net/template/front/js/owl.carousel.css">
+</head>
 
 <div class="slider_imgbox">
     <div class="container">
+        <div id="image-gallery">
+            <h3 style="font-weight: 600 !important;margin: 0 0 2px 0;">Photos</h3>
+        </div>
+         
+        <div id="small-categories" class="owl-carousel owl-carousel-icons owl-loaded owl-drag">
+                  <div class="owl-stage-outer">
+                     <div class="owl-stage" style="transform: translate3d(-3002px, 0px, 0px); transition: all 0.25s ease 0s; width: 4804px;">
+                        <div class="owl-item">
+                           <div class="item">
+                              <div class="image">
+                                  <div class="img-wrapper">
+                                    <a href="https://res.cloudinary.com/community-hubland-ltd/image/upload/c_scale,h_500,q_500/pngn3f7khnjr39wymtna.jpg"><img src="https://res.cloudinary.com/community-hubland-ltd/image/upload/c_scale,h_500,q_500/pngn3f7khnjr39wymtna.jpg" class="img-responsive"></a>
+                                    <div class="img-overlay" style="opacity: 0;">
+                                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                           </div>
+                        </div>
+                        <div class="owl-item">
+                           <div class="item">
+                              <div class="image">
+                                  <div class="img-wrapper">
+                                    <a href="https://res.cloudinary.com/community-hubland-ltd/image/upload/c_scale,h_500,q_500/pngn3f7khnjr39wymtna.jpg"><img src="https://res.cloudinary.com/community-hubland-ltd/image/upload/c_scale,h_500,q_500/pngn3f7khnjr39wymtna.jpg" class="img-responsive"></a>
+                                    <div class="img-overlay" style="opacity: 0;">
+                                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                           </div>
+                        </div>
+                        <div class="owl-item">
+                           <div class="item">
+                              <div class="image">
+                                  <div class="img-wrapper">
+                                    <a href="https://res.cloudinary.com/community-hubland-ltd/image/upload/c_scale,h_500,q_500/pngn3f7khnjr39wymtna.jpg"><img src="https://res.cloudinary.com/community-hubland-ltd/image/upload/c_scale,h_500,q_500/pngn3f7khnjr39wymtna.jpg" class="img-responsive"></a>
+                                    <div class="img-overlay" style="opacity: 0;">
+                                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                           </div>
+                        </div>
+                        <div class="owl-item">
+                           <div class="item">
+                              <div class="image">
+                                  <div class="img-wrapper">
+                                    <a href="https://res.cloudinary.com/community-hubland-ltd/image/upload/c_scale,h_500,q_500/pngn3f7khnjr39wymtna.jpg"><img src="https://res.cloudinary.com/community-hubland-ltd/image/upload/c_scale,h_500,q_500/pngn3f7khnjr39wymtna.jpg" class="img-responsive"></a>
+                                    <div class="img-overlay" style="opacity: 0;">
+                                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="owl-nav">
+                     <button type="button" role="presentation" class="owl-prev"><span aria-label="Previous">‹</span></button>
+                     <button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span>
+                     </button>
+                  </div>
+                  <div class="owl-dots disabled"></div>
+               </div>
 
-        <section id="gallery">
+
+
+        <!-- <section id="gallery">
           <div id="image-gallery">
-            <h3 style="font-weight: 600 !important;margin: 0 0 2px -8px;">Photos</h3>
+           
               <div class="row">
                 <?php
                 foreach ($imgs as $key => $value) {
@@ -80,7 +152,7 @@ if(true)
                 
               </div>
             </div>
-        </section>
+        </section> -->
         
     </div>
 </div>
@@ -190,8 +262,10 @@ if(true)
     </div>
 </div>
 
-
+<script src="https://ads.strokedev.net/template/front/js/jquery-3.2.1.min.js"></script>
+<script src="https://ads.strokedev.net/template/front/js/owl.carousel.js"></script>
 <script src="https://ads.strokedev.net/template/front/js/custom.js"></script>
+<!-- <script src="https://ads.strokedev.net/template/front/js/custom.js"></script> -->
 <script>
 function myMap() {
 var mapProp= {
