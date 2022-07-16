@@ -35,7 +35,10 @@
         show: false,
         remote: ''
 	}); */
-	
+	function set_select(){
+           $('.demo-chosen-select').chosen();
+            $('.demo-cs-multiselect').chosen({width:'100%'});
+        }
 	$(".product_quick").on('click', function () {
 			var link = $(this).data("href");
 			$('#quick_view').removeData('bs.modal');
@@ -53,6 +56,7 @@
 			success: function(data) {
 				list.html('');
 				list.html(data).fadeIn();
+				set_select();
 				if(custom = "set_elements"){
 					$('.selectpicker').selectpicker();
         			$('.selectpicker').tooltip();

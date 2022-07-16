@@ -85,15 +85,31 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                                <label class="control-label" for="demo-hor-2"><?php echo translate('business_type');?></label>
+                                <div>
+                                    <?php echo $this->crud_model->select_html('category','buss_type','category_name','signup_cat','demo-chosen-select required','','digital',NULL,'get_cat'); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="scat" style="display: none;">
                             <div class="form-group">
-                                <label>Business Type</label>
-                                <?php echo $this->crud_model->select_html('category','buss_type','category_name','signup_cat','form-control demo-chosen-select required select_country','','',NULL,'select_country'); ?>
+                                <label><?php echo translate('sub-category');?></label>
+                                <span id="sub_cat" class="col-md-12">
+                                <input type="text" name="state" class="form-control" />
+                                </span>
+                            </div>
+                        </div>
+                            <div class="col-md-6" id="s3cat" style="display: none;">
+                            <div class="form-group">
+                                <label><?php echo translate('level3-category');?></label>
+                                <span id="sub3_cat" class="col-md-12">
+                                <input type="text" name="state" class="form-control" />
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Country</label>
-                                <?php echo $this->crud_model->select_html('countries','country','name','edit','form-control demo-chosen-select required select_country',$country,'',NULL,'select_country'); ?>
+                                <?php echo $this->crud_model->select_html('countries','country','name','edit','form-control demo-chosen-select required select_country','','',NULL,'select_country'); ?>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -176,6 +192,7 @@ function other(){
         $('.demo-chosen-select').chosen();
         $('.chosen-with-drop').css({width:'100%'});
     }
+
     function select_country(id)
     {
         $('#stats_select').hide('slow');
@@ -203,4 +220,14 @@ function other(){
         // set_cart_map();
         other();
     });
+    function get_cat(id,now){
+        $('#scat').show('slow');
+        ajax_load(base_url+'home/vendor_logup/sub_by_cat/'+id,'sub_cat','other');
+    }
+    function get_brnd(id){
+        // alert('OK');
+        $('#s3cat').hide('slow');
+        ajax_load(base_url+'home/vendor_logup/sub3_by_cat/'+id,'sub3_cat','other');
+        $('#s3cat').show('slow');
+    }
 </script>

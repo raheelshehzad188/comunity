@@ -3141,6 +3141,14 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
             $page_data['page_title'] = translate('registration');
             $this->load->view('front/index', $page_data);
         }
+        elseif ($para1 == "sub_by_cat") {
+            echo $this->crud_model->select_html('sub_category', 'sub_category', 'sub_category_name', 'add', 'form-control demo-chosen-select required', '', 'category', $para2, 'get_brnd');
+            exit();
+            }
+        elseif ($para1 == "sub3_by_cat") {
+            echo $this->crud_model->select_html('sub3_category', 'sub3_category', 'sub_category_name', 'add', 'form-control demo-chosen-select required', '', 'category', $para2, ' ');
+            exit();
+            }
 
     }
 

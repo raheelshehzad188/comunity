@@ -41,6 +41,7 @@
 	});
 	
 	function ajax_load(url,id,type){
+		alert("Here");
 		var list = $('#'+id);
 		$.ajax({
 			url: url, // form action url
@@ -48,11 +49,13 @@
         	dataType: "html",
 			beforeSend: function() {
 				//list.fadeOut();
+
 				if(type !== 'other'){
 					list.html(loading); // change submit button text
 				}
 			},
 			success: function(data) {
+				alert(id);
 				if(data !== ''){
 					list.html('');
 					list.html(data).fadeIn(); // fade in response data

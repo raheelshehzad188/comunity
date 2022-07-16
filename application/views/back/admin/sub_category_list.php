@@ -6,7 +6,7 @@
                 <th><?php echo translate('name');?></th>
                 <th><?php echo translate('banner');?></th>
                 <th><?php echo translate('category');?></th>
-                <th><?php echo translate('brands');?></th>
+                <th><?php echo translate('inner_categries');?></th>
                 <th class="text-right"><?php echo translate('options');?></th>
             </tr>
         </thead>				
@@ -34,17 +34,20 @@
             </td>
             <td><?php echo $this->crud_model->get_type_name_by_id('category',$row['category'],'category_name'); ?></td>
             <?php
-            	$brands=json_decode($row['brand'],true);
+            	$brands=$this->db->where('category',$row['sub_category_id'])->get('sub3_category')->result_array();
 			?>
             <td>
 				<?php 
+                    if($brands)
+                    {
 					foreach($brands as $row1){
 				?>
                     <span class="label label-info" style="margin-right: 5px;">
-                        <?php echo $this->crud_model->get_type_name_by_id('brand',$row1,'name');?>
+                        <?php echo $row1['sub_category_name'];?>
                     </span>
                	<?php 
-					} 
+					}
+                    } 
 				?>
           	</td>
             <td class="text-right">
