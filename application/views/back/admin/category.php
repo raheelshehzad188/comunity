@@ -30,4 +30,12 @@
 	var list_cont_func = 'list';
 	var dlt_cont_func = 'delete';
 </script>
-
+<script type="text/javascript">
+	$('.signup_cat').click(function(){
+		alert();
+	});
+	function signup_cat(id){
+		var url = base_url+'admin/category/signup_cat/'+id
+		ajax_load(url,id,'signup_cat');
+	}
+</script>

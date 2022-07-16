@@ -8,12 +8,20 @@
                     <th><?php echo translate('banner');?></th>
                     <th><?php echo translate('icon');?></th>
                     <th><?php echo translate('fontawsome_icon');?></th>
+                    <th><?php echo translate('Signup_category');?></th>
 					<th class="text-right"><?php echo translate('options');?></th>
 				</tr>
 			</thead>
 				
 			<tbody >
 			<?php
+			$categories =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 71))->row()->value,true);
+                                            $result=array();
+                                            foreach($categories as $row){
+                                                if($this->crud_model->if_publishable_category($row)){
+                                                    $result[]=$row;
+                                                }
+                                            }
 				$i = 0;
             	foreach($all_categories as $row){
             		$i++;
@@ -51,6 +59,7 @@
 					?> 
                	</td>
                	<td><i class="fa <?= $row['fa_icon'] ?>" style="    font-size: 50px;" aria-hidden="true"></i></td>
+               	<td><input type="checkbox" name="" class="signup_cat" onclick="signup_cat('<?= $row['category_id'] ?>');" value="<?= $row['category_id'] ?>" <?= in_array($row['category_id'], $result)?"checked":""; ?>></td>
 				<td class="text-right">
 					<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" 
                     	onclick="ajax_modal('edit','<?php echo translate('edit_category_(_physical_product_)'); ?>','<?php echo translate('successfully_edited!'); ?>','category_edit','<?php echo $row['category_id']; ?>')" 

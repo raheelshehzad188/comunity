@@ -41,7 +41,6 @@
 	});
 	
 	function ajax_load(url,id,type){
-		alert("Here");
 		var list = $('#'+id);
 		$.ajax({
 			url: url, // form action url
@@ -55,7 +54,6 @@
 				}
 			},
 			success: function(data) {
-				alert(id);
 				if(data !== ''){
 					list.html('');
 					list.html(data).fadeIn(); // fade in response data
@@ -83,8 +81,18 @@
 					other_delete();
 				} else if(type=='other') {
 					other();
-				} else {
-
+				} else if(type == 'signup_cat'){
+					var noty = 'Csategory update successfully!';
+					$.activeitNoty({
+						type: 'success',
+						icon : 'fa fa-check',
+						message : noty,
+						container : 'floating',
+						timer : 3000
+					});
+					
+					sound('done');
+					ajax_set_list();
 				}
 			},
 			error: function(e) {

@@ -182,6 +182,28 @@ class Admin extends CI_Controller
             $this->load->view('back/admin/category_list', $page_data);
         } elseif ($para1 == 'add') {
             $this->load->view('back/admin/category_add');
+        } elseif ($para1 == 'signup_cat') {
+            $categories =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 71))->row()->value,true);
+                                            $result=array();
+                                            foreach($categories as $row){
+                                                if($this->crud_model->if_publishable_category($row)){
+                                                    $result[]=$row;
+                                                }
+                                            }
+                                            if(in_array($para2, $result))
+                                            {
+                                                $key = array_search($para2, $result);
+                                                unset($result[$key]);
+
+
+                                            }
+                                            else
+                                            {
+                                                $result[] = $para2;
+
+                                            }
+                                            $json = json_encode($result);
+                                            $this->db->where('ui_settings_id', 71)->update('ui_settings',array('value'=>$json));
         } else {
             $page_data['page_name']      = "category";
             $page_data['all_categories'] = $this->db->get('category')->result_array();
