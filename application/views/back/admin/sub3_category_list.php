@@ -4,9 +4,10 @@
             <tr>
                 <th><?php echo translate('no');?></th>
                 <th><?php echo translate('name');?></th>
+                <th><?php echo translate('parent_categotry');?></th>
                 <th class="text-right"><?php echo translate('options');?></th>
             </tr>
-        </thead>				
+        </thead>                
         <tbody >
         <?php
             $i=0;
@@ -16,6 +17,17 @@
         <tr>
             <td><?php echo $i; ?></td>
             <td><?php echo $row['sub_category_name']; ?></td>
+            <td>
+                <?php
+                $this->db->where('sub_category_id', $row['category']);
+                 $r = $this->db->get('sub_category')->row();
+                
+                if($r)
+                {
+                    echo $r->sub_category_name;
+                }
+                ?>
+            </td>
             
             <td class="text-right">
                 <a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" 
