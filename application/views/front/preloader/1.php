@@ -51,7 +51,7 @@
 <div id="loading">
     <div id="loading-center">
         <div id="loading-center-absolute">
-        	<div id="object"></div>
+        	<img src="https://ads.strokedev.net/uploads/logo_image/logo_81.png">
         </div>
     </div>
  

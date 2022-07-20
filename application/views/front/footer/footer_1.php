@@ -75,7 +75,7 @@
 
 				<div class="elementor-widget-container">
 
-					<h2 class="elementor-heading-title elementor-size-default">HypePlug Marketplace</h2>
+					<h2 class="elementor-heading-title elementor-size-default">HyperPlug  Marketplace</h2>
 
 				</div>
 
@@ -168,7 +168,7 @@
 
             <b>NEED HELP?</b>
 
-            <p>SUPPORT TEAM 24/7 AT (1234) 555-6666</p>
+            <p>SUPPORT TEAM available Mon - Fri 9am to 5pm support@communityhubland.com</p>
 
          </div>
 
@@ -200,14 +200,14 @@
 
       <div class="row footer_links">
       	<div class="col-sm-6 leftbox">
-      		<p>Copyright © 2021 HypePlug. All Rights Reserved.</p>
+      		<p>Copyright © 2021  CommunityHubLand. All Rights Reserved.</p>
       	</div>
       	<div class="col-sm-6 rightbox">
       		<ul>
 
             <li><a href="https://adeeloffical.com/hype-plug">Home</a></li>
 
-            <li><a href="#">Hypeplug Shop</a></li>
+            <li><a href="#">CommunityHubLand Shop</a></li>
 
             <li><a href="https://marketplace.hypeplug.paris/home/contact">Contact Us</a></li>
 

@@ -67,7 +67,7 @@
             <h1><?php echo $this->crud_model->get_type_name_by_id('ui_settings','63','value'); ?></h1>
             <p><?php echo $this->crud_model->get_type_name_by_id('ui_settings','64','value'); ?></p>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <?php
                 $cboxes = unserialize($this->crud_model->get_type_name_by_id('ui_settings','65','value'));
                                     $boxes = 3;
@@ -93,26 +93,124 @@
 
                                     }
             ?>
-        </div>
+        </div> -->
+
+
+
+        <div class="row">
+                        <div class="col-sm-4 sidegapp">
+                <div class="inner_boxes">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i>
+
+                    <b>Business webpage</b>
+                    <ul>
+                        <li>• Beautiful home page</li>
+                        <li>• Links to other features</li>
+                        <li>• Contact form</li>
+                        <li>• Image Galleries</li>
+                        <li>• Textual Galeries</li>
+                        <li>• Reviews</li>
+                        <li>• Link to backend tools</li>
+                    </ul>
+                </div>
+            </div>
+                        <div class="col-sm-4 sidegapp">
+                <div class="inner_boxes" id="change-orange">
+                    <i class="fa fa-mobile" aria-hidden="true"></i>
+
+                    <b>Ads in any Categories</b>
+                    <ul>
+                        <li>• Business Events</li>
+                        <li>• Job openings</li>
+                        <li>• Business Services</li>
+                        <li>• Business Products</li>
+                        <li>• Any personal products</li>
+                        <li>• Voluntary positions</li>
+                    </ul>
+                </div>
+            </div>
+                        <div class="col-sm-4 sidegapp">
+                <div class="inner_boxes">
+                    <i class="fa fa-globe" aria-hidden="true"></i>
+
+                    <b>Marketing via Affiliates</b>
+                    <ul>
+                        <li>• Join vendor affiliate programme</li>
+                        <li>•  Share with affiliates</li>
+                        <li>• Automated affiliate commissions</li>
+                        <li>• Add designed media to platform for affiliates to share</li>
+                    </ul>
+                </div>
+            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 sidegapp">
+                <div class="inner_boxes">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i>
+
+                    <b>Blogging page</b>
+                    <ul>
+                        <li>• Ability to make as default page</li>
+                        <li>• Post blogs to enrich your audience</li>
+                        <li>• Share blogs on social media</li>
+                        <li>• Engage with your audience</li>
+                        <li>• Blog on your service industry</li>
+                        <li>• Blog on your products</li>
+                    </ul>
+                </div>
+            </div>
+                        <div class="col-sm-4 sidegapp">
+                <div class="inner_boxes" id="change-orange">
+                    <i class="fa fa-mobile" aria-hidden="true"></i>
+
+                    <b>Share on Social Media</b>
+                    <ul>
+                        <li>• Share link on different platforms</li>
+                        <li>• Anyone can share your business and ads</li>
+                        <li>• Use social media to spread your market</li>
+                        <li>•  Receive commission from any one joint via your shared links</li>
+                    </ul>
+                </div>
+            </div>
+                        <div class="col-sm-4 sidegapp">
+                <div class="inner_boxes">
+                    <i class="fa fa-globe" aria-hidden="true"></i>
+
+                    <b>Add to Shop …coming soon</b>
+                    <ul>
+                        <li>• Post your ads in our shop</li>
+                        <li>•  Increase your marketability </li>
+                        <li>• Sign-up now for discounted subscription</li>
+                        <li>• Share your shop items on social media</li>
+                        <li>• Use affiliates to market your shop items</li>
+                    </ul>
+                </div>
+            </div>
+                    </div>
     </div>
 </div>
 
 
 
-<div class="whychose">
+<div class="whychose" id="curve_topbanner">
+    <!-- <div class="curve_top">
+        <img src="https://ads.strokedev.net/uploads/slider_image/orangee.png" alt="">
+    </div> -->
     <div class="container">
         
         <div class="row">
             <div class="col-sm-6 cashon_delivery">
-                <h4>COMMUNITY HUBLAND DIGITAL SERVICES</h4>
-                <h3>Professional Business Solutions Designed For You</h3>
-                <p>Hire our experienced team of programmers, digital designers, and marketing professionals, who know how to deliver results. With your requirements, we will help you identify your needs to reach solutions</p>
+                <h3>Every Business has something to offer their community </h3>
+                <p>On Community HubLand, you list your Events, Jobs, Blogs, Properties, and more. All the basics your business needs for success</p>
                 <ul>
-                    <li><i class="fa fa-check"></i> WEB & ENTERPRISE PORTALS - Incredible UX and compelling functionality under the hood</li>
-                    <li><i class="fa fa-check"></i> ECOMMERCE DEVELOPMENT - Fully customized eCommerce solution for your online store</li>
-                    <li><i class="fa fa-check"></i> GRAPHICS ANALYSIS - Solutions empowered with computer Graphic Designing</li>
+                    <li><i class="fa fa-check"></i> Own a business website</li>
+                    <li><i class="fa fa-check"></i> Access to your business affiliate marketing platform</li>
+                    <li><i class="fa fa-check"></i> Post products in shops and receive payments</li>
+                    <li><i class="fa fa-check"></i> Blog away with your audience</li>
+                    <li><i class="fa fa-check"></i> Post ads</li>
                 </ul>
-                <a href="#">Our Projects</a>
+                <h4>Price?</h4>
+               <p> Less than a the cost of a breakfast a month</p>
             </div>
             <div class="col-sm-6 delivery_img">
                 <?php
@@ -140,7 +238,8 @@
                                          }
 
                                         ?>
-<div class="reach_wrap" style="background: #a51010ad url(<?= $img ?>);">
+<div class="reach_wrap" >
+    <!-- style="background: #a51010ad url(<?= $img ?>);" -->
     <div class="elementor-shape elementor-shape-top" data-negative="false">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
     <path class="elementor-shape-fill" d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7

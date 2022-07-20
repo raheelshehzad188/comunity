@@ -9,13 +9,15 @@
 	}
 #loading-center-absolute {
 	position: absolute;
-	left: 50%;
-	top: 50%;
-	height: 100px;
-	width: 100px;
-	margin-top: -50px;
-	margin-left: -50px;
+	left: 0;
+	top: 45%;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
 
+}
+#loading-center-absolute img{
+  width: 269px;
 }
 .object{
 	width: 25px;
@@ -162,10 +164,7 @@
 <div id="loading">
     <div id="loading-center">
         <div id="loading-center-absolute">
-            <div class="object" id="object_one"></div>
-            <div class="object" id="object_two"></div>
-            <div class="object" id="object_three"></div>
-            <div class="object" id="object_four"></div>
+           <img src="https://ads.strokedev.net/uploads/logo_image/logo_81.png">
         </div>
     </div>
 </div>

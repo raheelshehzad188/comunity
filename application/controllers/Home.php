@@ -3053,11 +3053,16 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
                             $data['company'] = $this->input->post('company');
                             $data['display_name'] = $this->input->post('display_name');
                             $data['state'] = $this->input->post('state');
+                            $data['cat1'] = $this->input->post('buss_type');
+                            $data['cat2'] = $this->input->post('sub_category');
+                            $data['cat3'] = $this->input->post('buss_type');
                             $data['country'] = $this->input->post('country');
                             $data['city'] = $this->input->post('city');
                             $data['zip'] = $this->input->post('zip');
                             $data['pack'] = $this->input->post('pack');
-                            $data['buss_type'] = $this->input->post('buss_type');
+                            $data['cat1'] = $this->input->post('buss_type');
+                            $data['cat2'] = $this->input->post('sub_category');
+                            $data['cat3'] = $this->input->post('sub3_category');
                             $data['create_timestamp'] = time();
                             $data['approve_timestamp'] = 0;
                             $data['approve_timestamp'] = 0;
@@ -3094,7 +3099,9 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
                         $data['city'] = $this->input->post('city');
                         $data['zip'] = $this->input->post('zip');
                         $data['pack'] = $this->input->post('pack');
-                            $data['buss_type'] = $this->input->post('buss_type');
+                            $data['cat1'] = $this->input->post('buss_type');
+                            $data['cat2'] = $this->input->post('sub_category');
+                            $data['cat3'] = $this->input->post('sub3_category');
                         $data['create_timestamp'] = time();
                         $data['approve_timestamp'] = 0;
                         $data['approve_timestamp'] = 0;
@@ -3105,6 +3112,8 @@ $box_style =  5;//$this->db->get_where('ui_settings',array('ui_settings_id' => 2
                             $password = $this->input->post('password1');
                             $data['password'] = sha1($password);
                             $this->db->insert('vendor', $data);
+                            var_dump($data);
+                            die();
                             $this->vendor_page($this->db->insert_id());
 
                             $msg = 'done';

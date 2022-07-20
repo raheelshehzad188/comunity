@@ -546,6 +546,8 @@ class Admin extends CI_Controller
             $this->load->view('back/admin/sub_category_list', $page_data);
         } elseif ($para1 == 'add') {
             $this->load->view('back/admin/sub_category_add');
+        } elseif ($para1 == 'add3') {
+            $this->load->view('back/admin/sub3_category_add', array('scat'=> $para2));
         } else {
             $page_data['page_name']        = "sub_category";
             $page_data['all_sub_category'] = $this->db->get('sub_category')->result_array();

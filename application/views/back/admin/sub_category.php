@@ -24,7 +24,7 @@
                     <div class="col-md-12" style="border-bottom: 1px solid #ebebeb;padding:10px;">
                         <button class="btn btn-primary btn-labeled fa fa-plus-circle pull-right" 
                             onclick="ajax_modal('add','<?php echo translate('add_sub-category_(_physical_product_)'); ?>','<?php echo translate('successfully_added!'); ?>','sub_category_add','')">
-                                <?php echo translate('create_3rd_level_category');?>
+                                <?php echo translate('create_sub_category');?>
                                     </button>
                     </div>
                     <!-- LIST -->

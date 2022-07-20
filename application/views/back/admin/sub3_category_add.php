@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label"><?php echo translate('category');?></label>
                 <div class="col-sm-6">
-                    <?php echo $this->crud_model->select_html('sub_category','category','sub_category_name','add','demo-chosen-select required','','digital',NULL); ?>
+                    <?php echo $this->crud_model->select_html('sub_category','category','sub_category_name','edit','demo-chosen-select required',$scat,'digital',NULL); ?>
                 </div>
             </div>
         </div>

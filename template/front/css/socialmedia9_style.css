@@ -5366,11 +5366,13 @@ input[type=number]
 .whychose_info p{font-size: 17px;padding: 0 246px;}
 .sidegapp{padding: 0 12px;}
 .inner_boxes{
-    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 18%);
-    background: #fff;
-    padding: 44px 23px;
+    box-shadow: none;
+    background: #e4e5e6;
+    padding: 23px 23px;
     border-radius: 8px;
-    text-align: center;
+    text-align: left;
+    height: 346px;
+    margin: 0 0 20px;
 }
 .inner_boxes svg{display: block;margin: 0 auto 19px;width: 92px;height: 54px;}
 .inner_boxes b{color: #000;font-weight: 600 !important;font-size: 18px;margin: 12px 0 13px;display: block;}
@@ -6156,6 +6158,38 @@ color: #000;
  #exitButton:hover {
      opacity: 0.7;
 }
+.inner_boxes i{
+      font-size: 34px;
+      color: #fff;
+      background: #f16522;
+      border-radius: 100%;
+      width: 63px;
+      display: inline-block;
+      height: 63px;
+      text-align: center;
+      padding: 14px 0 0;
+}
+.inner_boxes ul li{
+    font-size: 16px;
+    margin: 0 0 7px;
+}
+#change-orange{
+    background: #f2eed8;
+}
+#change-orange i{
+       color: #f16522;
+       background: #fff;
+}
+#curve_topbanner{
+
+}
+.curve_top{
+
+}
+.curve_top img{
+    
+}
+
  @media screen and (min-width: 768px) {
      #exitButton {
          font-size: 3em;

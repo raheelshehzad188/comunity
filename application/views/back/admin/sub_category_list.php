@@ -51,6 +51,10 @@
 				?>
           	</td>
             <td class="text-right">
+                <a class="btn btn-primary btn-labeled fa fa-plus-circle " 
+                            onclick="ajax_modal('add3/<?php echo $row['sub_category_id']; ?>','<?php echo translate('add_sub-category_(_physical_product_)'); ?>','<?php echo translate('successfully_added!'); ?>','sub_category_add','')">
+                                <?php echo translate('create_level3_category');?>
+                                    </a>
                 <a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" 
                     onclick="ajax_modal('edit','<?php echo translate('edit_sub-category_(_physical_product_)'); ?>','<?php echo translate('successfully_edited!'); ?>','sub_category_edit','<?php echo $row['sub_category_id']; ?>')" data-original-title="Edit" data-container="body">
                         <?php echo translate('edit');?>
