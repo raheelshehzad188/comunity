@@ -29,57 +29,10 @@
                     <input type="text" name="fa_icon" value="<?php echo $row['fa_icon'];?>" id="demo-hor-1" 
                         placeholder="<?php echo translate('fontawsome_icon'); ?>" class="form-control required">
                         <div>
-                        <span><a href="https://fontawesome.com/v4/icons/">Click here</a> to find icon code</span>
+                        <span><a href="https://fontawesome.com/icons">Click here</a> to find icon code</span>
                     </div>
                 </div>
             </div>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('category_banner');?></label>
-                    <div class="col-sm-6">
-                        <span class="pull-left btn btn-default btn-file">
-                            <?php echo translate('select_category_banner');?>
-                            <input type="file" name="img" id='imgInp' accept="image">
-                        </span>
-                        <br><br>
-                        <span id='wrap' class="pull-left" >
-                            <?php
-								if(file_exists('uploads/category_image/'.$row['banner'])){
-							?>
-							<img src="<?php echo base_url(); ?>uploads/category_image/<?php echo $row['banner']; ?>" width="100%" id='blah' />  
-							<?php
-								} else {
-							?>
-							<img src="<?php echo base_url(); ?>uploads/category_image/default.jpg" width="100%" id='blah' />
-							<?php
-								}
-							?> 
-                        </span>
-                    </div>
-                </div>
-                <br><br>
-                <div class="form-group">
-                    <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('category_icon');?></label>
-                    <div class="col-sm-6">
-                        <span class="pull-left btn btn-default btn-file">
-                            <?php echo translate('select_category_icon');?>
-                            <input type="file" name="icon" id='iconInp' accept="image">
-                        </span>
-                        <br><br>
-                        <span id='wrap' class="pull-left" >
-                            <?php
-								if(file_exists('uploads/category_icon_image/'.$row['icon'])){
-							?>
-							<img src="<?php echo base_url(); ?>uploads/category_icon_image/<?php echo $row['icon']; ?>" width="100%" id='blah1' />  
-							<?php
-								} else {
-							?>
-							<img src="<?php echo base_url(); ?>uploads/category_image/default.jpg" width="100%" id='blah' />
-							<?php
-								}
-							?> 
-                        </span>
-                    </div>
-                </div>
 			</div>
 		</form>
 	</div>

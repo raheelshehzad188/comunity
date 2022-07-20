@@ -5,8 +5,6 @@
 				<tr>
 					<th><?php echo translate('no');?></th>
 					<th><?php echo translate('name');?></th>
-                    <th><?php echo translate('banner');?></th>
-                    <th><?php echo translate('icon');?></th>
                     <th><?php echo translate('fontawsome_icon');?></th>
                     <th><?php echo translate('Signup_category');?></th>
 					<th class="text-right"><?php echo translate('options');?></th>
@@ -29,35 +27,6 @@
 			<tr>
 				<td><?php echo $i; ?></td>
                 <td><?php echo $row['category_name']; ?></td>
-                
-				<td>
-                    <?php
-						if(file_exists('uploads/category_image/'.$row['banner'])){
-					?>
-					<img class="img-md" src="<?php echo base_url(); ?>uploads/category_image/<?php echo $row['banner']; ?>" height="100px" />  
-					<?php
-						} else {
-					?>
-					<img class="img-md" src="<?php echo base_url(); ?>uploads/category_image/default.jpg" height="100px" />
-					<?php
-						}
-					?> 
-               	</td>
-               	<td>
-               	    
-                    <?php
-                    // echo 'uploads/category_icon_image/'.$row['icon'];
-						if(file_exists('uploads/category_icon_image/'.$row['icon'])){
-					?>
-					<img class="img-md" src="<?php echo base_url(); ?>uploads/category_icon_image/<?php echo $row['icon']; ?>" height="100px" />  
-					<?php
-						} else {
-					?>
-					<img class="img-md" src="<?php echo base_url(); ?>uploads/category_image/default.jpg" height="100px" />
-					<?php
-						}
-					?> 
-               	</td>
                	<td><i class="fa <?= $row['fa_icon'] ?>" style="    font-size: 50px;" aria-hidden="true"></i></td>
                	<td><input type="checkbox" name="" class="signup_cat" onclick="signup_cat('<?= $row['category_id'] ?>');" value="<?= $row['category_id'] ?>" <?= in_array($row['category_id'], $result)?"checked":""; ?>></td>
 				<td class="text-right">

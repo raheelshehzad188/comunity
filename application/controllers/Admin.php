@@ -612,7 +612,7 @@ class Admin extends CI_Controller
             }
             recache();
         } elseif ($para1 == 'list') {
-            $this->db->order_by('sub_category_id', 'desc');
+            $this->db->order_by('sub3_category_id', 'desc');
             $this->db->where('digital=',NULL);
             $page_data['all_sub_category'] = $this->db->get('sub3_category')->result_array();
             $this->load->view('back/admin/sub3_category_list', $page_data);

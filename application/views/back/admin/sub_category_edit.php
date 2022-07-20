@@ -21,56 +21,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="demo-hor-2"><?php echo translate('sub-category_banner');?></label>
-                <div class="col-sm-6">
-                    <span class="pull-left btn btn-default btn-file">
-                        <?php echo translate('select_sub-category_banner');?>
-                        <input type="file" name="img" id='imgInp' accept="image">
-                    </span>
-                    <br><br>
-                    <span id='wrap' class="pull-left" >
-                        <?php
-							if(file_exists('uploads/sub_category_image/'.$row['banner'])){
-						?>
-						<img src="<?php echo base_url(); ?>uploads/sub_category_image/<?php echo $row['banner']; ?>" width="100%" id='blah' />  
-						<?php
-							} else {
-						?>
-						<img src="<?php echo base_url(); ?>uploads/sub_category_image/default.jpg" width="100%" id='blah' />
-						<?php
-							}
-						?> 
-                    </span>
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-sm-4 control-label"><?php echo translate('category');?></label>
                 <div class="col-sm-6">
                     <?php echo $this->crud_model->select_html('category','category','category_name','edit','demo-chosen-select required',$row['category'],'digital',NULL); ?>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-4 control-label"><?php echo translate('brands');?></label>
-                <div class="col-sm-6">
-                    <?php
-                        echo $this->crud_model->select_html('brand','brand','name','edit','demo-cs-multiselect',$row['brand']);
-                    ?>
-                </div>
-            </div>
-            <div class="form-group" <?php if($this->crud_model->get_settings_value('general_settings', 'product_affiliation_set', 'value') != 'ok') { ?> style="display: none" <?php } ?>>
-                <label class="col-sm-4 control-label" for="demo-hor-1">
-                    <?php echo translate('affiliation');?>
-                </label>
-                <div class="col-sm-6 pt-5">
-                    <input type="checkbox" name="affiliation" <?= $row['affiliation'] == 1 ? " checked='checked' ":"" ?> class="form-control required  affiliation-check">
-                </div>
-            </div>
-            <div class="form-group" <?php if($this->crud_model->get_settings_value('general_settings', 'product_affiliation_set', 'value') != 'ok') { ?> style="display: none" <?php } ?>>
-                <label class="col-sm-4 control-label" for="demo-hor-1">
-                    <?php echo translate('affiliation_points');?>
-                </label>
-                <div class="col-sm-6 control-label">
-                    <input type="number" min="0.0" step="0.5"  name="affiliation_points" value="<?= $row['affiliation_points'] ?>" class="form-control required">
                 </div>
             </div>
         </div>

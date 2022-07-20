@@ -31,10 +31,10 @@
             
             <td class="text-right">
                 <a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" 
-                    onclick="ajax_modal('edit','<?php echo translate('edit_sub-category_(_physical_product_)'); ?>','<?php echo translate('successfully_edited!'); ?>','sub_category_edit','<?php echo $row['sub_category_id']; ?>')" data-original-title="Edit" data-container="body">
+                    onclick="ajax_modal('edit','<?php echo translate('edit_sub-category_(_physical_product_)'); ?>','<?php echo translate('successfully_edited!'); ?>','sub_category_edit','<?php echo $row['sub3_category_id']; ?>')" data-original-title="Edit" data-container="body">
                         <?php echo translate('edit');?>
                 </a>
-                <a onclick="delete_confirm('<?php echo $row['sub_category_id']; ?>','<?php echo translate('really_want_to_delete_this?'); ?>')" 
+                <a onclick="delete_confirm('<?php echo $row['sub3_category_id']; ?>','<?php echo translate('really_want_to_delete_this?'); ?>')" 
                         class="btn btn-danger btn-xs btn-labeled fa fa-trash" data-toggle="tooltip"
                             data-original-title="Delete" data-container="body">
                                 <?php echo translate('delete');?>
