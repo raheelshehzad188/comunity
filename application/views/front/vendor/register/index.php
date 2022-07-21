@@ -84,20 +84,17 @@
                                 <input class="form-control required" name="address2" type="text" placeholder="<?php echo translate('address_line_2');?>" data-toggle="tooltip" title="<?php echo translate('address_line_2');?>">
                             </div>
                         </div>
-                        <div class="col-md-6">
-                                <label class="control-label" for="demo-hor-2"><?php echo translate('what_do_you_offer');?></label>
-                                <div>
-                                    <?php echo $this->crud_model->select_html('category','buss_type','category_name','signup_cat','demo-chosen-select required','','digital',NULL,'get_cat'); ?>
-                                </div>
-                            </div>
+
                         <div class="col-md-6">
                                 <label class="control-label" for="demo-hor-2"><?php echo translate('bussniss_type');?></label>
                                 <div>
-                                   <select class="form-control required">
-                                       <option value="local">Local</option>
-                                       <option value="online">Online</option>
-                                       <option value="localandonline">Local + Online</option>
-                                   </select> 
+                                    <?php echo $this->crud_model->select_html('category','buss_type','category_name','signup_cat','demo-chosen-select required','','digital',NULL,''); ?>
+                                </div>
+                            </div>
+                        <div class="col-md-6">
+                                <label class="control-label" for="demo-hor-2"><?php echo translate('main_Business_Category');?></label>
+                                <div>
+                                    <?php echo $this->crud_model->select_html('category','buss_type','category_name','signup_main_cat','demo-chosen-select required','','digital',NULL,'get_cat'); ?>
                                 </div>
                             </div>
                             <div class="col-md-6" id="scat" style="display: none;">

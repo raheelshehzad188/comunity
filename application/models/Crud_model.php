@@ -678,10 +678,23 @@ foreach($vendors as $kk=> $vv)
                                                     $result[]=$row;
                                                 }
                                             }
+            $categories =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 72))->row()->value,true);
+                                            $result1=array();
+                                            foreach($categories as $row){
+                                                if($this->crud_model->if_publishable_category($row)){
+                                                    $result1[]=$row;
+                                                }
+                                            }
 
             foreach ($all as $row):
                 if ($type == 'signup_cat') {
                     if(in_array($row[$from . '_id'], $result))
+                    {
+                        $return .= '<option value="' . $row[$from . '_id'] . '">' . $row[$field] . '</option>';
+                    }
+                }
+                if ($type == 'signup_main_cat') {
+                    if(in_array($row[$from . '_id'], $result1))
                     {
                         $return .= '<option value="' . $row[$from . '_id'] . '">' . $row[$field] . '</option>';
                     }

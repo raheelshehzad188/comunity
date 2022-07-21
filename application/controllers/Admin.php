@@ -183,6 +183,28 @@ class Admin extends CI_Controller
                                             }
                                             $json = json_encode($result);
                                             $this->db->where('ui_settings_id', 71)->update('ui_settings',array('value'=>$json));
+        } elseif ($para1 == 'signup_main_cat') {
+            $categories =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 72))->row()->value,true);
+                                            $result=array();
+                                            foreach($categories as $row){
+                                                if($this->crud_model->if_publishable_category($row)){
+                                                    $result[]=$row;
+                                                }
+                                            }
+                                            if(in_array($para2, $result))
+                                            {
+                                                $key = array_search($para2, $result);
+                                                unset($result[$key]);
+
+
+                                            }
+                                            else
+                                            {
+                                                $result[] = $para2;
+
+                                            }
+                                            $json = json_encode($result);
+                                            $this->db->where('ui_settings_id', 72)->update('ui_settings',array('value'=>$json));
         } elseif ($para1 == 'main_cat') {
             $categories =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 35))->row()->value,true);
                                             $result=array();

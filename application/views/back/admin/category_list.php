@@ -7,6 +7,7 @@
 					<th><?php echo translate('name');?></th>
                     <th><?php echo translate('fontawsome_icon');?></th>
                     <th><?php echo translate('business_type');?></th>
+                    <th><?php echo translate('signup_main_category');?></th>
                     <th><?php echo translate('main_category');?></th>
 					<th class="text-right"><?php echo translate('options');?></th>
 				</tr>
@@ -28,6 +29,13 @@
                                                     $result1[]=$row;
                                                 }
                                             }
+			$categories =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 72))->row()->value,true);
+                                            $result2=array();
+                                            foreach($categories as $row){
+                                                if($this->crud_model->if_publishable_category($row)){
+                                                    $result2[]=$row;
+                                                }
+                                            }
 				$i = 0;
             	foreach($all_categories as $row){
             		$i++;
@@ -37,6 +45,7 @@
                 <td><?php echo $row['category_name']; ?></td>
                	<td><i class="fa <?= $row['fa_icon'] ?>" style="    font-size: 50px;" aria-hidden="true"></i></td>
                	<td><input type="checkbox" name="" class="signup_cat" onclick="signup_cat('<?= $row['category_id'] ?>');" value="<?= $row['category_id'] ?>" <?= in_array($row['category_id'], $result)?"checked":""; ?>></td>
+               	<td><input type="checkbox" name="" class="signup_main_cat" onclick="signup_main_cat('<?= $row['category_id'] ?>');" value="<?= $row['category_id'] ?>" <?= in_array($row['category_id'], $result2)?"checked":""; ?>></td>
                	<td><input type="checkbox" name="" class="main_cat" onclick="main_cat('<?= $row['category_id'] ?>');" value="<?= $row['category_id'] ?>" <?= in_array($row['category_id'], $result1)?"checked":""; ?>></td>
 				<td class="text-right">
 					<a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" 
