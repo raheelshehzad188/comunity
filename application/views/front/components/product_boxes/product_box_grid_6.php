@@ -16,7 +16,7 @@ $img = '';
 
                         }
                         ?>
-                           <div class="item">
+                           <div class="item" data-lat="<?= $lat; ?>" data-lng="<?= $lng; ?>">
                                 <a href="<?php echo $this->crud_model->product_link($product_id); ?>">  
                                <div class="strip">
                                     <figure>

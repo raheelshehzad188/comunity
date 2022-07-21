@@ -1,4 +1,8 @@
-        
+<script type="text/javascript">
+	  var markers = [
+  [1, -14.2350040, -51.9252800]
+];
+</script>    
 <?php
     echo form_open(base_url() . 'home/listed/click', array(
         'method' => 'post',
@@ -246,6 +250,17 @@
                 place.html(data);
 				load_iamges();
                 $('div.rateit, span.rateit').rateit();
+                // markers = 'yes';
+                $('.item').each(function(i, obj) {
+				    var item = {
+				    	'lat':$(this).attr('data-lat'),
+				    	'lng':$(this).attr('data-lng'),
+				    	'img':$(this).find("img").attr('src'),
+				    };
+				    markers.push(item);
+				});
+				console.log(markers);
+                initMap();
             },
             error: function(e) {
                 console.log(e)
@@ -256,3 +271,4 @@
     }
 
 </script>
+
