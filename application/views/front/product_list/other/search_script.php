@@ -252,12 +252,16 @@
                 $('div.rateit, span.rateit').rateit();
                 // markers = 'yes';
                 $('.item').each(function(i, obj) {
-				    var item = {
-				    	'lat':$(this).attr('data-lat'),
-				    	'lng':$(this).attr('data-lng'),
-				    	'img':$(this).find("img").attr('src'),
-				    };
-				    markers.push(item);
+                	if($(this).attr('data-lat') && $(this).attr('data-lng'))
+                	{
+					    var item = {
+					    	'lat':$(this).attr('data-lat'),
+					    	'lng':$(this).attr('data-lng'),
+					    	'img':$(this).find("img").attr('src'),
+					    	'title':$(this).find("h3").text(),
+					    };
+					    markers.push(item);
+					}
 				});
 				console.log(markers);
                 initMap();

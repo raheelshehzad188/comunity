@@ -38,7 +38,7 @@
           	</td>
             <td class="text-right">
                 <a class="btn btn-primary btn-labeled fa fa-plus-circle " 
-                            onclick="ajax_modal('add3/<?php echo $row['sub_category_id']; ?>','<?php echo translate('add_sub-category_(_physical_product_)'); ?>','<?php echo translate('successfully_added!'); ?>','sub_category_add','')">
+                            onclick="ajax_modal('add3/<?php echo $row['sub_category_id']; ?>','<?php echo translate('add_sub-category'); ?>','<?php echo translate('successfully_added!'); ?>','sub_category_add','')">
                                 <?php echo translate('create_level3_category');?>
                                     </a>
                 <a class="btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" 

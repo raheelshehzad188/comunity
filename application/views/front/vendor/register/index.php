@@ -85,9 +85,19 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                                <label class="control-label" for="demo-hor-2"><?php echo translate('business_type');?></label>
+                                <label class="control-label" for="demo-hor-2"><?php echo translate('what_do_you_offer');?></label>
                                 <div>
                                     <?php echo $this->crud_model->select_html('category','buss_type','category_name','signup_cat','demo-chosen-select required','','digital',NULL,'get_cat'); ?>
+                                </div>
+                            </div>
+                        <div class="col-md-6">
+                                <label class="control-label" for="demo-hor-2"><?php echo translate('bussniss_type');?></label>
+                                <div>
+                                   <select class="form-control required">
+                                       <option value="local">Local</option>
+                                       <option value="online">Online</option>
+                                       <option value="localandonline">Local + Online</option>
+                                   </select> 
                                 </div>
                             </div>
                             <div class="col-md-6" id="scat" style="display: none;">

@@ -107,35 +107,14 @@ class Admin extends CI_Controller
             redirect(base_url() . 'admin');
         }
         if ($para1 == 'do_add') {
-            $data['category_name'] = $this->input->post('category_name');
+            $name = $this->input->post('category_name');
+            $exp = explode(',', $name);
+            foreach ($exp as $key => $value) {
+                $data['category_name'] = $value;
             $data['fa_icon'] = $this->input->post('fa_icon');
             $this->db->insert('category', $data);
             $id = $this->db->insert_id();
-
-            $path = $_FILES['img']['name'];
-            $ext = pathinfo($path, PATHINFO_EXTENSION);
-            $data_banner['banner']       = 'category_'.$id.'.'.$ext;
-            $this->db->where('category_id', $id);
-            $this->db->update('category', $data_banner);
-
-            if(!demo()){
-                $ext = '.'.$ext;
-                $this->crud_model->file_up("img", "category", $id, '', 'no',$ext);
             }
-            $path = $_FILES['icon']['name'];
-            $ext = pathinfo($path, PATHINFO_EXTENSION);
-            $data_icon['banner']       = 'category_'.$id.'.'.$ext;
-
-            if(!demo()){
-                $ext = '.'.$ext;
-                $this->crud_model->file_up("icon", "category_icon", $id, '', 'no', $ext);
-            }
-            $path = $_FILES['icon']['name'];
-            $ext = pathinfo($path, PATHINFO_EXTENSION);
-            $data_icon['icon']       = 'category_icon_'.$id.'.'.$ext;
-            $this->db->where('category_id', $id);
-            $this->db->update('category', $data_icon);
-            $this->crud_model->set_category_data(0);
             recache();
         } else if ($para1 == 'edit') {
             $page_data['category_data'] = $this->db->get_where('category', array(
@@ -204,6 +183,28 @@ class Admin extends CI_Controller
                                             }
                                             $json = json_encode($result);
                                             $this->db->where('ui_settings_id', 71)->update('ui_settings',array('value'=>$json));
+        } elseif ($para1 == 'main_cat') {
+            $categories =json_decode($this->db->get_where('ui_settings',array('ui_settings_id' => 35))->row()->value,true);
+                                            $result=array();
+                                            foreach($categories as $row){
+                                                if($this->crud_model->if_publishable_category($row)){
+                                                    $result[]=$row;
+                                                }
+                                            }
+                                            if(in_array($para2, $result))
+                                            {
+                                                $key = array_search($para2, $result);
+                                                unset($result[$key]);
+
+
+                                            }
+                                            else
+                                            {
+                                                $result[] = $para2;
+
+                                            }
+                                            $json = json_encode($result);
+                                            $this->db->where('ui_settings_id', 35)->update('ui_settings',array('value'=>$json));
         } else {
             $page_data['page_name']      = "category";
             $page_data['all_categories'] = $this->db->get('category')->result_array();
@@ -474,31 +475,15 @@ class Admin extends CI_Controller
             redirect(base_url() . 'admin');
         }
         if ($para1 == 'do_add') {
-            $data['sub_category_name'] = $this->input->post('sub_category_name');
+            $name = $this->input->post('sub_category_name');
+            $exp = explode(',', $name);
+            foreach ($exp as $key => $value) {
+                $data['sub_category_name'] = $value;
             $data['category']          = $this->input->post('category');
-            $data['affiliation']       = $this->input->post('affiliation') ? 1 :0 ;
-            $data['affiliation_points']  = is_numeric($this->input->post('affiliation_points')) && $this->input->post('affiliation_points') >= 0
-                ? $this->input->post('affiliation_points') : 0.00;
-            if($this->input->post('brand')==NULL)
-            {
-                $data['brand']             = '[]';
-            }
-            else{
-                $data['brand']             = json_encode($this->input->post('brand'));
-            }
+            
             $this->db->insert('sub_category', $data);
             $id = $this->db->insert_id();
-
-            $path = $_FILES['img']['name'];
-            $ext = pathinfo($path, PATHINFO_EXTENSION);
-            $data_banner['banner']       = 'sub_category_'.$id.'.'.$ext;
-            if(!demo()){
-                $this->crud_model->file_up("img", "sub_category", $id, '', 'no', '.'.$ext);
             }
-            $this->db->where('sub_category_id', $id);
-            $this->db->update('sub_category', $data_banner);
-            $this->crud_model->set_category_data(0);
-
             recache();
         } else if ($para1 == 'edit') {
             $page_data['sub_category_data'] = $this->db->get_where('sub_category', array(
@@ -563,31 +548,15 @@ class Admin extends CI_Controller
             redirect(base_url() . 'admin');
         }
         if ($para1 == 'do_add') {
-            $data['sub_category_name'] = $this->input->post('category_name');
+            $name = $this->input->post('category_name');
+            $exp = explode(',', $name);
+            foreach ($exp as $key => $value) {
+                $data['sub_category_name'] = $value;
             $data['category']          = $this->input->post('category');
-            $data['affiliation']       = $this->input->post('affiliation') ? 1 :0 ;
-            $data['affiliation_points']  = is_numeric($this->input->post('affiliation_points')) && $this->input->post('affiliation_points') >= 0
-                ? $this->input->post('affiliation_points') : 0.00;
-            if($this->input->post('brand')==NULL)
-            {
-                $data['brand']             = '[]';
-            }
-            else{
-                $data['brand']             = json_encode($this->input->post('brand'));
-            }
+            
             $this->db->insert('sub3_category', $data);
             $id = $this->db->insert_id();
-
-            $path = $_FILES['img']['name'];
-            $ext = pathinfo($path, PATHINFO_EXTENSION);
-            $data_banner['banner']       = 'sub_category_'.$id.'.'.$ext;
-            if(!demo()){
-                $this->crud_model->file_up("img", "sub_category", $id, '', 'no', '.'.$ext);
             }
-            $this->db->where('sub_category_id', $id);
-            $this->db->update('sub_category', $data_banner);
-            $this->crud_model->set_category_data(0);
-
             recache();
         } else if ($para1 == 'edit') {
             $page_data['sub_category_data'] = $this->db->get_where('sub3_category', array(

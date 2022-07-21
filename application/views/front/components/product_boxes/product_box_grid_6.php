@@ -17,6 +17,18 @@ $img = '';
                         }
                         ?>
                            <div class="item" data-lat="<?= $lat; ?>" data-lng="<?= $lng; ?>">
+
+                            <div>
+                                <?php
+                                if($lat && $lng)
+                                {
+                                    ?>
+                                    <i onclick="open_marker(<?= $lat, $lng ?>)" class="fa-solid fa-location-dot"></i>
+
+                                    <?php
+                                }
+                                ?>
+                            </div>
                                 <a href="<?php echo $this->crud_model->product_link($product_id); ?>">  
                                <div class="strip">
                                     <figure>

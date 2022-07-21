@@ -9,7 +9,7 @@
 					<div style="border-bottom: 1px solid #ebebeb;padding: 25px 5px 5px 5px;"
                     	class="col-md-12" >
 						<button class="btn btn-primary btn-labeled fa fa-plus-circle pull-right mar-rgt" 
-                        	onclick="ajax_modal('add','<?php echo translate('add_category_(_physical_product_)'); ?>','<?php echo translate('successfully_added!'); ?>','category_add','')">
+                        	onclick="ajax_modal('add','<?php echo translate('add_category'); ?>','<?php echo translate('successfully_added!'); ?>','category_add','')">
 								<?php echo translate('create_category');?>
                                 	</button>
 					</div>
@@ -36,6 +36,10 @@
 	});
 	function signup_cat(id){
 		var url = base_url+'admin/category/signup_cat/'+id
+		ajax_load(url,id,'signup_cat');
+	}
+	function main_cat(id){
+		var url = base_url+'admin/category/main_cat/'+id
 		ajax_load(url,id,'signup_cat');
 	}
 </script>

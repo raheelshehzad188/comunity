@@ -214,12 +214,13 @@ function initMap() {
     center: uluru,
   });
     for (var i = 0; i < markers.length; i++) {
+        console.log(markers[i]);
         var num = i+1;
         var contentString =
     '<div id="content">' +
     '<div id="siteNotice">' +
     "</div>" +
-    '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+    '<h1 id="firstHeading" class="firstHeading">'+markers[i]['title']+'</h1>' +
     '<div id="bodyContent"><img src="'+markers[i]['img']+'" />' +
     "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
     "sandstone rock formation in the southern part of the " +
@@ -242,7 +243,7 @@ function initMap() {
     position: uluru,
     map,
     icon: src,
-    title: "Uluru (Ayers Rock)",
+    title: markers[i]['title'],
   });
 
   marker.addListener("click", () => {
