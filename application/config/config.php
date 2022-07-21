@@ -36,6 +36,8 @@ $config['demo'] = false;
 | variable so that it is blank.
 |
 */
+$config['lat'] = '51.509865';
+$config['lng'] = '-0.118092';
 $config['index_page'] = 'index.php';
 $key = 'QUl6YVN5QjZxZ2pVeU1Temx1MDhNU0FJVHFjYzI2T3ltcFUwM3ZR';
 $config['map_key'] = base64_decode($key);
